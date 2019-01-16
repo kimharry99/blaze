@@ -8,13 +8,15 @@ public class HomeUIManager : UIManager
 {
 	private GameManager gm;
 
-	public Text DayUI;
-	public Text TimeUI;
+	public Text dayUI;
+	public Text timeUI;
 
 	public Button UseFurnitureBtn;
 
-	public GameObject playerStatusUI_Opened;
-	public GameObject playerStatusUI_Closed;
+	public GameObject playerStatusUI;
+	public Slider hungerUI;
+	public Slider thirstUI;
+	public Slider energyUI;
 
 	public RectTransform[] furnitureUIs = new RectTransform[10];
 
@@ -23,6 +25,7 @@ public class HomeUIManager : UIManager
 		gm = GameManager.inst;
 		gm.OnTurnPassed += UpdateTimeUI;
 		gm.OnTurnPassed += UpdateDayUI;
+		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		//TODO : assign to event handlers
 	}
 
@@ -36,7 +39,7 @@ public class HomeUIManager : UIManager
 		Vector2 time = GameManager.inst.Time();
 		int hour = (int)time.x;
 		int minute = (int)time.y;
-		TimeUI.text = hour.ToString("00") + ":" + minute.ToString("00");
+		timeUI.text = hour.ToString("00") + ":" + minute.ToString("00");
 	}
 
 	private void UpdateDayUI(int turn)
@@ -52,10 +55,10 @@ public class HomeUIManager : UIManager
 	/// <summary>
 	/// Make player status UI open or close
 	/// </summary>
-	/// <param name="isOpen">true = open player status UI, false = close player status UI</param>
-	public void OpenPlayerStatusUI(bool isOpen)
+	/// <param name="open">true = open player status UI, false = close player status UI</param>
+	public void TurnPlayerStatusUI(bool open)
 	{
-		
+		playerStatusUI.SetActive(open);
 	}
 
 	public void OpenFurnitureUI(FurnitureType type)
@@ -66,5 +69,12 @@ public class HomeUIManager : UIManager
 	public void CloseFurnitureUI(FurnitureType type)
 	{
 
+	}
+
+	public void UpdatePlayerStatusUI()
+	{
+		hungerUI.value = gm.Hunger / 100f;
+		thirstUI.value = gm.Thirst / 100f;
+		energyUI.value = gm.Energy / 100f;
 	}
 }

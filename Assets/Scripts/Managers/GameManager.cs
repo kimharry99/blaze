@@ -70,16 +70,27 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Thirst { get; private set; }
 	#endregion
 
-	public delegate void TurnPass(int turn);
-	public event TurnPass OnTurnPassed;
+	public delegate void IntParEvent(int turn);
+	public event IntParEvent OnTurnPassed;
 
-	public delegate void ResourceUse();
-	public event ResourceUse OnResourceUsed;
+	public delegate void VoidEvent();
+	public event VoidEvent OnResourceUsed;
+	public event VoidEvent OnPlayerStatusUpdated;
 
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
 		SceneManager.sceneLoaded += OnSceneLoaded;
+		OnTurnPassed += StatusUpdateByTurn;
+	}
+
+	private void Start()
+	{
+		Energy = 100;
+		Hunger = 100;
+		Thirst = 100;
+
+		OnPlayerStatusUpdated();
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -167,6 +178,14 @@ public class GameManager : SingletonBehaviour<GameManager>
 	#endregion
 
 	#region Player Status Functions
+
+	private void StatusUpdateByTurn(int turn)
+	{
+		Hunger = Mathf.Max(0, Hunger - turn);
+		Thirst = Mathf.Max(0, Thirst - turn * 3);
+		Energy = Mathf.Max(0, Energy - turn);
+		OnPlayerStatusUpdated();
+	}
 
 	public void Eat(int amount)
 	{

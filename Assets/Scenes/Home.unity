@@ -249,7 +249,7 @@ RectTransform:
   - {fileID: 1682866515}
   - {fileID: 1801914866}
   m_Father: {fileID: 1696905556}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1863,7 +1863,7 @@ GameObject:
   - component: {fileID: 1199292469}
   - component: {fileID: 1199292468}
   m_Layer: 5
-  m_Name: Status Button
+  m_Name: Status Open Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1881,7 +1881,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1696905556}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1927,7 +1927,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1199292469}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1696905552}
+        m_MethodName: TurnPlayerStatusUI
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1199292469
@@ -2774,11 +2785,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd425b5ecf4a6a4889d5d8ba4c2bfdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DayUI: {fileID: 502631835}
-  TimeUI: {fileID: 1259068448}
+  dayUI: {fileID: 502631835}
+  timeUI: {fileID: 1259068448}
   UseFurnitureBtn: {fileID: 0}
-  playerStatusUI_Opened: {fileID: 0}
-  playerStatusUI_Closed: {fileID: 0}
+  playerStatusUI: {fileID: 230455643}
+  hungerUI: {fileID: 1586242563}
+  thirstUI: {fileID: 1430038801}
+  energyUI: {fileID: 1682866516}
   furnitureUIs:
   - {fileID: 0}
   - {fileID: 0}
@@ -2862,8 +2875,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1434791973}
-  - {fileID: 230455644}
   - {fileID: 1199292467}
+  - {fileID: 230455644}
   - {fileID: 1075240225}
   - {fileID: 1848902408}
   m_Father: {fileID: 0}
@@ -3145,7 +3158,7 @@ GameObject:
   - component: {fileID: 1801914868}
   - component: {fileID: 1801914867}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Status Close Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3209,7 +3222,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1801914868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1696905552}
+        m_MethodName: TurnPlayerStatusUI
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1801914868
