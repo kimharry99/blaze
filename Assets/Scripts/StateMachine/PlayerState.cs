@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class PlayerState
-{ 
-	protected abstract void Enter();
-	protected abstract void Exit();
-	protected abstract void StateUpdate();
-
+{
+	public static PlayerStateIdle idle;
+	public static PlayerStateWork work;
+	
 	public static PlayerState curState;
 
-	public void Transition(PlayerState nextState)
+	protected abstract void Enter();
+	protected abstract void Exit();
+	public abstract void StateUpdate();
+
+	public static void Transition(PlayerState nextState)
 	{
 		curState.Exit();
 		curState = nextState;
@@ -32,26 +35,40 @@ public class PlayerStateIdle : PlayerState
 		
 	}
 
-	protected override void StateUpdate()
+	public override void StateUpdate()
 	{
 		
 	}
 }
 
-public class PlayerStateWorking : PlayerState
+public class PlayerStateWork : PlayerState
 {
+	public static int remainedTurn;
+	private float timer;
+
 	protected override void Enter()
 	{
-		HomeUIManager.inst.OpenTurnPassUI(10,"Working...");
+		HomeUIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
+		timer = 0.5f;
 	}
 
 	protected override void Exit()
 	{
-		throw new System.NotImplementedException();
+		HomeUIManager.inst.CloseTurnPassUI();
+		GameManager.inst.EndTask();
 	}
 
-	protected override void StateUpdate()
+	public override void StateUpdate()
 	{
-		throw new System.NotImplementedException();
+		timer -= Time.deltaTime;
+		if (timer <= 0)
+		{
+			remainedTurn--;
+			if (remainedTurn == 0)
+			{
+
+			}
+			timer = 0.5f;
+		}
 	}
 }

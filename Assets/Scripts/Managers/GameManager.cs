@@ -51,6 +51,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public event VoidEvent OnResourceUpdated;
 	public event VoidEvent OnPlayerStatusUpdated;
 
+	public event VoidEvent ReservedTask;
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
@@ -64,6 +66,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Thirst = 100;
 
 		OnPlayerStatusUpdated();
+	}
+
+	private void Update()
+	{
+		PlayerState.curState.StateUpdate();
 	}
 
 	/// <summary>
@@ -161,4 +168,16 @@ public class GameManager : SingletonBehaviour<GameManager>
 	}
 
 	#endregion
+
+	public void StartTask(VoidEvent task, int neededTurn)
+	{
+		ReservedTask = task;
+		PlayerStateWork.remainedTurn = neededTurn;
+		PlayerState.Transition(PlayerState.work);
+	}
+
+	public void EndTask()
+	{
+		ReservedTask();
+	}
 }

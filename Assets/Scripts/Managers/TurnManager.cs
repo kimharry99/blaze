@@ -31,6 +31,11 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	}
 	#endregion
 
+	private void Awake()
+	{
+		DontDestroyOnLoad(gameObject);
+	}
+
 	#region Utility Functions
 	/// <summary>
 	/// Calculate turn into time.
@@ -58,8 +63,14 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	}
 	#endregion
 
+	public void UseTurn(int turn)
+	{
+		_turn += turn;
+	}
+
 	private void DayOver()
 	{
 		//TODO : Handle dayover event
 	}
+
 }

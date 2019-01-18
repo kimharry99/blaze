@@ -20,7 +20,7 @@ public class Farm : Furniture
 
 	private void Start()
 	{
-		GameManager.inst.OnTurnPassed += OnTurnPassed;
+		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
 	private void OnTurnPassed(int turn)
@@ -45,13 +45,11 @@ public class Farm : Furniture
 				return;
 			turnLeft[i] = Random.Range(20, 31);
 			state[i] = FarmState.Grow;
-			GameManager.inst.UseTurn(4);
 		}
 		if (state[i] == FarmState.Harvest)
 		{
 			GameManager.inst.GetResource(food:Random.Range(30, 40));
 			state[i] = FarmState.Idle;
-			GameManager.inst.UseTurn(2);
 		}
 	}
 
@@ -62,6 +60,6 @@ public class Farm : Furniture
 
 	private void OnDestroy()
 	{
-		GameManager.inst.OnTurnPassed -= OnTurnPassed;
+		TurnManager.inst.OnTurnPassed -= OnTurnPassed;
 	}
 }

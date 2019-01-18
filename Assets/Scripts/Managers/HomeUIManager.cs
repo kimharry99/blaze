@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 {
 	private GameManager gm;
+	private TurnManager tm;
 
 	public Text dayUI;
 	public Text timeUI;
@@ -35,8 +36,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	private void Awake()
 	{
 		gm = GameManager.inst;
-		gm.OnTurnPassed += UpdateTimeUI;
-		gm.OnTurnPassed += UpdateDayUI;
+		tm = TurnManager.inst;
+		tm.OnTurnPassed += UpdateTimeUI;
+		tm.OnTurnPassed += UpdateDayUI;
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		gm.OnResourceUpdated += UpdateResourcesUI;
 		//TODO : assign to event handlers
@@ -44,15 +46,15 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void OnDestroy()
 	{
-		gm.OnTurnPassed -= UpdateTimeUI;
-		gm.OnTurnPassed -= UpdateDayUI;
+		tm.OnTurnPassed -= UpdateTimeUI;
+		tm.OnTurnPassed -= UpdateDayUI;
 		gm.OnPlayerStatusUpdated -= UpdatePlayerStatusUI;
 		//TODO : unassign from event handlers
 	}
 
 	private void UpdateTimeUI(int turn)
 	{
-		Vector2 time = GameManager.inst.Time();
+		Vector2 time = tm.Time();
 		int hour = (int)time.x;
 		int minute = (int)time.y;
 		timeUI.text = hour.ToString("00") + ":" + minute.ToString("00");
@@ -60,7 +62,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void UpdateDayUI(int turn)
 	{
-		dayUI.text = "Day " + gm.Day.ToString();
+		dayUI.text = "Day " + tm.Day.ToString();
 	}
 
 	private void UpdateResourcesUI()
@@ -104,7 +106,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		turnPassUI.SetActive(true);
 		turnPassInfoText.text = info;
-		Vector2 time = GameManager.inst.Time(maxTurn);
+		Vector2 time = tm.Time(maxTurn);
 		turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 	}
 
@@ -115,8 +117,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	public void UpdateTurnPassUI(int passedTurn, int maxTurn)
 	{
-		Vector2 time = GameManager.inst.Time(maxTurn);
-		Vector2 curTime = GameManager.inst.Time(passedTurn);
+		Vector2 time = tm.Time(maxTurn);
+		Vector2 curTime = tm.Time(passedTurn);
 		turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 	}
 	#endregion

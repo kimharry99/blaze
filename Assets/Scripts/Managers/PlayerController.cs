@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 		#region Debug Commands
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
-			GameManager.inst.UseTurn(1);
+			TurnManager.inst.UseTurn(1);
 		}
 		if (Input.GetKeyDown(KeyCode.P))
 		{
