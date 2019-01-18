@@ -80,7 +80,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
-		SceneManager.sceneLoaded += OnSceneLoaded;
 		OnTurnPassed += StatusUpdateByTurn;
 	}
 
@@ -91,11 +90,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Thirst = 100;
 
 		OnPlayerStatusUpdated();
-	}
-
-	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-	{
-		UIManager.inst.Init();
 	}
 
 	/// <summary>

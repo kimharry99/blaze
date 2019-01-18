@@ -10,18 +10,20 @@ public enum FurnitureType
 	Farm,
 	Kitchen,
 	Bucket,
-	Door
+	Door,
+	None = -1
 }
 
 public abstract class Furniture : MonoBehaviour
 {
+	protected abstract FurnitureType type { get; }
 	public int Level { get; protected set; }
 	public abstract void UseFurniture();
 	protected virtual void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Player")
 		{
-			PlayerController.selectedFurniture = this;
+			PlayerController.selectedFurniture = type;
 			//For Debug
 			GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
 		}
@@ -31,7 +33,8 @@ public abstract class Furniture : MonoBehaviour
 	{
 		if (col.tag == "Player")
 		{
-			PlayerController.selectedFurniture = null;
+			PlayerController.selectedFurniture = FurnitureType.None;
+			//For Debug
 			GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
 		}
 

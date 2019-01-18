@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	public static Furniture selectedFurniture = null;
+	public static FurnitureType selectedFurniture;
 	public int speed;
 
 	private void Update()
@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour
 		}
 		if (Input.GetKeyDown(KeyCode.E))
 		{
-			if (selectedFurniture != null)
-				selectedFurniture.UseFurniture();
+			if (selectedFurniture != FurnitureType.None)
+				HomeUIManager.inst.OpenFurnitureUI(selectedFurniture);
+				
 		}
 
 		#region Debug Commands

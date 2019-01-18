@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HomeUIManager : UIManager
+public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 {
 	private GameManager gm;
 
@@ -18,9 +18,9 @@ public class HomeUIManager : UIManager
 	public Slider thirstUI;
 	public Slider energyUI;
 
-	public RectTransform[] furnitureUIs = new RectTransform[10];
+	public GameObject[] furnitureUIs = new GameObject[10];
 
-	public override void Init()
+	private void Awake()
 	{
 		gm = GameManager.inst;
 		gm.OnTurnPassed += UpdateTimeUI;
@@ -29,8 +29,11 @@ public class HomeUIManager : UIManager
 		//TODO : assign to event handlers
 	}
 
-	public override void OnDestroy()
+	private void OnDestroy()
 	{
+		gm.OnTurnPassed -= UpdateTimeUI;
+		gm.OnTurnPassed -= UpdateDayUI;
+		gm.OnPlayerStatusUpdated -= UpdatePlayerStatusUI;
 		//TODO : unassign from event handlers
 	}
 
@@ -63,12 +66,12 @@ public class HomeUIManager : UIManager
 
 	public void OpenFurnitureUI(FurnitureType type)
 	{
-		//TODO : Setactive true form furnitureUIs
+		furnitureUIs[(int)type].SetActive(true);
 	}
 
 	public void CloseFurnitureUI(FurnitureType type)
 	{
-
+		furnitureUIs[(int)type].SetActive(false);
 	}
 
 	public void UpdatePlayerStatusUI()

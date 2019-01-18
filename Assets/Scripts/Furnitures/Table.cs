@@ -4,13 +4,52 @@ using UnityEngine;
 
 public class Table : Furniture
 {
+	protected override FurnitureType type { get { return FurnitureType.Table; } }
+	private int option = 0;
+
+	/// <summary>
+	/// True, use food.
+	/// False, use preserved food
+	/// </summary>
+	private bool isFood = true;
+
 	public override void UseFurniture()
 	{
-		
+		switch (option)
+		{
+			case 0:
+				if (isFood) {
+					if (GameManager.inst.UseResource(food: 10))
+					{
+						GameManager.inst.Eat(30);
+					}
+				}
+				else {
+					if (GameManager.inst.UseResource(preserved: 10))
+					{
+						GameManager.inst.Eat(30);
+					}
+				}
+				break;
+			case 1:
+				if (GameManager.inst.UseResource(water: 10))
+				{
+					GameManager.inst.Drink(30);
+				}
+				break;
+			default:
+				Debug.Log("There is no Option for " + option.ToString());
+				break;
+		}
 	}
 
-	protected override void OnTriggerEnter2D(Collider2D collision)
+	public void SetOption(int opt)
 	{
-		throw new System.NotImplementedException();
+		option = opt;
+	}
+
+	public void SetFood(bool food)
+	{
+		isFood = food;
 	}
 }

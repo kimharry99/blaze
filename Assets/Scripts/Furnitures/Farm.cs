@@ -11,6 +11,7 @@ enum FarmState
 
 public class Farm : Furniture
 {
+	protected override FurnitureType type { get { return FurnitureType.Farm; } }
 	public int turnLeft;
 	private FarmState state;
 
