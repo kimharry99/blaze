@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum FurnitureType
 {
@@ -18,7 +19,8 @@ public abstract class Furniture : MonoBehaviour
 {
 	protected abstract FurnitureType type { get; }
 	public int Level { get; protected set; }
-	public abstract void UseFurniture();
+	public GameObject furnitureUI;
+
 	protected virtual void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Player")
@@ -39,4 +41,6 @@ public abstract class Furniture : MonoBehaviour
 		}
 
 	}
+
+	public abstract void OpenFurnitureUI();
 }

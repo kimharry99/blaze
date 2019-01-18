@@ -10,7 +10,7 @@ public class Kitchen : Furniture
 	{
 
 	}
-	public override void UseFurniture()
+	public void UseFurniture()
 	{
 		throw new System.NotImplementedException();
 	}
@@ -20,10 +20,8 @@ public class Kitchen : Furniture
 		throw new System.NotImplementedException();
 	}
 
-
-	// Update is called once per frame
-	void Update()
+	public override void OpenFurnitureUI()
 	{
-
+		throw new System.NotImplementedException();
 	}
 }

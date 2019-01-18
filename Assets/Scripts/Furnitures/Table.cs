@@ -13,7 +13,7 @@ public class Table : Furniture
 	/// </summary>
 	private bool isFood = true;
 
-	public override void UseFurniture()
+	public void UseFurniture()
 	{
 		switch (option)
 		{
@@ -51,5 +51,10 @@ public class Table : Furniture
 	public void SetFood(bool food)
 	{
 		isFood = food;
+	}
+
+	public override void OpenFurnitureUI()
+	{
+		throw new System.NotImplementedException();
 	}
 }

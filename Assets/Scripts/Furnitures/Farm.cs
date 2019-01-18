@@ -12,8 +12,11 @@ enum FarmState
 public class Farm : Furniture
 {
 	protected override FurnitureType type { get { return FurnitureType.Farm; } }
-	public int turnLeft;
-	private FarmState state;
+	public int[] turnLeft = new int[3];
+	private FarmState[] state = new FarmState[3];
+
+	private int i = 0;
+	private int option = 0;
 
 	private void Start()
 	{
@@ -22,31 +25,39 @@ public class Farm : Furniture
 
 	private void OnTurnPassed(int turn)
 	{
-		if (state != FarmState.Grow)
-			return;
-		turnLeft -= turn;
-		if (turnLeft <= 0)
+		for (int i = 0; i < Level; ++i)
 		{
-			state = FarmState.Harvest;
+			if (state[i] != FarmState.Grow)
+				return;
+			turnLeft[i] -= turn;
+			if (turnLeft[i] <= 0)
+			{
+				state[i] = FarmState.Harvest;
+			}
 		}
 	}
 
-	public override void UseFurniture()
+	public void UseFurniture()
 	{
-		if (state == FarmState.Idle)
+		if (state[i] == FarmState.Idle)
 		{
 			if (!GameManager.inst.UseResource(water: 30))
 				return;
-			turnLeft = Random.Range(20, 31);
-			state = FarmState.Grow;
+			turnLeft[i] = Random.Range(20, 31);
+			state[i] = FarmState.Grow;
 			GameManager.inst.UseTurn(4);
 		}
-		if (state == FarmState.Harvest)
+		if (state[i] == FarmState.Harvest)
 		{
 			GameManager.inst.GetResource(food:Random.Range(30, 40));
-			state = FarmState.Idle;
+			state[i] = FarmState.Idle;
 			GameManager.inst.UseTurn(2);
 		}
+	}
+
+	public override void OpenFurnitureUI()
+	{
+		furnitureUI.SetActive(true);
 	}
 
 	private void OnDestroy()

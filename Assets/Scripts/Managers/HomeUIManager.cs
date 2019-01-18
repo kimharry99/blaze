@@ -13,6 +13,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	public Button UseFurnitureBtn;
 
+	public Text foodUI;
+	public Text preservedUI;
+	public Text waterUI;
+	public Text woodUI;
+	public Text componentsUI;
+	public Text partsUI;
+
 	public GameObject playerStatusUI;
 	public Slider hungerUI;
 	public Slider thirstUI;
@@ -20,12 +27,18 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	public GameObject[] furnitureUIs = new GameObject[10];
 
+	public GameObject turnPassUI;
+	public Slider turnPassSlider;
+	public Text turnPassInfoText;
+	public Text turnPassText;
+
 	private void Awake()
 	{
 		gm = GameManager.inst;
 		gm.OnTurnPassed += UpdateTimeUI;
 		gm.OnTurnPassed += UpdateDayUI;
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
+		gm.OnResourceUpdated += UpdateResourcesUI;
 		//TODO : assign to event handlers
 	}
 
@@ -47,12 +60,17 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void UpdateDayUI(int turn)
 	{
-		//TODO : Get day from GameManager, update DayUI
+		dayUI.text = "Day " + gm.Day.ToString();
 	}
 
-	private void UpdateResourcesUI(object obj, EventArgs e)
+	private void UpdateResourcesUI()
 	{
-
+		foodUI.text = gm.Food.ToString();
+		preservedUI.text = gm.Preserved.ToString();
+		waterUI.text = gm.Water.ToString();
+		woodUI.text = gm.Wood.ToString();
+		componentsUI.text = gm.Components.ToString();
+		partsUI.text = gm.Parts.ToString();
 	}
 
 	/// <summary>
@@ -80,4 +98,26 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		thirstUI.value = gm.Thirst / 100f;
 		energyUI.value = gm.Energy / 100f;
 	}
+
+	#region TurnPassUI Functions
+	public void OpenTurnPassUI(int maxTurn, string info)
+	{
+		turnPassUI.SetActive(true);
+		turnPassInfoText.text = info;
+		Vector2 time = GameManager.inst.Time(maxTurn);
+		turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+	}
+
+	public void CloseTurnPassUI()
+	{
+		turnPassUI.SetActive(false);
+	}
+
+	public void UpdateTurnPassUI(int passedTurn, int maxTurn)
+	{
+		Vector2 time = GameManager.inst.Time(maxTurn);
+		Vector2 curTime = GameManager.inst.Time(passedTurn);
+		turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+	}
+	#endregion
 }

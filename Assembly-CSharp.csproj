@@ -76,6 +76,8 @@
     <Compile Include="Assets\Scripts\Managers\GameManager.cs" />
     <Compile Include="Assets\Scripts\Managers\HomeUIManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Managers\TurnManager.cs" />
+    <Compile Include="Assets\Scripts\StateMachine\PlayerState.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Blaze/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

@@ -6,29 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
-	#region Turn System
-	public int Day { get; private set; }
-	private int _turn;
-	public int Turn
-	{
-		get
-		{
-			return _turn;
-		}
-		private set
-		{
-			int interval = value - _turn;
-			_turn = value;
-			if (_turn >= 96)
-			{
-				Day++;
-				_turn -= 96;
-				DayOver();
-			}
-			OnTurnPassed?.Invoke(interval);
-		}
-	}
-	#endregion
 
 	#region Resources
 	public int Water { get; private set; }
@@ -70,17 +47,14 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Thirst { get; private set; }
 	#endregion
 
-	public delegate void IntParEvent(int turn);
-	public event IntParEvent OnTurnPassed;
-
 	public delegate void VoidEvent();
-	public event VoidEvent OnResourceUsed;
+	public event VoidEvent OnResourceUpdated;
 	public event VoidEvent OnPlayerStatusUpdated;
 
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
-		OnTurnPassed += StatusUpdateByTurn;
+		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 	}
 
 	private void Start()
@@ -101,25 +75,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 		//TODO : Load data and update gamemanager if path is not null
 	}
 
-	#region Utility Functions
-
-	/// <summary>
-	/// Calculate turn into time.
-	/// 0:00 when turn = 0, 23:45 when turn = 95
-	/// </summary>
-	/// <returns>x is hour, y is minute</returns>
-	public Vector2 Time()
-	{
-		Vector2 time = new Vector2
-		{
-			x = (Turn * 15) / 60,
-			y = (Turn * 15) % 60
-		};
-		return time;
-	}
-
-	#endregion
-
 	#region Resource Functions
 
 	public bool UseResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
@@ -130,8 +85,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 			return false;
 		if (!UsePreserved(preserved))
 			return false;
-		if (OnResourceUsed != null)
-			OnResourceUsed();
+		OnResourceUpdated?.Invoke();
 		return true;
 	}
 
@@ -167,6 +121,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Wood += wood;
 		Components += components;
 		Parts += parts;
+		OnResourceUpdated();
 	}
 
 	#endregion
@@ -200,23 +155,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Game System Functions
 
-	/// <summary>
-	/// Make the turns be used
-	/// </summary>
-	/// <param name="amount">How many turns are used</param>
-	public void UseTurn(int amount)
-	{
-		Turn += amount;
-	}
-
 	private void GameOver()
 	{
 		//TODO : Handle gameover event
-	}
-
-	private void DayOver()
-	{
-		//TODO : Handle dayover event
 	}
 
 	#endregion
