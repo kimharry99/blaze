@@ -42,5 +42,15 @@ public abstract class Furniture : MonoBehaviour
 
 	}
 
-	public abstract void OpenFurnitureUI();
+	public virtual void OpenFurnitureUI()
+	{
+		furnitureUI.SetActive(true);
+	}
+
+	public virtual void CloseFurnitureUI()
+	{
+		furnitureUI.SetActive(false);
+	}
+
+	public abstract void OnUseButtonClicked();
 }

@@ -7,7 +7,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	public delegate void IntEvent(int turn);
 	public event IntEvent OnTurnPassed;
 
-	#region Turn System
+	#region Turn System Variables
 	public int Day { get; private set; }
 	private int _turn;
 	public int Turn
@@ -51,7 +51,6 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		};
 		return time;
 	}
-
 	public Vector2 Time(int turn)
 	{
 		Vector2 time = new Vector2
@@ -66,11 +65,11 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	public void UseTurn(int turn)
 	{
 		_turn += turn;
+		OnTurnPassed(turn);
 	}
 
 	private void DayOver()
 	{
 		//TODO : Handle dayover event
 	}
-
 }

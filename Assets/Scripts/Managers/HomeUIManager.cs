@@ -108,6 +108,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		turnPassInfoText.text = info;
 		Vector2 time = tm.Time(maxTurn);
 		turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+		turnPassSlider.value = 0;
 	}
 
 	public void CloseTurnPassUI()
@@ -120,6 +121,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		Vector2 time = tm.Time(maxTurn);
 		Vector2 curTime = tm.Time(passedTurn);
 		turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+		turnPassSlider.value = passedTurn / (float)maxTurn;
 	}
 	#endregion
 }

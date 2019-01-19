@@ -22,6 +22,11 @@ public class Kitchen : Furniture
 
 	public override void OpenFurnitureUI()
 	{
+		base.OpenFurnitureUI();
+	}
+
+	public override void OnUseButtonClicked()
+	{
 		throw new System.NotImplementedException();
 	}
 }

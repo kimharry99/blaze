@@ -7,33 +7,28 @@ public class Table : Furniture
 	protected override FurnitureType type { get { return FurnitureType.Table; } }
 	private int option = 0;
 
-	/// <summary>
-	/// True, use food.
-	/// False, use preserved food
-	/// </summary>
-	private bool isFood = true;
-
 	public void UseFurniture()
 	{
 		switch (option)
 		{
 			case 0:
-				if (isFood) {
-					if (GameManager.inst.UseResource(food: 10))
-					{
-						GameManager.inst.Eat(30);
-					}
-				}
-				else {
-					if (GameManager.inst.UseResource(preserved: 10))
-					{
-						GameManager.inst.Eat(30);
-					}
+				if (GameManager.inst.CheckResource(food: 10))
+				{
+					GameManager.inst.UseResource(food: 10);
+					GameManager.inst.Eat(30);
 				}
 				break;
 			case 1:
-				if (GameManager.inst.UseResource(water: 10))
+				if (GameManager.inst.CheckResource(preserved: 10))
 				{
+					GameManager.inst.UseResource(preserved: 10);
+					GameManager.inst.Eat(30);
+				}
+				break;
+			case 2:
+				if (GameManager.inst.CheckResource(water: 10))
+				{
+					GameManager.inst.UseResource(water: 10);
 					GameManager.inst.Drink(30);
 				}
 				break;
@@ -48,12 +43,12 @@ public class Table : Furniture
 		option = opt;
 	}
 
-	public void SetFood(bool food)
+	public override void OpenFurnitureUI()
 	{
-		isFood = food;
+		throw new System.NotImplementedException();
 	}
 
-	public override void OpenFurnitureUI()
+	public override void OnUseButtonClicked()
 	{
 		throw new System.NotImplementedException();
 	}

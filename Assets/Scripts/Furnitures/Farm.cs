@@ -41,9 +41,10 @@ public class Farm : Furniture
 	{
 		if (state[i] == FarmState.Idle)
 		{
-			if (!GameManager.inst.UseResource(water: 30))
+			if (!GameManager.inst.CheckResource(water: 30))
 				return;
-			turnLeft[i] = Random.Range(20, 31);
+			GameManager.inst.UseResource(water: 30);
+			turnLeft[i] = Random.Range(20, 29);
 			state[i] = FarmState.Grow;
 		}
 		if (state[i] == FarmState.Harvest)
@@ -61,5 +62,10 @@ public class Farm : Furniture
 	private void OnDestroy()
 	{
 		TurnManager.inst.OnTurnPassed -= OnTurnPassed;
+	}
+
+	public override void OnUseButtonClicked()
+	{
+		throw new System.NotImplementedException();
 	}
 }

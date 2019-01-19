@@ -57,6 +57,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		DontDestroyOnLoad(gameObject);
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
+		PlayerState.Transition(PlayerState.idle);
 	}
 
 	private void Start()
@@ -84,40 +85,19 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Resource Functions
 
-	public bool UseResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
+	public bool CheckResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		if (!UseWater(water))
-			return false;
-		if (!UseFood(food))
-			return false;
-		if (!UsePreserved(preserved))
-			return false;
-		OnResourceUpdated?.Invoke();
-		return true;
+		return Water >= water && Food >= food && Preserved >= preserved && Wood >= wood && Components >= components && Parts >= parts;
 	}
 
-	private bool UseWater(int amount)
+	public void UseResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		if (Water < amount)
-			return false;
-		Water -= amount;
-		return true;
-	}
-
-	private bool UseFood(int amount)
-	{
-		if (Food < amount)
-			return false;
-		Food -= amount;
-		return true;
-	}
-
-	private bool UsePreserved(int amount)
-	{
-		if (Preserved < amount)
-			return false;
-		Preserved -= amount;
-		return true;
+		Water -= water;
+		Food -= food;
+		Preserved -= preserved;
+		Wood -= wood;
+		Components -= components;
+		Parts -= parts;
 	}
 
 	public void GetResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
@@ -141,6 +121,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Thirst = Mathf.Max(0, Thirst - turn * 3);
 		Energy = Mathf.Max(0, Energy - turn);
 		OnPlayerStatusUpdated();
+
+		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
 	}
 
 	public void Eat(int amount)

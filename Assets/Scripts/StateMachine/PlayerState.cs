@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class PlayerState
 {
-	public static PlayerStateIdle idle;
-	public static PlayerStateWork work;
+	public static PlayerStateIdle idle = new PlayerStateIdle();
+	public static PlayerStateWork work = new PlayerStateWork();
 	
-	public static PlayerState curState;
+	public static PlayerState curState = idle;
 
 	protected abstract void Enter();
 	protected abstract void Exit();
@@ -45,11 +45,13 @@ public class PlayerStateWork : PlayerState
 {
 	public static int remainedTurn;
 	private float timer;
+	private int passedTurn;
 
 	protected override void Enter()
 	{
 		HomeUIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
 		timer = 0.5f;
+		passedTurn = 0;
 	}
 
 	protected override void Exit()
@@ -63,11 +65,14 @@ public class PlayerStateWork : PlayerState
 		timer -= Time.deltaTime;
 		if (timer <= 0)
 		{
-			remainedTurn--;
 			if (remainedTurn == 0)
 			{
-
+				Transition(idle);
 			}
+			TurnManager.inst.UseTurn(1);
+			remainedTurn--;
+			passedTurn++;
+			HomeUIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
 			timer = 0.5f;
 		}
 	}
