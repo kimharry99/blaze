@@ -33,6 +33,15 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Text turnPassInfoText;
 	public Text turnPassText;
 
+	#region Upgrade Panel
+	public GameObject upgradePanel;
+	public Text woodText;
+	public Text componentsText;
+	public Text partsText;
+	public Text furnitureText;
+	public Button upgradeButton;
+	#endregion
+
 	private void Awake()
 	{
 		gm = GameManager.inst;
@@ -124,4 +133,45 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		turnPassSlider.value = passedTurn / (float)maxTurn;
 	}
 	#endregion
+
+	public void OpenUpgradePanel(Furniture furniture)
+	{
+		upgradePanel.SetActive(true);
+		UpdateUpgradePanel(furniture);
+	}
+
+	public void CloseUpgradePanel()
+	{
+		upgradePanel.SetActive(false);
+	}
+
+	private void UpdateUpgradePanel(Furniture furniture)
+	{
+		int level = furniture.Level;
+		FurnitureUpgradeInfo info = JsonHelper.LoadFurnitureUpgradeInfo(furniture.type);
+
+		furnitureText.text = furniture.type.ToString();
+
+		woodText.text = "x " + info.wood[level].ToString();
+		componentsText.text = "x " + info.components[level].ToString();
+		partsText.text = "x " + info.parts[level].ToString();
+
+		upgradeButton.onClick.RemoveAllListeners();
+		upgradeButton.onClick.AddListener(
+			delegate
+			{
+				OnUpgradeButtonClicked(info.wood[level], info.components[level], info.parts[level], furniture);
+			}
+		);
+	}
+
+	private void OnUpgradeButtonClicked(int wood, int components, int parts, Furniture furniture)
+	{
+		Debug.Log("ABC");
+		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
+			return;
+		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
+		CloseUpgradePanel();
+		GameManager.inst.StartTask(furniture.Upgrade, 4);
+	}
 }

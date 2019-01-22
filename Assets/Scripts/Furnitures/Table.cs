@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Table : Furniture
 {
-	protected override FurnitureType type { get { return FurnitureType.Table; } }
+	public override FurnitureType type { get { return FurnitureType.Table; } }
 	private int option = 0;
 
 	public void UseFurniture()

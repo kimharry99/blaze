@@ -17,7 +17,7 @@ public enum FurnitureType
 
 public abstract class Furniture : MonoBehaviour
 {
-	protected abstract FurnitureType type { get; }
+	public abstract FurnitureType type { get; }
 	public int Level { get; protected set; }
 	public GameObject furnitureUI;
 
@@ -53,4 +53,9 @@ public abstract class Furniture : MonoBehaviour
 	}
 
 	public abstract void OnUseButtonClicked();
+
+	public virtual void Upgrade()
+	{
+		++Level;
+	}
 }

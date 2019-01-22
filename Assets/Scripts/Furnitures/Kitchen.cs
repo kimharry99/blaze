@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kitchen : Furniture
 {
-	protected override FurnitureType type { get { return FurnitureType.Kitchen; } }
+	public override FurnitureType type { get { return FurnitureType.Kitchen; } }
 	// Start is called before the first frame update
 	void Start()
 	{

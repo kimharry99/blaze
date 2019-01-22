@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestFurniture : Furniture
 {
-	protected override FurnitureType type{ get { return FurnitureType.Bed; } }
+	public override FurnitureType type{ get { return FurnitureType.Bed; } }
 
 	public override void OnUseButtonClicked()
 	{

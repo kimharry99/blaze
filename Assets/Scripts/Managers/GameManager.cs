@@ -98,6 +98,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Wood -= wood;
 		Components -= components;
 		Parts -= parts;
+		OnResourceUpdated();
 	}
 
 	public void GetResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
