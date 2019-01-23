@@ -19,6 +19,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		private set
 		{
 			int interval = value - _turn;
+			WeatherTurn -= interval;
 			_turn = value;
 			if (_turn >= 96)
 			{
@@ -31,9 +32,34 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	}
 	#endregion
 
+	#region Weather System Variables
+	public Weather Weather { get; private set; }
+	private int _weatherTurn;
+	public int WeatherTurn {
+		get { return _weatherTurn; }
+		set
+		{
+			if (value <= 0)
+			{
+				ChangeWeather();
+			}
+			else
+			{
+				_weatherTurn = value;
+			}
+		}
+	}
+	#endregion
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
+	}
+
+	private void Start()
+	{
+		Weather = Weather.Sun;
+		ChangeWeather();
 	}
 
 	#region Utility Functions
@@ -71,5 +97,36 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	private void DayOver()
 	{
 		//TODO : Handle dayover event
+	}
+
+	public void ChangeWeather()
+	{
+		int rand = UnityEngine.Random.Range(0, 100);
+		switch (Weather)
+		{
+			case Weather.Sun:
+				if (rand < 30)
+				{
+					Weather = Weather.Cloud;
+				}
+				break;
+			case Weather.Cloud:
+				if (rand < 30)
+				{
+					Weather = Weather.Sun;
+				}
+				else if (rand > 69)
+				{
+					Weather = Weather.Rain;
+				}
+				break;
+			case Weather.Rain:
+				if (rand < 30)
+				{
+					Weather = Weather.Cloud;
+				}
+				break;
+		}
+		_weatherTurn = UnityEngine.Random.Range(20, 40);
 	}
 }

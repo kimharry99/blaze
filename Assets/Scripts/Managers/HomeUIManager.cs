@@ -134,6 +134,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	}
 	#endregion
 
+	#region Upgrade Panel
 	public void OpenUpgradePanel(Furniture furniture)
 	{
 		upgradePanel.SetActive(true);
@@ -174,4 +175,5 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		CloseUpgradePanel();
 		GameManager.inst.StartTask(furniture.Upgrade, 4);
 	}
+	#endregion
 }

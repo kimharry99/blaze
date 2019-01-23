@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum Weather
+{
+	Sun,
+	Cloud,
+	Rain
+}
+
 public class GameManager : SingletonBehaviour<GameManager>
 {
 
