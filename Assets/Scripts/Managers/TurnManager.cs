@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Weather
+{
+	Sun,
+	Cloud,
+	Rain
+}
+
 public class TurnManager : SingletonBehaviour<TurnManager>
 {
 	public delegate void IntEvent(int turn);
@@ -90,7 +97,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	public void UseTurn(int turn)
 	{
-		_turn += turn;
+		Turn += turn;
 		OnTurnPassed(turn);
 	}
 
@@ -128,5 +135,6 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 				break;
 		}
 		_weatherTurn = UnityEngine.Random.Range(20, 40);
+		HomeUIManager.inst.UpdateWeatherUI();
 	}
 }

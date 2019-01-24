@@ -33,6 +33,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Text turnPassInfoText;
 	public Text turnPassText;
 
+	public Image weatherUI;
+
 	#region Upgrade Panel
 	public GameObject upgradePanel;
 	public Text woodText;
@@ -108,6 +110,14 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		hungerUI.value = gm.Hunger / 100f;
 		thirstUI.value = gm.Thirst / 100f;
 		energyUI.value = gm.Energy / 100f;
+	}
+
+
+	public void UpdateWeatherUI()
+	{
+		Sprite sprite = Resources.Load<Sprite>("Textures/Weather/" + TurnManager.inst.Weather.ToString());
+		Debug.Log(sprite.texture.name);
+		weatherUI.sprite = sprite;
 	}
 
 	#region TurnPassUI Functions
