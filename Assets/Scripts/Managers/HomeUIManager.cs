@@ -186,4 +186,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		GameManager.inst.StartTask(furniture.Upgrade, 4);
 	}
 	#endregion
+
+	public void ClosePanel(GameObject obj)
+	{
+		obj.SetActive(false);
+	}
 }

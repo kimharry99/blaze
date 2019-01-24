@@ -65,7 +65,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	private void Start()
 	{
-		Weather = Weather.Sun;
+		Weather = Weather.Cloud;
 		ChangeWeather();
 	}
 
