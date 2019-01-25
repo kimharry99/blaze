@@ -42,7 +42,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 	#endregion
 
 	#region Player Status
-	public int Energy { get; private set; }
+    public int Health { get; private set; }
+    public int Mental { get; private set; }
+    public int Energy { get; private set; }
 	public int Hunger { get; private set; }
 	public int Thirst { get; private set; }
 	#endregion
@@ -62,6 +64,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void Start()
 	{
+        Health = 100;
+        Mental = 100;
 		Energy = 100;
 		Hunger = 100;
 		Thirst = 100;
@@ -117,27 +121,54 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void StatusUpdateByTurn(int turn)
 	{
+        if(Hunger >80)
+        {
+            Mental = Mathf.Min(100, Mental + 2 * turn);
+        }
+        else if (Hunger == 0)
+        {
+            Health = Mathf.Max(0, Health - 4 * turn);
+            Mental = Mathf.Max(0, Mental - 2 * turn);
+        }
 		Hunger = Mathf.Max(0, Hunger - turn);
-		Thirst = Mathf.Max(0, Thirst - turn * 3);
+        if (Thirst > 60)
+        {
+            Thirst = Mathf.Max(0, Thirst - turn);
+            Health = Mathf.Min(100, Health + turn);
+        }
+        else if (0<Thirst && Thirst <61)
+        {
+            Thirst = Mathf.Max(0, Thirst - 2 * turn);
+        }
+        else if(Thirst == 0)
+        {
+            Health = Mathf.Max(0, Health - 4 * turn);
+            Mental = Mathf.Max(0, Mental - 2 * turn);
+        }
 		Energy = Mathf.Max(0, Energy - turn);
 		OnPlayerStatusUpdated();
 
+
+        print(Health+" "+Mental+" "+Hunger + " "+Thirst + " "+Energy);
 		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
 	}
 
 	public void Eat(int amount)
 	{
-		//TODO
+        //TODO
+        Hunger = Mathf.Min(100, Hunger + amount);
 	}
 
 	public void Drink(int amount)
 	{
-		//TODO
+        //TODO
+        Thirst = Mathf.Min(100, Thirst + amount);
 	}
 
-	public void Rest(int turn)
+	public void Rest(int amount)
 	{
-		//TODO
+        //TODO
+        Energy = Mathf.Min(100, Energy + amount);
 	}
 
 	#endregion
