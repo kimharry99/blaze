@@ -49,14 +49,14 @@ public class PlayerStateWork : PlayerState
 
 	protected override void Enter()
 	{
-		HomeUIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
+		UIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
 		timer = 0.5f;
 		passedTurn = 0;
 	}
 
 	protected override void Exit()
 	{
-		HomeUIManager.inst.CloseTurnPassUI();
+		UIManager.inst.CloseTurnPassUI();
 		GameManager.inst.EndTask();
 	}
 
@@ -72,7 +72,7 @@ public class PlayerStateWork : PlayerState
 			TurnManager.inst.UseTurn(1);
 			remainedTurn--;
 			passedTurn++;
-			HomeUIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
+			UIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
 			timer = 0.5f;
 		}
 	}

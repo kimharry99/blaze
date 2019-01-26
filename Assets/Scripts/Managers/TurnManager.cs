@@ -135,6 +135,6 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 				break;
 		}
 		_weatherTurn = UnityEngine.Random.Range(20, 40);
-		HomeUIManager.inst.UpdateWeatherUI();
+		UIManager.inst.UpdateWeatherUI();
 	}
 }

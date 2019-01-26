@@ -49,11 +49,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Thirst { get; private set; }
 	#endregion
 
-	public delegate void VoidEvent();
-	public event VoidEvent OnResourceUpdated;
-	public event VoidEvent OnPlayerStatusUpdated;
+	public event Action OnResourceUpdated;
+	public event Action OnPlayerStatusUpdated;
 
-	public event VoidEvent ReservedTask;
+	public event Action ReservedTask;
 
 	private void Awake()
 	{
@@ -183,7 +182,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#endregion
 
-	public void StartTask(VoidEvent task, int neededTurn)
+	public void StartTask(Action task, int neededTurn)
 	{
 		ReservedTask = task;
 		PlayerStateWork.remainedTurn = neededTurn;
