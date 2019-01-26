@@ -6,14 +6,18 @@ using UnityEngine.Tilemaps;
 
 public class MapManager : SingletonBehaviour<MapManager>
 {
-	public Tilemap tileMap;
+	public Tilemap landTilemap;
+	public Tilemap structureTilemap;
 	public Vector3Int curPosition;
+	private Vector3Int destPosition;
 
+	public GameObject player;
 
     // Start is called before the first frame update
     void Start()
     {
-		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<HomeTile>(),"Assets/Tiles/HomeTile.asset");
+		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<FieldTile>(),"Assets/Tiles/FieldTile.asset");
+		ColoringMovableTiles();
     }
 
     // Update is called once per frame
@@ -21,13 +25,14 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
         if (Input.GetMouseButtonDown(0))
 		{
-			TileData data;
 			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector3Int cellPos = tileMap.WorldToCell(mousePos);
+			Vector3Int cellPos = landTilemap.WorldToCell(mousePos);
+			if (IsNearByTile(cellPos))
+				MoveTo(cellPos);
 		}
     }
 	/*
-	private void MapMaker(int size)
+	private void MapMaking(int size)
 	{
 		tileMap.size = new Vector3Int(size,size,size);
 		for (int i = 0; i < size; ++i)
@@ -38,4 +43,30 @@ public class MapManager : SingletonBehaviour<MapManager>
 				}
 	}
 	*/
+
+	public bool IsNearByTile(Vector3Int tilePosition)
+	{
+		return Vector3Int.Distance(curPosition, tilePosition) == 1;
+	}
+
+	private void MoveTo(Vector3Int tilePosition)
+	{
+		destPosition = tilePosition;
+		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
+		GameManager.inst.StartTask(Move, moveCost);
+	}
+
+	private void Move()
+	{
+		curPosition = destPosition;
+		player.transform.position = landTilemap.CellToWorld(curPosition);
+		landTilemap.GetTile<LandTile>(curPosition).OnVisited();
+		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
+		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
+	}
+
+	private void ColoringMovableTiles()
+	{
+		//TODO
+	}
 }

@@ -68,6 +68,7 @@ public class PlayerStateWork : PlayerState
 			if (remainedTurn == 0)
 			{
 				Transition(idle);
+				return;
 			}
 			TurnManager.inst.UseTurn(1);
 			remainedTurn--;

@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 /// <summary>
-/// Primitive class for all tiles in this game
+/// Primitive class for all land type tiles in this game
 /// </summary>
-public abstract class DefaultTile : Tile
+public abstract class LandTile : DefaultTile
 {
 	#region Resources
 	public int Water { get; private set; }
@@ -16,7 +16,7 @@ public abstract class DefaultTile : Tile
 	public int Components { get; private set; }
 	public int Parts { get; private set; }
 	#endregion
-
+	public abstract int MoveCost { get; }
 
 	public void Init(int water, int food, int preserved, int wood, int components, int parts)
 	{
@@ -43,6 +43,4 @@ public abstract class DefaultTile : Tile
 		Components -= components;
 		Parts -= parts;
 	}
-
-	public abstract void OnVisited();
 }
