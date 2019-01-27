@@ -13,15 +13,20 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public GameObject player;
 
-    // Start is called before the first frame update
-    void Start()
+	public TileBase[] tiles;
+
+    private void Start()
     {
 		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<FieldTile>(),"Assets/Tiles/FieldTile.asset");
-		ColoringMovableTiles();
-    }
 
-    // Update is called once per frame
-    void Update()
+		//MapMaking(3);
+		ColoringMovableTiles();
+
+		//SaveMapData();
+		//LoadMapData();
+	}
+
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
 		{
@@ -31,18 +36,14 @@ public class MapManager : SingletonBehaviour<MapManager>
 				MoveTo(cellPos);
 		}
     }
-	/*
+	
 	private void MapMaking(int size)
 	{
-		tileMap.size = new Vector3Int(size,size,size);
+		landTilemap.size = new Vector3Int(size, size, 1);
 		for (int i = 0; i < size; ++i)
 			for (int j = 0; j < size; ++j)
-				for (int k = 0; k < size; ++k)
-				{
-					tileMap.SetTile(new Vector3Int(i,j,k),1)
-				}
+				landTilemap.SetTile(new Vector3Int(i, j, 0), tiles[0]);
 	}
-	*/
 
 	public bool IsNearByTile(Vector3Int tilePosition)
 	{
@@ -74,5 +75,39 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private void ColoringMovableTiles()
 	{
 		//TODO
+	}
+
+	public void SaveMapData()
+	{
+		List<LandTileInfo> infos = new List<LandTileInfo>();
+		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
+		{
+			LandTile tile = landTilemap.GetTile<LandTile>(pos);
+			if (tile != null)
+			{
+				infos.Add(tile.GetLandTileInfo(pos));
+			}
+		}
+		MapInfo mapInfo = new MapInfo(infos);
+		JsonHelper.JsonToFile(JsonUtility.ToJson(mapInfo, true), "Save/Map.json");
+	}
+
+	public void LoadMapData()
+	{
+		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map.json"));
+		foreach (var info in mapInfo.landTileInfos)
+		{
+			landTilemap.SetTile(info.position, tiles[0]);
+		}
+	}
+}
+
+[System.Serializable]
+public class MapInfo
+{
+	public List<LandTileInfo> landTileInfos;
+	public MapInfo(List<LandTileInfo> landTileInfos)
+	{
+		this.landTileInfos = landTileInfos;
 	}
 }

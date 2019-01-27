@@ -8,5 +8,5 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class StructureTile : DefaultTile
 {
-	protected abstract void Options();
+	protected abstract void OpenOptions();
 }

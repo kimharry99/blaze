@@ -498,9 +498,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   landTilemap: {fileID: 547624944}
-  buildingTilemap: {fileID: 1266528254}
+  structureTilemap: {fileID: 0}
   curPosition: {x: 0, y: 0, z: 0}
   player: {fileID: 931535076}
+  tiles:
+  - {fileID: 11400000, guid: 4db41cd9a6e551746820baff38655959, type: 2}
 --- !u!4 &755335568
 Transform:
   m_ObjectHideFlags: 0

@@ -12,17 +12,16 @@ public class JsonHelper : MonoBehaviour
 		return JsonUtility.FromJson<FurnitureUpgradeInfo>(json);
 	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	public static void JsonToFile(string json, string path)
+	{
+		File.WriteAllText(Application.dataPath + "/Resources/Jsons/" + path, json);
+	}
 
-    }
+	public static string LoadJson(string path)
+	{
+		return File.ReadAllText(Application.dataPath + "/Resources/Jsons/" + path);
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
 
 [Serializable]

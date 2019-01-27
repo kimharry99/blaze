@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 /// <summary>
 /// Primitive class for all land type tiles in this game
 /// </summary>
+[System.Serializable]
 public abstract class LandTile : DefaultTile
 {
 	#region Resources
@@ -42,5 +43,35 @@ public abstract class LandTile : DefaultTile
 		Wood -= wood;
 		Components -= components;
 		Parts -= parts;
+	}
+
+	public LandTileInfo GetLandTileInfo(Vector3Int position)
+	{
+		return new LandTileInfo(position, Water, Food, Preserved, Wood, Components, Parts, GetType().ToString());
+	}
+}
+
+[System.Serializable]
+public class LandTileInfo
+{
+	public Vector3Int position;
+	public int water;
+	public int food;
+	public int preserved;
+	public int wood;
+	public int components;
+	public int parts;
+	public string type;
+
+	public LandTileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type)
+	{
+		this.position = position;
+		this.water = water;
+		this.food = food;
+		this.preserved = preserved;
+		this.wood = wood;
+		this.components = components;
+		this.parts = parts;
+		this.type = type;
 	}
 }
