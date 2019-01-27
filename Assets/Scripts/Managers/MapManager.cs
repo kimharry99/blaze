@@ -46,7 +46,13 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public bool IsNearByTile(Vector3Int tilePosition)
 	{
-		return Vector3Int.Distance(curPosition, tilePosition) == 1;
+		Debug.Log(curPosition);
+		Debug.Log(tilePosition);
+		Debug.Log(Vector3Int.Distance(curPosition, tilePosition));
+		Debug.Log(-1 % 2);
+		return Vector3Int.Distance(curPosition, tilePosition) == 1 ||
+			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, 1, 0) == tilePosition ||
+			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, -1, 0) == tilePosition;
 	}
 
 	private void MoveTo(Vector3Int tilePosition)
