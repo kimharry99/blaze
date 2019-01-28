@@ -132,45 +132,132 @@ public class GameManager : SingletonBehaviour<GameManager>
             Mental = Mathf.Max(0, Mental - 2 * turn);
         }
 		Hunger = Mathf.Max(0, Hunger - turn);
-        if (Thirst > 60)
+        if (Thirst > 80)
         {
             Thirst = Mathf.Max(0, Thirst - turn);
             Health = Mathf.Min(100, Health + turn);
         }
-        else if (0<Thirst && Thirst <61)
+        else if (0<Thirst && Thirst <81)
         {
             Thirst = Mathf.Max(0, Thirst - 2 * turn);
         }
-        else if(Thirst == 0)
+        //Thirst = 0
+        else
         {
             Health = Mathf.Max(0, Health - 4 * turn);
             Mental = Mathf.Max(0, Mental - 2 * turn);
         }
 		Energy = Mathf.Max(0, Energy - turn);
-		OnPlayerStatusUpdated();
+        OnPlayerStatusUpdated();
 
-
-        print(Health+" "+Mental+" "+Hunger + " "+Thirst + " "+Energy);
 		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
 	}
 
-	public void Eat(int amount)
+    public bool CheckStatus(int health= 0, int mental = 0, int hunger = 0, int thirst = 0, int energy = 0)
+    {
+        return Health > health && Mental > mental && Hunger > hunger && Thirst > thirst && Energy > energy;
+    }
+    public int TurnPenalty(int neededTurn)
+    {
+        if (Health>50)
+        {
+            if (Hunger>80)
+            {
+                return (int)Math.Ceiling(neededTurn * 0.5f);
+            }
+            else
+            {
+                return neededTurn;
+            }
+        }
+        else if (Health>25)
+        {
+            if (Hunger>80)
+            {
+                return neededTurn;
+            }
+            else
+            {
+                return (int)(neededTurn * 1.5f);
+            }
+        }
+        else
+        {
+            if (Hunger>80)
+            {
+               return (int)(neededTurn * 1.5f);
+            }
+            else
+            {
+                return neededTurn * 2;
+            }
+        }
+    }
+
+    public void Cure(int amount)
+    {
+        if(amount>0)
+        {
+            Health = Mathf.Min(100, Health + amount);
+        }
+        else
+        {
+            Health = Mathf.Max(0, Health + amount);
+        }
+        OnPlayerStatusUpdated();
+    }
+
+    public void Heal (int amount)
+    {
+        if (amount > 0)
+        {
+            Mental = Mathf.Min(100, Mental + amount);
+        }
+        else
+        {
+            Mental = Mathf.Max(0, Mental + amount);
+        }
+        OnPlayerStatusUpdated();
+    }
+
+    public void Eat(int amount)
 	{
-        //TODO
-        Hunger = Mathf.Min(100, Hunger + amount);
+        if (amount > 0)
+        {
+            Hunger = Mathf.Min(100, Hunger + amount);
+        }
+        else
+        {
+            Hunger = Mathf.Max(0, Hunger + amount);
+        }
+        OnPlayerStatusUpdated();
 	}
 
 	public void Drink(int amount)
 	{
-        //TODO
-        Thirst = Mathf.Min(100, Thirst + amount);
-	}
+        if (amount > 0)
+        {
+            Thirst = Mathf.Min(100, Thirst + amount);
+        }
+        else
+        {
+            Thirst = Mathf.Max(0, Thirst + amount);
+        }
+        OnPlayerStatusUpdated();
+    }
 
 	public void Rest(int amount)
 	{
-        //TODO
-        Energy = Mathf.Min(100, Energy + amount);
-	}
+        if (amount > 0)
+        {
+            Energy = Mathf.Min(100, Energy + amount);
+        }
+        else
+        {
+            Energy = Mathf.Max(0, Energy + amount);
+        }
+        OnPlayerStatusUpdated();
+    }
 
 	#endregion
 
@@ -186,6 +273,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public void StartTask(VoidEvent task, int neededTurn)
 	{
 		ReservedTask = task;
+        neededTurn = TurnPenalty(neededTurn);
 		PlayerStateWork.remainedTurn = neededTurn;
 		PlayerState.Transition(PlayerState.work);
 	}

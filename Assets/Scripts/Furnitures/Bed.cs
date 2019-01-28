@@ -16,11 +16,13 @@ public class Bed : Furniture
     public void OnPlusButtonClicked()
     {
         usingTurn++;
+        Debug.Log(usingTurn);
     }
 
     public void OnMinusButtonClicked()
     {
-        usingTurn = Mathf.Min(0,usingTurn-1);
+        usingTurn = Mathf.Max(1,usingTurn-1);
+        Debug.Log(usingTurn);
     }
 
     private void UseFurniture()
