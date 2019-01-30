@@ -157,40 +157,53 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         return Health > health && Mental > mental && Hunger > hunger && Thirst > thirst && Energy > energy;
     }
-    public int TurnPenalty(int neededTurn)
+
+    public float CalculateTurnPenalty()
     {
         if (Health>50)
         {
             if (Hunger>80)
             {
-                return (int)Math.Ceiling(neededTurn * 0.5f);
+                return 0.5f;
             }
             else
             {
-                return neededTurn;
+                return 1;
             }
         }
         else if (Health>25)
         {
             if (Hunger>80)
             {
-                return neededTurn;
+                return 1;
             }
             else
             {
-                return (int)(neededTurn * 1.5f);
+                return 1.5f;
             }
         }
         else
         {
             if (Hunger>80)
             {
-               return (int)(neededTurn * 1.5f);
+                return 1.5f;
             }
             else
             {
-                return neededTurn * 2;
+                return 2;
             }
+        }
+    }
+
+    public int DisadvantageNeededTurn(float neededTurn)
+    {
+        if (Health > 50&&Hunger>80)
+        { 
+            return (int)Math.Ceiling(neededTurn);
+        }
+        else
+        {
+            return (int)neededTurn;
         }
     }
 
@@ -270,11 +283,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#endregion
 
-	public void StartTask(VoidEvent task, int neededTurn)
+	public void StartTask(VoidEvent task, float neededTurn)
 	{
 		ReservedTask = task;
-        neededTurn = TurnPenalty(neededTurn);
-		PlayerStateWork.remainedTurn = neededTurn;
+        neededTurn = DisadvantageNeededTurn(CalculateTurnPenalty()*neededTurn);
+		PlayerStateWork.remainedTurn = (int)neededTurn;
 		PlayerState.Transition(PlayerState.work);
 	}
 
