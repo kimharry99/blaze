@@ -29,10 +29,22 @@ public class PlayerController : MonoBehaviour
 		{
 			TurnManager.inst.UseTurn(1);
 		}
+        if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+            TurnManager.inst.UseTurn(5);
+        }
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			GameManager.inst.GetResource(100000, 100000, 100000, 100000, 100000, 100000);
 		}
-		#endregion
-	}
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            GameManager.inst.Cure(100);
+            GameManager.inst.Heal(100);
+            GameManager.inst.Eat(100);
+            GameManager.inst.Drink(100);
+            GameManager.inst.Rest(100);
+        }
+        #endregion
+    }
 }

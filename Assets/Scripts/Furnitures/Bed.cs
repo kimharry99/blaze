@@ -10,22 +10,28 @@ public class Bed : Furniture
 
     public override void OnUseButtonClicked()
     {
-        GameManager.inst.StartTask(UseFurniture, usingTurn);
+        GameManager.inst.StartTask(UseFurniture, (float)usingTurn/GameManager.inst.CalculateTurnPenalty());
     }
 
     public void OnPlusButtonClicked()
     {
         usingTurn++;
+        Debug.Log(usingTurn);
     }
 
     public void OnMinusButtonClicked()
     {
-        usingTurn = Mathf.Min(0,usingTurn-1);
+        usingTurn = Mathf.Max(1,usingTurn-1);
+        Debug.Log(usingTurn);
     }
 
     private void UseFurniture()
     {
         GameManager.inst.Rest(usingTurn*4);
+        if (!GameManager.inst.CheckStatus(health: 0, mental: 0, hunger: 0, thirst: 0, energy: 0))
+        {
+            GameManager.inst.Cure(usingTurn % 5);
+        }
     }
 
 }
