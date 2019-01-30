@@ -282,11 +282,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#endregion
 
-	public void StartTask(Action task, int neededTurn)
+	public void StartTask(Action task, int neededTurn, bool isDefinite = false)
 	{
 		ReservedTask = task;
-        neededTurn = DisadvantageNeededTurn(CalculateTurnPenalty()*neededTurn);
-		PlayerStateWork.remainedTurn = (int)neededTurn;
+		if (!isDefinite)
+			neededTurn = DisadvantageNeededTurn(CalculateTurnPenalty() * neededTurn);
+		PlayerStateWork.remainedTurn = neededTurn;
 		PlayerState.Transition(PlayerState.work);
 	}
 
