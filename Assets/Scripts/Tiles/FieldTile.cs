@@ -9,6 +9,6 @@ public class FieldTile : LandTile
 
 	public override void OnVisited()
 	{
-
+		base.OnVisited();
 	}
 }

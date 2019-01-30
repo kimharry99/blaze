@@ -7,6 +7,7 @@ public class UpgradeButton : MonoBehaviour
 {
 	private void OnMouseUp()
 	{
+		Debug.Log(EventSystem.current.IsPointerOverGameObject());
 		if (EventSystem.current.IsPointerOverGameObject())
 			return;
 		Furniture furniture = GetComponentInParent<Furniture>();

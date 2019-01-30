@@ -18,10 +18,17 @@ public abstract class LandTile : DefaultTile
 	public int Parts { get; private set; }
 	#endregion
 	public abstract int MoveCost { get; }
+	public bool IsVisited { get; private set; }
 
-	public void Init(int water, int food, int preserved, int wood, int components, int parts)
+	public void Init(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0, bool isVisited = false)
 	{
-
+		Water = water;
+		Food = food;
+		Preserved = preserved;
+		Wood = wood;
+		Components = components;
+		Parts = parts;
+		IsVisited = isVisited;
 	}
 
 	/// <summary>
@@ -49,6 +56,11 @@ public abstract class LandTile : DefaultTile
 	{
 		return new LandTileInfo(position, Water, Food, Preserved, Wood, Components, Parts, GetType().ToString());
 	}
+
+	public override void OnVisited()
+	{
+		IsVisited = true;
+	}
 }
 
 [System.Serializable]
@@ -62,8 +74,9 @@ public class LandTileInfo
 	public int components;
 	public int parts;
 	public string type;
+	public bool isVisited;
 
-	public LandTileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type)
+	public LandTileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type, bool isVisited = false)
 	{
 		this.position = position;
 		this.water = water;
@@ -73,5 +86,6 @@ public class LandTileInfo
 		this.components = components;
 		this.parts = parts;
 		this.type = type;
+		this.isVisited = false;
 	}
 }

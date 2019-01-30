@@ -19,11 +19,10 @@ public class MapManager : SingletonBehaviour<MapManager>
     {
 		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<FieldTile>(),"Assets/Tiles/FieldTile.asset");
 
-		//MapMaking(3);
-		ColoringMovableTiles();
-
-		//SaveMapData();
+		MapMaking(50);
+		SaveMapData();
 		//LoadMapData();
+		//UpdateTiles();
 	}
 
     private void Update()
@@ -47,10 +46,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public bool IsNearByTile(Vector3Int tilePosition)
 	{
-		Debug.Log(curPosition);
-		Debug.Log(tilePosition);
-		Debug.Log(Vector3Int.Distance(curPosition, tilePosition));
-		Debug.Log(-1 % 2);
 		return Vector3Int.Distance(curPosition, tilePosition) == 1 ||
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, 1, 0) == tilePosition ||
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, -1, 0) == tilePosition;
@@ -68,13 +63,39 @@ public class MapManager : SingletonBehaviour<MapManager>
 		curPosition = destPosition;
 		player.transform.position = landTilemap.CellToWorld(curPosition);
 		landTilemap.GetTile<LandTile>(curPosition).OnVisited();
+		//UpdateTiles();
 		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
 		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
 	}
 
-	private void ColoringMovableTiles()
+	private void UpdateTiles()
 	{
-		//TODO
+		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
+		{
+			LandTile tile = landTilemap.GetTile<LandTile>(pos);
+			if (!IsNearByTile(pos))
+			{
+				if (!tile.IsVisited)
+				{
+					landTilemap.SetColor(pos, Color.black);
+				}
+				else
+				{
+					landTilemap.SetColor(pos, Color.blue);
+				}
+			}
+			else
+			{
+				if (!tile.IsVisited)
+				{
+					landTilemap.SetColor(pos, Color.red);
+				}
+				else
+				{
+					landTilemap.SetColor(pos, Color.white);
+				}
+			}
+		}
 	}
 
 	public void SaveMapData()
@@ -98,6 +119,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 		foreach (var info in mapInfo.landTileInfos)
 		{
 			landTilemap.SetTile(info.position, tiles[0]);
+			landTilemap.SetTileFlags(info.position, TileFlags.None);
+			landTilemap.GetTile<LandTile>(info.position).Init();
 		}
 	}
 }

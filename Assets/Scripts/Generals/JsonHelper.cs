@@ -8,7 +8,8 @@ public class JsonHelper : MonoBehaviour
 {
 	public static FurnitureUpgradeInfo LoadFurnitureUpgradeInfo(FurnitureType type)
 	{
-		string json = File.ReadAllText(Application.dataPath + "/Resources/Jsons/FurnitureUpgradeInfo/" + type.ToString() + ".json");
+		Debug.Log(type.ToString());
+;		string json = LoadJson("FurnitureUpgradeInfo/" + type.ToString());
 		return JsonUtility.FromJson<FurnitureUpgradeInfo>(json);
 	}
 
@@ -19,7 +20,7 @@ public class JsonHelper : MonoBehaviour
 
 	public static string LoadJson(string path)
 	{
-		return File.ReadAllText(Application.dataPath + "/Resources/Jsons/" + path);
+		return Resources.Load<TextAsset>("Jsons/" + path).text;
 	}
 
 }

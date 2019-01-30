@@ -8,7 +8,12 @@ public class Bed : Furniture
 
     int usingTurn=1;
 
-    public override void OnUseButtonClicked()
+	private void Start()
+	{
+		Level = 1;
+	}
+
+	public override void OnUseButtonClicked()
     {
         GameManager.inst.StartTask(UseFurniture, usingTurn, true);
     }

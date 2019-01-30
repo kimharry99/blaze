@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using System.IO;
 
+#if  UNITY_EDITOR
 public class FurnitureUpgradeInfoWindow : EditorWindow
 {
 	FurnitureType type;
@@ -45,7 +46,7 @@ public class FurnitureUpgradeInfoWindow : EditorWindow
 
 		if (GUILayout.Button("편집"))
 		{
-			string json = File.ReadAllText(Application.dataPath + "/Resources/Jsons/FurnitureUpgradeInfo/" + type.ToString() + ".json");
+			string json = JsonHelper.LoadJson("FurnitureUpgradeInfo/" + type.ToString());
 			FurnitureUpgradeInfo info = JsonUtility.FromJson<FurnitureUpgradeInfo>(json);
 			info.wood[level] = wood;
 			info.components[level] = components;
@@ -55,3 +56,4 @@ public class FurnitureUpgradeInfoWindow : EditorWindow
 		}
 	}
 }
+#endif
