@@ -20,6 +20,8 @@ public abstract class LandTile : DefaultTile
 	public abstract int MoveCost { get; }
 	public bool IsVisited { get; private set; }
 
+	public abstract LandType type { get; }
+
 	public void Init(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0, bool isVisited = false)
 	{
 		Water = water;
@@ -54,7 +56,7 @@ public abstract class LandTile : DefaultTile
 
 	public LandTileInfo GetLandTileInfo(Vector3Int position)
 	{
-		return new LandTileInfo(position, Water, Food, Preserved, Wood, Components, Parts, GetType().ToString());
+		return new LandTileInfo(position, Water, Food, Preserved, Wood, Components, Parts, type);
 	}
 
 	public override void OnVisited()
@@ -73,10 +75,10 @@ public class LandTileInfo
 	public int wood;
 	public int components;
 	public int parts;
-	public string type;
+	public LandType type;
 	public bool isVisited;
 
-	public LandTileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type, bool isVisited = false)
+	public LandTileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, LandType type, bool isVisited = false)
 	{
 		this.position = position;
 		this.water = water;
