@@ -29,7 +29,7 @@ public enum StructureType
 	Forest
 }
 
-[SerializeField]
+[System.Serializable]
 public class TileInfo
 {
 	public Vector3Int position;
@@ -60,6 +60,13 @@ public class TileInfo
 
 	public LandType landType;
 	public StructureType structureType;
+
+	public TileInfo(Vector3Int position, LandType landType, StructureType structureType)
+	{
+		this.position = position;
+		this.landType = landType;
+		this.structureType = structureType;
+	}
 
 	public TileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type, LandType landType, StructureType structureType, bool isVisited = false)
 	{

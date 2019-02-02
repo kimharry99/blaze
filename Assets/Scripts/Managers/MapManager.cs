@@ -17,9 +17,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 	public TileBase[] landTiles;
 	public TileBase[] structureTiles;
 
-
-	public Dictionary<Vector3Int, LandTileInfo> landTileInfos = new Dictionary<Vector3Int, LandTileInfo>();
-	public Dictionary<Vector3Int, StructureTileInfo> structureTileInfos = new Dictionary<Vector3Int, StructureTileInfo>();
+	public Dictionary<Vector3Int, TileInfo> tileInfos = new Dictionary<Vector3Int, TileInfo>();
 
     private void Start()
     {
@@ -45,26 +43,62 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private void MapMaking(int size)
 	{
 		landTilemap.size = new Vector3Int(size, size, 1);
+		TileInfo info;
 		for (int i = -size; i < size; ++i)
 			for (int j = -size; j < size; ++j)
 			{
 				Vector3Int pos = new Vector3Int(i, j, 0);
-				landTilemap.SetTile(pos, landTiles[Random.Range(0, 4)]);
-				landTileInfos.Add(pos, landTilemap.GetTile<LandTile>(pos).GetLandTileInfo(pos));
+
+				LandType landType = (LandType)Random.Range(0, 4);
+				StructureType structureType;
 				if (Random.Range(0, 100) < 30)
 				{
-					structureTilemap.SetTile(pos, structureTiles[Random.Range(1, 5)]);
-					structureTileInfos.Add(pos, structureTilemap.GetTile<StructureTile>(pos).GetStructureTileInfo(pos));
+					structureType = (StructureType)Random.Range(1, 5);
 				}
+				else
+				{
+					structureType = StructureType.None;
+				}
+
+				info = new TileInfo(pos, landType, structureType);
+
+				landTilemap.SetTile(pos, landTiles[(int)landType]);
+				if (structureType >= 0)
+					structureTilemap.SetTile(pos, structureTiles[(int)structureType]);
+
+				switch (structureType)
+				{
+					case StructureType.None:
+						info.Init(water: Random.Range(0, 11), food: Random.Range(0, 11));
+						break;
+					case StructureType.Home:
+						info.Init(isVisited: true);
+						break;
+					case StructureType.Building:
+						info.Init(water: Random.Range(0, 11), food: Random.Range(0, 11), wood: Random.Range(0, 6), components: Random.Range(0, 16), parts: Random.Range(0, 6));
+						break;
+					case StructureType.Store:
+						info.Init(water: Random.Range(0, 11), food: Random.Range(0, 11), preserved: Random.Range(0, 11), wood: Random.Range(0, 6), components: Random.Range(0, 6));
+						break;
+					case StructureType.Factory:
+						info.Init(preserved: Random.Range(0, 11), components: Random.Range(0, 11), parts: Random.Range(0, 21));
+						break;
+					case StructureType.Forest:
+						info.Init(water: Random.Range(0, 21), food: Random.Range(0, 21), wood: Random.Range(10, 31));
+						break;
+				}
+
+				tileInfos.Add(pos, info);
 			}
+
+		info = new TileInfo(Vector3Int.zero, LandType.Road, StructureType.Home);
+		info.Init(isVisited: true);
+
 		landTilemap.SetTile(Vector3Int.zero, landTiles[0]);
 		structureTilemap.SetTile(Vector3Int.zero, structureTiles[0]);
 
-		landTileInfos.Remove(Vector3Int.zero);
-		structureTileInfos.Remove(Vector3Int.zero);
-
-		landTileInfos.Add(Vector3Int.zero, landTilemap.GetTile<LandTile>(Vector3Int.zero).GetLandTileInfo(Vector3Int.zero));
-		structureTileInfos.Add(Vector3Int.zero, structureTilemap.GetTile<StructureTile>(Vector3Int.zero).GetStructureTileInfo(Vector3Int.zero));
+		tileInfos.Remove(Vector3Int.zero);
+		tileInfos.Add(Vector3Int.zero, info);
 	}
 
 	public bool IsNearByTile(Vector3Int tilePosition)
@@ -107,10 +141,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 	{
 		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
 		{
-			LandTile tile = landTilemap.GetTile<LandTile>(pos);
+			TileInfo info = tileInfos[pos];
 			if (!IsNearByTile(pos))
 			{
-				if (!tile.IsVisited)
+				if (!info.IsVisited)
 				{
 					landTilemap.SetColor(pos, Color.black);
 				}
@@ -121,7 +155,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 			}
 			else
 			{
-				if (!tile.IsVisited)
+				if (!info.IsVisited)
 				{
 					landTilemap.SetColor(pos, Color.red);
 				}
@@ -135,31 +169,26 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public void SaveMapData()
 	{
-		List<LandTileInfo> landInfos = landTileInfos.Values.ToList();
-		List<StructureTileInfo> structureInfos = structureTileInfos.Values.ToList();
+		List<TileInfo> infos = tileInfos.Values.ToList();
 
-		MapInfo mapInfo = new MapInfo(landInfos, structureInfos, curPosition);
+		MapInfo mapInfo = new MapInfo(infos, curPosition);
 		JsonHelper.JsonToFile(JsonUtility.ToJson(mapInfo, true), "Save/Map.json");
 	}
 
 	public void LoadMapData()
 	{
 		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map"));
-
-		foreach (var info in mapInfo.landTileInfos)
+		foreach (var info in mapInfo.tileInfos)
 		{
-			landTilemap.SetTile(info.position, landTiles[(int)info.type]);
+			landTilemap.SetTile(info.position, landTiles[(int)info.landType]);
 			landTilemap.SetTileFlags(info.position, TileFlags.None);
-			landTilemap.GetTile<LandTile>(info.position).Init();
-			landTileInfos.Add(info.position, info);
-		}
 
-		foreach ( var info in mapInfo.structureTileInfos)
-		{
-			structureTilemap.SetTile(info.position, structureTiles[(int)info.type]);
-			landTilemap.SetTileFlags(info.position, TileFlags.None);
-			landTilemap.GetTile<LandTile>(info.position).Init();
-			structureTileInfos.Add(info.position, info);
+			if (info.structureType >= 0)
+			{
+				structureTilemap.SetTile(info.position, structureTiles[(int)info.structureType]);
+				structureTilemap.SetTileFlags(info.position, TileFlags.None);
+			}
+			tileInfos.Add(info.position, info);
 		}
 		curPosition = mapInfo.curPosition;
 	}
@@ -169,13 +198,11 @@ public class MapManager : SingletonBehaviour<MapManager>
 public class MapInfo
 {
 	public Vector3Int curPosition;
-	public List<LandTileInfo> landTileInfos;
-	public List<StructureTileInfo> structureTileInfos;
+	public List<TileInfo> tileInfos;
 
-	public MapInfo(List<LandTileInfo> landTileInfos, List<StructureTileInfo> structureTileInfos, Vector3Int curPosition)
+	public MapInfo(List<TileInfo> tileInfos, Vector3Int curPosition)
 	{
 		this.curPosition = curPosition;
-		this.landTileInfos = landTileInfos;
-		this.structureTileInfos = structureTileInfos;
+		this.tileInfos = tileInfos;
 	}
 }
