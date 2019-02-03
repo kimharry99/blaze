@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 /// <summary>
 /// Manager of common UI between scenes
@@ -43,7 +44,22 @@ public class UIManager : SingletonBehaviour<UIManager>
 	[Header("Weather UI")]
 	public Image weatherUI;
 	#endregion
-	
+
+	#region Event Log UI
+	[Header("Event Log UI")]
+	public GameObject eventLogPanel;
+	public Text titleText;
+	public Text descriptionText;
+	public RectTransform optionGrid;
+	public RectTransform resultGrid;
+	#endregion
+
+	#region Prefabs
+	[Header("Prefabs")]
+	public GameObject eventButtonPrefab;
+	public GameObject resultPrefab;
+	#endregion
+
 	#region Managers
 	private TurnManager tm;
 	private GameManager gm;
@@ -124,6 +140,61 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		Sprite sprite = Resources.Load<Sprite>("Textures/Weather/" + TurnManager.inst.Weather.ToString());
 		weatherUI.sprite = sprite;
+	}
+	#endregion
+
+	#region Event Log Panel Functions
+	public void OpenEventLogPanel(string title, string description, List<UnityAction> actions, List<string> actionDescriptions)
+	{
+		eventLogPanel.SetActive(true);
+
+		titleText.text = title;
+
+		descriptionText.text = description;
+
+		for (int i = 0; i < actions.Count; ++i)
+		{
+			GameObject eventButton = Instantiate(eventButtonPrefab, optionGrid);
+			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
+			eventButton.GetComponentInChildren<Text>().text = actionDescriptions[i];
+		}
+	}
+
+	public void AddResourceResult(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
+	{
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Food", food);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Preserved", preserved);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Water", water);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Wood", wood);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Components", components);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/Resources Icon/Parts", parts);
+	}
+
+	private void InitResultObject(GameObject result, string path, int amount)
+	{
+		result.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(path);
+		result.GetComponentInChildren<Text>().text = amount.ToString("+#;-#;0");
+	}
+
+	public void CloseEventLogPanel()
+	{
+		eventLogPanel.SetActive(false);
+
+		foreach (Transform transform in resultGrid)
+		{
+			Destroy(transform.gameObject);
+		}
+		
+		foreach (Transform transform in optionGrid)
+		{
+			Destroy(transform.gameObject);
+		}
 	}
 	#endregion
 

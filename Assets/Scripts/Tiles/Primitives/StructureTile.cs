@@ -25,7 +25,17 @@ public abstract class StructureTile : DefaultTile
 	private void Explore()
 	{
 		TurnManager.inst.UseTurn(4);
-		MapManager.inst.tileInfos[MapManager.inst.curPosition].TakeResources();
+		int water, food, preserved, wood, components, parts;
+		water = food = preserved = wood = components = parts = 0;
+		MapManager.inst.tileInfos[MapManager.inst.curPosition].TakeResources(ref food, ref preserved, ref water, ref wood, ref components, ref parts);
+		UIManager.inst.AddResourceResult(food, preserved, water, wood, components, parts);
+
+		List<string> actionDescriptions = new List<string> { "확인" };
+
+		UIManager.inst.OpenEventLogPanel("탐색 결과", "탐색을 완료했습니다.\n다음과 같은 보상을 획득하였습니다!",
+		new List<UnityAction>{ UIManager.inst.CloseEventLogPanel },
+		new List<string> { "확인" });
+
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 	}
 
@@ -35,6 +45,10 @@ public abstract class StructureTile : DefaultTile
 		GameManager.inst.Rest(RestAmount);
 	}
 
+	private void A(int a)
+	{
+		
+	}
 	public StructureTileInfo GetStructureTileInfo(Vector3Int position)
 	{
 		return new StructureTileInfo(position, Type);

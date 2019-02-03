@@ -119,22 +119,22 @@ public class TileInfo
 		this.structureType = structureType;
 	}
 
-	public void TakeResources()
+	public void TakeResources(ref int food, ref int water, ref int preserved, ref int wood, ref int components, ref int parts)
 	{
-		int water = Random.Range(0, this.water + 1);
-		int food = Random.Range(0, this.food + 1);
-		int preserved = Random.Range(0, this.preserved + 1);
-		int wood = Random.Range(0, this.wood + 1);
-		int components = Random.Range(0, this.components + 1);
-		int parts = Random.Range(0, this.parts + 1);
+		int wt = water = Random.Range(0, this.water + 1);
+		int fd = food = Random.Range(0, this.food + 1);
+		int ps = preserved = Random.Range(0, this.preserved + 1);
+		int wd = wood = Random.Range(0, this.wood + 1);
+		int cp = components = Random.Range(0, this.components + 1);
+		int pt = parts = Random.Range(0, this.parts + 1);
 
-		GameManager.inst.GetResource(water: water, food: food, preserved: preserved, wood: wood, components: components, parts: parts);
-		this.water -= water;
-		this.food -= food;
-		this.preserved -= preserved;
-		this.wood -= wood;
-		this.components -= components;
-		this.parts -= parts;
+		GameManager.inst.GetResource(water: wt, food: fd, preserved: ps, wood: wd, components: cp, parts: pt);
+		this.water -= wt;
+		this.food -= fd;
+		this.preserved -= ps;
+		this.wood -= wd;
+		this.components -= cp;
+		this.parts -= pt;
 	}
 
 	public void OnVisited()
