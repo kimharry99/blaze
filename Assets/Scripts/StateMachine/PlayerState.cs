@@ -44,13 +44,14 @@ public class PlayerStateIdle : PlayerState
 public class PlayerStateWork : PlayerState
 {
 	public static int remainedTurn;
+	private float timePerTurn;
 	private float timer;
 	private int passedTurn;
 
 	protected override void Enter()
 	{
 		UIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
-		timer = 0.5f;
+		timer = 0.25f;
 		passedTurn = 0;
 	}
 
@@ -74,7 +75,7 @@ public class PlayerStateWork : PlayerState
 			remainedTurn--;
 			passedTurn++;
 			UIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
-			timer = 0.5f;
+			timer = 0.25f;
 		}
 	}
 }

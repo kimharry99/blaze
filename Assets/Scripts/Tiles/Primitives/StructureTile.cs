@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Tilemaps;
 
 /// <summary>
@@ -8,8 +9,31 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class StructureTile : DefaultTile
 {
-	protected abstract void OpenOptions();
 	public abstract StructureType Type { get; }
+	public abstract int RestAmount { get; }
+
+	public virtual List<UnityAction> GetTileActions()
+	{
+		List<UnityAction> actions = new List<UnityAction>
+		{
+			Explore,
+			Rest
+		};
+		return actions;
+	}
+
+	private void Explore()
+	{
+		TurnManager.inst.UseTurn(4);
+		MapManager.inst.tileInfos[MapManager.inst.curPosition].TakeResources();
+		OutdoorUIManager.inst.UpdateTileInfoPanel();
+	}
+
+	private void Rest()
+	{
+		TurnManager.inst.UseTurn(4);
+		GameManager.inst.Rest(RestAmount);
+	}
 
 	public StructureTileInfo GetStructureTileInfo(Vector3Int position)
 	{

@@ -9,8 +9,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 {
 	public Tilemap landTilemap;
 	public Tilemap structureTilemap;
+
 	public Vector3Int curPosition;
 	private Vector3Int destPosition;
+	private Vector3Int focusedPosition;
 
 	public GameObject player;
 
@@ -21,25 +23,53 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void Start()
     {
-		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<BuildingTile>(),"Assets/Tiles/StructureTiles/BuldingTile.asset");
+		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NoneTile>(),"Assets/Tiles/StructureTiles/NoneTile.asset");
 		
 		//MapMaking(10);
 		//SaveMapData();
 		LoadMapData();
 		//UpdateTiles();
+		OutdoorUIManager.inst.UpdateTileInfoPanel();
 	}
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+		Vector3Int cellPos = landTilemap.WorldToCell(mousePos);
+		if(cellPos != focusedPosition)
 		{
-			Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			Vector3Int cellPos = landTilemap.WorldToCell(mousePos);
+			landTilemap.SetColor(focusedPosition, Color.white);
+			structureTilemap.SetColor(focusedPosition, Color.white);
+			if (cellPos == curPosition)
+			{
+				landTilemap.SetColor(cellPos, Color.yellow);
+				structureTilemap.SetColor(cellPos, Color.yellow);
+				focusedPosition = cellPos;
+			}
+			else if (IsNearByTile(cellPos))
+			{
+				landTilemap.SetColor(cellPos, Color.blue);
+				structureTilemap.SetColor(cellPos, Color.blue);
+				focusedPosition = cellPos;
+			}
+			else
+			{
+				landTilemap.SetColor(cellPos, Color.red);
+				structureTilemap.SetColor(cellPos, Color.red);
+			}
+			focusedPosition = cellPos;
+		}
+
+		if (Input.GetMouseButtonDown(0))
+		{
 			if (IsNearByTile(cellPos))
 				MoveTo(cellPos);
+			if (cellPos == curPosition)
+				OutdoorUIManager.inst.UpdateTileInfoPanel();
 		}
     }
 
+	#region Map Data Functions
 	private void MapMaking(int size)
 	{
 		landTilemap.size = new Vector3Int(size, size, 1);
@@ -63,8 +93,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 				info = new TileInfo(pos, landType, structureType);
 
 				landTilemap.SetTile(pos, landTiles[(int)landType]);
-				if (structureType >= 0)
-					structureTilemap.SetTile(pos, structureTiles[(int)structureType]);
+				structureTilemap.SetTile(pos, structureTiles[(int)structureType]);
 
 				switch (structureType)
 				{
@@ -101,41 +130,41 @@ public class MapManager : SingletonBehaviour<MapManager>
 		tileInfos.Add(Vector3Int.zero, info);
 	}
 
+	public void SaveMapData()
+	{
+		List<TileInfo> infos = tileInfos.Values.ToList();
+
+		MapInfo mapInfo = new MapInfo(infos, curPosition);
+		JsonHelper.JsonToFile(JsonUtility.ToJson(mapInfo, true), "Save/Map.json");
+	}
+
+	public void LoadMapData()
+	{
+		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map"));
+		foreach (var info in mapInfo.tileInfos)
+		{
+			landTilemap.SetTile(info.position, landTiles[(int)info.landType]);
+			landTilemap.SetTileFlags(info.position, TileFlags.None);
+
+			if (info.structureType >= 0)
+			{
+				structureTilemap.SetTile(info.position, structureTiles[(int)info.structureType]);
+				structureTilemap.SetTileFlags(info.position, TileFlags.None);
+			}
+			tileInfos.Add(info.position, info);
+		}
+		curPosition = mapInfo.curPosition;
+	}
+	#endregion
+
+	#region Utility Functions
 	public bool IsNearByTile(Vector3Int tilePosition)
 	{
 		return Vector3Int.Distance(curPosition, tilePosition) == 1 ||
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, 1, 0) == tilePosition ||
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, -1, 0) == tilePosition;
 	}
-
-	private void MoveTo(Vector3Int tilePosition)
-	{
-		destPosition = tilePosition;
-		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
-		GameManager.inst.StartTask(Move, moveCost);
-	}
-
-	private void Move()
-	{
-		Vector3 start = landTilemap.CellToWorld(curPosition);
-		Vector3 end = landTilemap.CellToWorld(destPosition);
-		StartCoroutine(CharacterMove(start, end));
-		curPosition = destPosition;
-		landTilemap.GetTile<LandTile>(curPosition).OnVisited();
-		//UpdateTiles();
-		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
-		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
-	}
-
-	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
-	{
-		Vector3 direction = end - start;
-		for (float t = 0; t <= 1; t += 0.05f)
-		{
-			player.transform.position = start + direction * Vector2Utility.GetQuadricBeizerCurvePoint(Vector2.zero, Vector2.one, new Vector2(0, 1), new Vector2(0, 1), t).y;
-			yield return null;
-		}
-	}
+	#endregion
 
 	private void UpdateTiles()
 	{
@@ -167,31 +196,38 @@ public class MapManager : SingletonBehaviour<MapManager>
 		}
 	}
 
-	public void SaveMapData()
+	#region Character Move Functions
+	private void MoveTo(Vector3Int tilePosition)
 	{
-		List<TileInfo> infos = tileInfos.Values.ToList();
-
-		MapInfo mapInfo = new MapInfo(infos, curPosition);
-		JsonHelper.JsonToFile(JsonUtility.ToJson(mapInfo, true), "Save/Map.json");
+		destPosition = tilePosition;
+		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
+		GameManager.inst.StartTask(Move, moveCost);
 	}
 
-	public void LoadMapData()
+	private void Move()
 	{
-		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map"));
-		foreach (var info in mapInfo.tileInfos)
+		Vector3 start = landTilemap.CellToWorld(curPosition);
+		Vector3 end = landTilemap.CellToWorld(destPosition);
+		StartCoroutine(CharacterMove(start, end));
+		curPosition = destPosition;
+		landTilemap.GetTile<LandTile>(curPosition).OnVisited();
+
+		OutdoorUIManager.inst.UpdateTileInfoPanel();
+		//UpdateTiles();
+		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
+		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
+	}
+
+	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
+	{
+		Vector3 direction = end - start;
+		for (float t = 0; t <= 1; t += 0.05f)
 		{
-			landTilemap.SetTile(info.position, landTiles[(int)info.landType]);
-			landTilemap.SetTileFlags(info.position, TileFlags.None);
-
-			if (info.structureType >= 0)
-			{
-				structureTilemap.SetTile(info.position, structureTiles[(int)info.structureType]);
-				structureTilemap.SetTileFlags(info.position, TileFlags.None);
-			}
-			tileInfos.Add(info.position, info);
+			player.transform.position = start + direction * Vector2Utility.GetQuadricBeizerCurvePoint(Vector2.zero, Vector2.one, new Vector2(0, 1), new Vector2(0, 1), t).y;
+			yield return null;
 		}
-		curPosition = mapInfo.curPosition;
 	}
+	#endregion
 }
 
 [System.Serializable]

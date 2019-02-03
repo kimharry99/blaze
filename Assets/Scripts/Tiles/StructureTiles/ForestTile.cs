@@ -1,18 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ForestTile : StructureTile
 {
 	public override StructureType Type { get { return StructureType.Forest; } }
+
+	public override int RestAmount { get { return 15; } }
 
 	public override void OnVisited()
 	{
 		throw new System.NotImplementedException();
 	}
 
-	protected override void OpenOptions()
+	public override List<UnityAction> GetTileActions()
 	{
-		throw new System.NotImplementedException();
+		List<UnityAction> actions = base.GetTileActions();
+		return actions;
 	}
 }

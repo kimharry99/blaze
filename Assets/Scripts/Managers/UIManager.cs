@@ -37,8 +37,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 	[Header("Turn Passing UI")]
 	public GameObject turnPassUI;
 	public Slider turnPassSlider;
-	public Text turnPassInfoText;
-	public Text turnPassText;
 	#endregion
 
 	#region Weather UI
@@ -101,9 +99,9 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public void OpenTurnPassUI(int maxTurn, string info)
 	{
 		turnPassUI.SetActive(true);
-		turnPassInfoText.text = info;
+		//turnPassInfoText.text = info;
 		Vector2 time = tm.Time(maxTurn);
-		turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+		//turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = 0;
 	}
 
@@ -116,7 +114,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		Vector2 time = tm.Time(maxTurn);
 		Vector2 curTime = tm.Time(passedTurn);
-		turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
+		//turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = passedTurn / (float)maxTurn;
 	}
 	#endregion
@@ -125,7 +123,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public void UpdateWeatherUI()
 	{
 		Sprite sprite = Resources.Load<Sprite>("Textures/Weather/" + TurnManager.inst.Weather.ToString());
-		Debug.Log(sprite.texture.name);
 		weatherUI.sprite = sprite;
 	}
 	#endregion
@@ -142,7 +139,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gm.OnResourceUpdated += UpdateResourcesUI;
 
 		SceneManager.sceneLoaded += OnSceneLoaded;
-		SetStatic();
+		DontDestroyOnLoad(gameObject);
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
