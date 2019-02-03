@@ -44,8 +44,45 @@ public class TileInfo
 	#endregion
 
 	#region Flags
-	public bool IsVisited { get; private set; }
+	public bool isVisited;
 	#endregion
+
+	public Color TileColor {
+		get
+		{
+			Color color;
+			Color timeColor = Color.white;
+			switch (TurnManager.inst.DayNight)
+			{
+				case DayNight.Day:
+					timeColor = Color.white;
+					break;
+				case DayNight.Sunset:
+					timeColor = new Color(1, 0.5f, 0);
+					break;
+				case DayNight.Night:
+					timeColor = Color.black;
+					break;
+			}
+
+			if (MapManager.inst.IsNearByTile(position, MapManager.inst.SightDistance))
+			{
+				color = (Color.white + timeColor) / 2;
+			}
+			else
+			{
+				if (isVisited)
+				{
+					color = (Color.gray + timeColor) / 2;
+				}
+				else
+				{
+					color = Color.black;
+				}
+			}
+			return color;
+		}
+	}
 
 	public void Init(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0, bool isVisited = false)
 	{
@@ -55,7 +92,7 @@ public class TileInfo
 		this.wood = wood;
 		this.components = components;
 		this.parts = parts;
-		IsVisited = isVisited;
+		this.isVisited = isVisited;
 	}
 
 	public LandType landType;
@@ -77,7 +114,7 @@ public class TileInfo
 		this.wood = wood;
 		this.components = components;
 		this.parts = parts;
-		IsVisited = isVisited;
+		this.isVisited = isVisited;
 		this.landType = landType;
 		this.structureType = structureType;
 	}
@@ -98,5 +135,10 @@ public class TileInfo
 		this.wood -= wood;
 		this.components -= components;
 		this.parts -= parts;
+	}
+
+	public void OnVisited()
+	{
+		isVisited = true;
 	}
 }

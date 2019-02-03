@@ -4,11 +4,17 @@ using UnityEngine;
 
 public enum Weather
 {
-	Sun,
+	Rain = -1,
 	Cloud,
-	Rain
+	Sun
 }
 
+public enum DayNight
+{
+	Night = -1,
+	Sunset,
+	Day
+}
 public class TurnManager : SingletonBehaviour<TurnManager>
 {
 	public delegate void IntEvent(int turn);
@@ -35,6 +41,26 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 				DayOver();
 			}
 			OnTurnPassed?.Invoke(interval);
+		}
+	}
+
+	public DayNight DayNight
+	{
+		get
+		{
+			Vector2 time = Time();
+			if (time.x <= 6 || time.x >= 18)
+			{
+				return DayNight.Night;
+			}
+			else if (time.x <= 7 || time.x >= 17)
+			{
+				return DayNight.Sunset;
+			}
+			else
+			{
+				return DayNight.Day;
+			}
 		}
 	}
 	#endregion
