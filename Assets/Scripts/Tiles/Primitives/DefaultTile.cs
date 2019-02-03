@@ -119,7 +119,7 @@ public class TileInfo
 		this.structureType = structureType;
 	}
 
-	public void TakeResources(ref int food, ref int water, ref int preserved, ref int wood, ref int components, ref int parts)
+	public void TakeResources(ref int food, ref int preserved, ref int water, ref int wood, ref int components, ref int parts)
 	{
 		int wt = water = Random.Range(0, this.water + 1);
 		int fd = food = Random.Range(0, this.food + 1);
