@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using UnityEngine.Events;
 
 public class JsonHelper : MonoBehaviour
 {
@@ -32,4 +33,21 @@ public class FurnitureUpgradeInfo
 	public int[] wood = new int[3];
 	public int[] components = new int[3];
 	public int[] parts = new int[3]; 
+}
+
+[Serializable]
+public class EventInfo
+{
+	public string eventName;
+	public string title;
+	public string description;
+	public List<string> actionDescriptions;
+
+	public EventInfo(string eventName, string title, string description, List<string> actionDescriptions)
+	{
+		this.eventName = eventName;
+		this.title = title;
+		this.description = description;
+		this.actionDescriptions = actionDescriptions;
+	}
 }

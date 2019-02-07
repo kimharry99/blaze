@@ -160,6 +160,23 @@ public class UIManager : SingletonBehaviour<UIManager>
 		}
 	}
 
+	public void OpenEventLogPanel(EventInfo info, List<UnityAction> actions)
+	{
+		eventLogPanel.SetActive(true);
+
+		titleText.text = info.title;
+
+		descriptionText.text = info.description;
+
+		for (int i = 0; i < actions
+			.Count; ++i)
+		{
+			GameObject eventButton = Instantiate(eventButtonPrefab, optionGrid);
+			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
+			eventButton.GetComponentInChildren<Text>().text = info.actionDescriptions[i];
+		}
+	}
+
 	public void AddResourceResult(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
 	{
 		GameObject result = Instantiate(resultPrefab, resultGrid);

@@ -31,11 +31,14 @@ public abstract class StructureTile : DefaultTile
 		UIManager.inst.AddResourceResult(food, preserved, water, wood, components, parts);
 
 		List<string> actionDescriptions = new List<string> { "확인" };
+		UnityAction action = UIManager.inst.CloseEventLogPanel;
 
+		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEventInfo("Explore"), new List<UnityAction> { UIManager.inst.CloseEventLogPanel });
+		/*
 		UIManager.inst.OpenEventLogPanel("탐색 결과", "탐색을 완료했습니다.\n다음과 같은 보상을 획득하였습니다!",
 		new List<UnityAction>{ UIManager.inst.CloseEventLogPanel },
 		new List<string> { "확인" });
-
+		*/
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 	}
 
