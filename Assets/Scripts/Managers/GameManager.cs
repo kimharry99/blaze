@@ -43,7 +43,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Player Status
     public int Health { get; private set; }
-    public int Mental { get; private set; }
+    public int Sanity { get; private set; }
     public int Energy { get; private set; }
 	public int Hunger { get; private set; }
 	public int Thirst { get; private set; }
@@ -64,7 +64,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Start()
 	{
         Health = 100;
-        Mental = 100;
+        Sanity = 100;
 		Energy = 100;
 		Hunger = 100;
 		Thirst = 100;
@@ -123,12 +123,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if(Hunger >80)
         {
-            Mental = Mathf.Min(100, Mental + 2 * turn);
+            Sanity = Mathf.Min(100, Sanity + 2 * turn);
         }
         else if (Hunger == 0)
         {
             Health = Mathf.Max(0, Health - 4 * turn);
-            Mental = Mathf.Max(0, Mental - 2 * turn);
+            Sanity = Mathf.Max(0, Sanity - 2 * turn);
         }
 		Hunger = Mathf.Max(0, Hunger - turn);
         if (Thirst > 80)
@@ -144,7 +144,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         else
         {
             Health = Mathf.Max(0, Health - 4 * turn);
-            Mental = Mathf.Max(0, Mental - 2 * turn);
+            Sanity = Mathf.Max(0, Sanity - 2 * turn);
         }
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
@@ -154,7 +154,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public bool CheckStatus(int health= 0, int mental = 0, int hunger = 0, int thirst = 0, int energy = 0)
     {
-        return Health > health && Mental > mental && Hunger > hunger && Thirst > thirst && Energy > energy;
+        return Health > health && Sanity > mental && Hunger > hunger && Thirst > thirst && Energy > energy;
     }
 
     public float CalculateTurnPenalty()
@@ -223,11 +223,11 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if (amount > 0)
         {
-            Mental = Mathf.Min(100, Mental + amount);
+            Sanity = Mathf.Min(100, Sanity + amount);
         }
         else
         {
-            Mental = Mathf.Max(0, Mental + amount);
+            Sanity = Mathf.Max(0, Sanity + amount);
         }
         OnPlayerStatusUpdated();
     }
@@ -270,6 +270,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         OnPlayerStatusUpdated();
     }
+
+	public void SanityDamaged(int amount)
+	{
+		Sanity -= amount;
+	}
 
 	#endregion
 

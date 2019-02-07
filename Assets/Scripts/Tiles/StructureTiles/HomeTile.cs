@@ -11,9 +11,9 @@ public class HomeTile : StructureTile
 
 	public override int RestAmount { get { return 30; } }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		throw new System.NotImplementedException();
+		
 	}
 
 	public override List<UnityAction> GetTileActions()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
 	[SerializeField]
-	private float speed;
+	private float speed = 5;
 	private Vector3 preMousePos;
 
     private void Update()

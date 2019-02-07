@@ -9,8 +9,8 @@ public class FieldTile : LandTile
 
 	public override LandType type { get { return LandType.Field; } }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		base.OnVisited();
+		base.OnVisited(pos);
 	}
 }

@@ -9,9 +9,10 @@ public class FactoryTile : StructureTile
 
 	public override int RestAmount { get { return 20; } }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		throw new System.NotImplementedException();
+		base.OnVisited(pos);
+
 	}
 
 	public override List<UnityAction> GetTileActions()

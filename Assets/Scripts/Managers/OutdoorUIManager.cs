@@ -33,8 +33,7 @@ public class OutdoorUIManager : SingletonBehaviour<OutdoorUIManager>
 		TileInfo info = MapManager.inst.tileInfos[MapManager.inst.curPosition];
 		TileTypeText.text = info.landType.ToString() + "/" + info.structureType.ToString();
 		resourceSlider.value = (info.water + info.food + info.preserved + info.wood + info.components + info.parts) / 20f;
-		print(info.structureType);
-		//TODO : Instantiate ActionOptionButton by TileInfo
+
 		StructureTile tile = MapManager.inst.structureTilemap.GetTile<StructureTile>(MapManager.inst.curPosition);
 		if (tile == null)
 			return;

@@ -9,9 +9,9 @@ public class ForestTile : StructureTile
 
 	public override int RestAmount { get { return 15; } }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		throw new System.NotImplementedException();
+		base.OnVisited(pos);
 	}
 
 	public override List<UnityAction> GetTileActions()

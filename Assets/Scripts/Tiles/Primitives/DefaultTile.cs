@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class DefaultTile : Tile
 {
-	public abstract void OnVisited();
+	public abstract void OnVisited(Vector3Int pos);
 }
 
 public enum LandType
@@ -135,6 +135,17 @@ public class TileInfo
 		this.wood -= wd;
 		this.components -= cp;
 		this.parts -= pt;
+	}
+
+	public void TakeResources(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
+	{
+		GameManager.inst.GetResource(water, food, preserved, wood, components, parts);
+		this.food -= food;
+		this.preserved -= preserved;
+		this.water -= water;
+		this.wood -= wood;
+		this.components -= components;
+		this.parts -= parts;
 	}
 
 	public void OnVisited()

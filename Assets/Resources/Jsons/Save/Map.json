@@ -3361,7 +3361,7 @@
             "wood": 5,
             "components": 0,
             "parts": 5,
-            "isVisited": false,
+            "isVisited": true,
             "landType": 0,
             "structureType": 1
         },
@@ -3692,12 +3692,12 @@
                 "z": 0
             },
             "water": 7,
-            "food": 8,
-            "preserved": 7,
+            "food": 2,
+            "preserved": 6,
             "wood": 0,
-            "components": 2,
+            "components": 0,
             "parts": 0,
-            "isVisited": false,
+            "isVisited": true,
             "landType": 0,
             "structureType": 2
         },

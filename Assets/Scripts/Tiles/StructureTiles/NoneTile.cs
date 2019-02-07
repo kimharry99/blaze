@@ -15,8 +15,8 @@ public class NoneTile : StructureTile
 		return actions;
 	}
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		throw new System.NotImplementedException();
+		base.OnVisited(pos);
 	}
 }

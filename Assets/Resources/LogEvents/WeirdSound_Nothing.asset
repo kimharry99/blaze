@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9455f0fc9f8d064d8de961f2e7673ec, type: 3}
+  m_Name: WeirdSound_Nothing
+  m_EditorClassIdentifier: 
+  eventName: WeirdSound_Nothing
+  eventTitle: "\uD5C8\uBB34\uC8FC\uC758"
+  description: "\uAD6C\uC11D\uAD6C\uC11D \uB4A4\uC838\uBCF4\uC558\uC9C0\uB9CC, \uBC29\uC548\uC5D0\uB294
+    \uC544\uBB34\uAC83\uB3C4 \uC5C6\uC5C8\uB2E4.\n\uBA38\uB9AC\uC18D\uC774 \uD5C8\uBB34\uD568\uC73C\uB85C
+    \uAC00\uB4DD\uD558\uB2E4..."
+  actionDescriptions:
+  - "\uC9D1\uC5D0 \uAC00\uACE0 \uC2F6\uB2E4..."

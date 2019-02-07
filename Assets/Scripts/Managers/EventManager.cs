@@ -1,56 +1,45 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
 using System.Linq;
-using UnityEngine.Events;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.IO;
-using UnityEditor;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class EventManager : SingletonBehaviour<EventManager>
 {
-	private Dictionary<string, EventInfo> events = new Dictionary<string, EventInfo>();
+	private Dictionary<string, LogEvent> events = new Dictionary<string, LogEvent>();
 
 	private void Awake()
 	{
-		//UnityAction action = delegate { UIManager.inst.CloseEventLogPanel(); };
-		//BinaryFormatter binaryFormatter = new BinaryFormatter();
 
-		//UnityActionContainer container = new UnityActionContainer(action);
-		//Stream stream = new FileStream(Application.dataPath + "/Resources/Binaries/test.bin", FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-		//binaryFormatter.Serialize(stream, container);
-
-		////Stream stream = new FileStream(Application.dataPath + "/Resources/Binaries/test.bin", FileMode.Open, FileAccess.Read, FileShare.Read);
-		////stream = new MemoryStream(Resources.Load<TextAsset>("Binaries/test").bytes);
-		//container = (UnityActionContainer)binaryFormatter.Deserialize(stream);
-		//container.action();
-
-		foreach (var json in Resources.LoadAll<TextAsset>("Jsons/EventInfo"))
+		foreach (var logEvent in Resources.LoadAll<LogEvent>("LogEvents/"))
 		{
-			EventInfo info = JsonUtility.FromJson<EventInfo>(json.text);
-			events.Add(info.eventName, info);
+			events.Add(logEvent.eventName, logEvent);
 		}
-
-		
 	}
 
-	public EventInfo GetEventInfo(string eventName)
+	public LogEvent GetEvent(string eventName)
 	{
 		return events[eventName];
 	}
+}
 
-	public void SaveEventData()
-	{
-		JsonHelper.JsonToFile(JsonUtility.ToJson(events.Values.ToList()),"Save/EventData.json");
-	}
+[Serializable]
+public class LogEventInfo
+{
+	public string eventName;
+	public string title;
+	public string description;
+	public List<string> actionDescriptions;
+	public UnityAction action;
 
-	public void LoadEventData()
+	public LogEventInfo(string eventName, string title, string description, List<string> actionDescriptions)
 	{
-		List<EventInfo> infos =	JsonUtility.FromJson<List<EventInfo>>(JsonHelper.LoadJson("Save/EventData"));
-		foreach (var info in infos)
-		{
-			events.Add(info.eventName, info);
-		}
+		this.eventName = eventName;
+		this.title = title;
+		this.description = description;
+		this.actionDescriptions = actionDescriptions;
 	}
 }

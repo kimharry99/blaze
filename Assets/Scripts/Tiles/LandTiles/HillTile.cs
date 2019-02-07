@@ -8,8 +8,8 @@ public class HillTile : LandTile
 
 	public override LandType type { get { return LandType.Hill; } }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
-		base.OnVisited();
+		base.OnVisited(pos);
 	}
 }

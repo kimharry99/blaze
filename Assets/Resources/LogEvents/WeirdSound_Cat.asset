@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8001627011c6348b7cdc3b9e3a7021, type: 3}
+  m_Name: WeirdSound_Cat
+  m_EditorClassIdentifier: 
+  eventName: WeirdSound_Cat
+  eventTitle: "\uACE0\uC591\uC774\uC758 \uC0AC\uC720 \uC7AC\uC0B0"
+  description: "\"\uC65C\uC560\uC560\uC560\uC560\uC575!!!!\"\n\uB0A0\uCE74\uB85C\uC6B4
+    \uC18C\uB9AC\uC640 \uD568\uAED8 \uACE0\uC591\uC774 \uD55C\uB9C8\uB9AC\uAC00 \uBC29\uC548\uC5D0\uC11C
+    \uB6F0\uCCD0\uB098\uC640 \uB3C4\uB9DD\uCCE4\uB2E4.\n\uB180\uB780 \uAC00\uC2B4\uC744
+    \uC9C4\uC815\uC2DC\uD0A4\uACE0 \uBC29\uC548\uC744 \uB458\uB7EC\uBCF4\uB2C8, \uBC29\uC548\uC740
+    \uACE0\uC591\uC774\uAC00 \uBB3C\uC5B4\uC628 \uAC83\uC73C\uB85C \uBCF4\uC774\uB294
+    \uC7A1\uB3D9\uC0AC\uB2C8\uB85C \uAC00\uB4DD\uD588\uB2E4.\n\uB300\uBD80\uBD84\uC740
+    \uADF8\uB0E5 \uC4F0\uB808\uAE30\uC600\uC9C0\uB9CC, \uBA87\uAC1C \uC815\uB3C4\uB294
+    \uAC74\uC838\uB0BC \uC218 \uC788\uC5C8\uB2E4."
+  actionDescriptions:
+  - "\uACE0\uC591\uC774\uC5D0\uAC90 \uBBF8\uC548\uD558\uC9C0\uB9CC..."

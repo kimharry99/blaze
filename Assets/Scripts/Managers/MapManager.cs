@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class MapManager : SingletonBehaviour<MapManager>
@@ -49,6 +49,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void Update()
     {
+		if (EventSystem.current.IsPointerOverGameObject())
+			return;
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector3Int cellPos = landTilemap.WorldToCell(mousePos);
 		if(cellPos != focusedPosition)
@@ -224,6 +226,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 		Vector3 end = landTilemap.CellToWorld(destPosition);
 		StartCoroutine(CharacterMove(start, end));
 		curPosition = destPosition;
+		landTilemap.GetTile<LandTile>(curPosition).OnVisited(curPosition);
+		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
 		tileInfos[curPosition].OnVisited();
 
 		OutdoorUIManager.inst.UpdateTileInfoPanel();

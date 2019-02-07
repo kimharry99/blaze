@@ -144,36 +144,33 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#endregion
 
 	#region Event Log Panel Functions
-	public void OpenEventLogPanel(string title, string description, List<UnityAction> actions, List<string> actionDescriptions)
+	public void OpenEventLogPanel(LogEvent logEvent)
 	{
+		foreach (Transform transform in resultGrid)
+		{
+			Destroy(transform.gameObject);
+		}
+
+		foreach (Transform transform in optionGrid)
+		{
+			Destroy(transform.gameObject);
+		}
+
+		logEvent.EventStart();
+
 		eventLogPanel.SetActive(true);
 
-		titleText.text = title;
+		titleText.text = logEvent.eventTitle;
 
-		descriptionText.text = description;
+		descriptionText.text = logEvent.description;
+
+		List<UnityAction> actions = logEvent.GetActions();
 
 		for (int i = 0; i < actions.Count; ++i)
 		{
 			GameObject eventButton = Instantiate(eventButtonPrefab, optionGrid);
 			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
-			eventButton.GetComponentInChildren<Text>().text = actionDescriptions[i];
-		}
-	}
-
-	public void OpenEventLogPanel(EventInfo info, List<UnityAction> actions)
-	{
-		eventLogPanel.SetActive(true);
-
-		titleText.text = info.title;
-
-		descriptionText.text = info.description;
-
-		for (int i = 0; i < actions
-			.Count; ++i)
-		{
-			GameObject eventButton = Instantiate(eventButtonPrefab, optionGrid);
-			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
-			eventButton.GetComponentInChildren<Text>().text = info.actionDescriptions[i];
+			eventButton.GetComponentInChildren<Text>().text = logEvent.actionDescriptions[i];
 		}
 	}
 
@@ -191,6 +188,14 @@ public class UIManager : SingletonBehaviour<UIManager>
 		InitResultObject(result, "Textures/Resources Icon/Components", components);
 		result = Instantiate(resultPrefab, resultGrid);
 		InitResultObject(result, "Textures/Resources Icon/Parts", parts);
+	}
+
+	public void AddPlayerStatusResult(int health = 0, int sanity = 0)
+	{
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/PlayerStatus Icon/Health", health);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/PlayerStatus Icon/Sanity", sanity);
 	}
 
 	private void InitResultObject(GameObject result, string path, int amount)

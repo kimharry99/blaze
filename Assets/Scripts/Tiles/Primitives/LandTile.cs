@@ -12,7 +12,7 @@ public abstract class LandTile : DefaultTile
 	public abstract int MoveCost { get; }
 	public abstract LandType type { get; }
 
-	public override void OnVisited()
+	public override void OnVisited(Vector3Int pos)
 	{
 		
 	}
