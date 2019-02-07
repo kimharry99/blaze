@@ -12,7 +12,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public Vector3Int curPosition;
 	private Vector3Int destPosition;
-	private Vector3Int? focusedPosition = null;
+	private Vector3Int? coloredPosition = null;
 
 	public GameObject player;
 
@@ -32,6 +32,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 			return 3 + (int)dayNight + (int)weather;
 		}
 	}
+
+	private bool isMoving = false;
+
+
 	private void Awake()
 	{
 		//MapMaking(10);
@@ -49,39 +53,41 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void Update()
     {
+		if (isMoving)
+			return;
 		if (EventSystem.current.IsPointerOverGameObject())
 			return;
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		Vector3Int cellPos = landTilemap.WorldToCell(mousePos);
-		if(cellPos != focusedPosition)
+		if(cellPos != coloredPosition)
 		{
-			if (focusedPosition != null)
+			if (coloredPosition != null)
 			{
-				landTilemap.SetColor((Vector3Int)focusedPosition, tileInfos[(Vector3Int)focusedPosition].TileColor);
-				structureTilemap.SetColor((Vector3Int)focusedPosition, tileInfos[(Vector3Int)focusedPosition].TileColor);
+				landTilemap.SetColor((Vector3Int)coloredPosition, tileInfos[(Vector3Int)coloredPosition].TileColor);
+				structureTilemap.SetColor((Vector3Int)coloredPosition, tileInfos[(Vector3Int)coloredPosition].TileColor);
 			}
 
 			if (cellPos == curPosition)
 			{
 				landTilemap.SetColor(cellPos, Color.yellow);
 				structureTilemap.SetColor(cellPos, Color.yellow);
-				focusedPosition = cellPos;
+				coloredPosition = cellPos;
 			}
 			else if (IsNearByTile(cellPos))
 			{
 				landTilemap.SetColor(cellPos, Color.blue);
 				structureTilemap.SetColor(cellPos, Color.blue);
-				focusedPosition = cellPos;
+				coloredPosition = cellPos;
 			}
-			else
+			else if (IsNearByTile(cellPos, SightDistance))
 			{
 				landTilemap.SetColor(cellPos, Color.red);
 				structureTilemap.SetColor(cellPos, Color.red);
 			}
 			if (tileInfos.ContainsKey(cellPos))
-				focusedPosition = cellPos;
+				coloredPosition = cellPos;
 			else
-				focusedPosition = null;
+				coloredPosition = null;
 		}
 
 		if (Input.GetMouseButtonDown(0))
@@ -218,6 +224,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		destPosition = tilePosition;
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
 		GameManager.inst.StartTask(Move, moveCost);
+		isMoving = true;
 	}
 
 	private void Move()
@@ -226,9 +233,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 		Vector3 end = landTilemap.CellToWorld(destPosition);
 		StartCoroutine(CharacterMove(start, end));
 		curPosition = destPosition;
-		landTilemap.GetTile<LandTile>(curPosition).OnVisited(curPosition);
-		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
-		tileInfos[curPosition].OnVisited();
 
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 		UpdateTiles();
@@ -244,6 +248,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 			player.transform.position = start + direction * Vector2Utility.GetQuadricBeizerCurvePoint(Vector2.zero, Vector2.one, new Vector2(0, 1), new Vector2(0, 1), t).y;
 			yield return null;
 		}
+		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
+		tileInfos[curPosition].OnVisited();
+		isMoving = false;
 	}
 	#endregion
 }
