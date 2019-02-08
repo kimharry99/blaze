@@ -42,6 +42,11 @@ public abstract class StructureTile : DefaultTile
 	{
 		
 	}
+
+	public virtual void OnExplored()
+	{
+
+	}
 }
 
 [System.Serializable]

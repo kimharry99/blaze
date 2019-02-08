@@ -271,9 +271,22 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
     }
 
+	public void HealthDamaged(int amount)
+	{
+		Health -= amount;
+		if (Health <= 0)
+		{
+			GameOver();
+		}
+	}
+
 	public void SanityDamaged(int amount)
 	{
 		Sanity -= amount;
+		if (Sanity <= 0)
+		{
+			GameOver();
+		}
 	}
 
 	#endregion

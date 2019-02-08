@@ -198,6 +198,16 @@ public class UIManager : SingletonBehaviour<UIManager>
 		InitResultObject(result, "Textures/PlayerStatus Icon/Sanity", sanity);
 	}
 
+	public void AddPlayerStatusResult(int hunger = 0, int thirst = 0, int energy = 0)
+	{
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/PlayerStatus Icon/Hunger", hunger);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/PlayerStatus Icon/Thirst", thirst);
+		result = Instantiate(resultPrefab, resultGrid);
+		InitResultObject(result, "Textures/PlayerStatus Icon/Energy", energy);
+	}
+
 	private void InitResultObject(GameObject result, string path, int amount)
 	{
 		result.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(path);

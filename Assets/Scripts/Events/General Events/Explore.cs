@@ -24,13 +24,14 @@ public class Explore : LogEvent
 
 	public override List<UnityAction> GetActions()
 	{
-		return new List<UnityAction> { Explore_Confirm };
+		return new List<UnityAction> { Confirm };
 	}
 
-	private void Explore_Confirm()
+	private void Confirm()
 	{
 		MapManager.inst.tileInfos[MapManager.inst.curPosition].TakeResources(food, preserved, water, wood, components, parts);
 		UIManager.inst.CloseEventLogPanel();
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
+		MapManager.inst.structureTilemap.GetTile<StructureTile>(MapManager.inst.curPosition).OnExplored();
 	}
 }

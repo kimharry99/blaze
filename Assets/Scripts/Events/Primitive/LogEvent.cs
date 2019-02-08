@@ -14,4 +14,14 @@ public abstract class LogEvent : ScriptableObject
 
 	public abstract void EventStart();
 	public abstract List<UnityAction> GetActions();
+
+	public void NextEvent(string eventName)
+	{
+		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent(eventName));
+	}
+
+	public void EndEvent()
+	{
+		UIManager.inst.CloseEventLogPanel();
+	}
 }

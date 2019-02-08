@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Tilemaps;
+﻿using UnityEngine;
 
 public class BuildingTile : StructureTile
 {
@@ -14,12 +9,20 @@ public class BuildingTile : StructureTile
 	public override void OnVisited(Vector3Int pos)
 	{
 		base.OnVisited(pos);
-		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("WeirdSound"));
+		if (!MapManager.inst.tileInfos[pos].isVisited)
+		{
+			float rand = Random.Range(0, 100);
+			if (rand < 10)
+				UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("WeirdSound"));
+		}
+
 	}
 
-	public override List<UnityAction> GetTileActions()
+	public override void OnExplored()
 	{
-		List<UnityAction> actions = base.GetTileActions();
-		return actions;
+		base.OnExplored();
+		float rand = Random.Range(0, 100);
+		if (rand < 5)
+			UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("WeirdSound"));
 	}
 }
