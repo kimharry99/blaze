@@ -39,6 +39,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Door { get; private set; }
 	public int Bag { get; private set; }
 	public int WareHouse { get; private set; }
+    public int Refrigerator { get; private set; }
 	#endregion
 
 	#region Player Status

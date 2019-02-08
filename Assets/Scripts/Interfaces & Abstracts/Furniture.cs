@@ -12,6 +12,7 @@ public enum FurnitureType
 	Kitchen,
 	Bucket,
 	Door,
+    Refrigerator,
 	None = -1
 }
 
