@@ -16,9 +16,12 @@ public class ForestTile : StructureTile
 		{
 			float rand = Random.Range(0, 100);
 			if (rand < 10)
+			{
 				UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("XMark"));
+				return;
+			}
 		}
-		
+		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("TrappedDeer"));
 	}
 
 	public override void OnExplored()

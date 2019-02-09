@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3466f4c783ff1db44a012dcc30fea402, type: 3}
+  m_Name: TrappedDeer_Parts
+  m_EditorClassIdentifier: 
+  eventName: TrappedDeer_Parts
+  eventTitle: "\uC18C\uC815\uC758 \uC131\uACFC"
+  description: "\uC870\uAE08 \uC2DC\uAC04\uC774 \uAC78\uB838\uC9C0\uB9CC, \uC0AC\uC2B4\uC774
+    \uAC78\uB9B0 \uB36B\uC744 \uD574\uCCB4\uD558\uB294\uB370 \uC131\uACF5\uD588\uB2E4.\n\uC0AC\uC2B4\uC740
+    \uB36B\uC758 \uC18D\uBC15\uC774 \uD480\uB9AC\uC790\uB9C8\uC790, \uB4A4\uB3C4 \uB3CC\uC544\uBCF4\uC9C0
+    \uC54A\uACE0 \uC800 \uBA38\uB098\uBA3C \uACF3\uC73C\uB85C \uB3C4\uB9DD\uCCE4\uB2E4.\n\uC5ED\uC2DC
+    \uB3D9\uD654\uAC19\uC740 \uC804\uAC1C\uB97C \uAE30\uB300\uD558\uB294\uAC74 \uBB34\uB9AC\uACA0\uC9C0...\n\uADF8\uB798\uB3C4
+    \uD574\uCCB4\uD55C \uB36B\uC5D0\uC11C \uD544\uC694\uD55C \uBD80\uD488\uC744 \uC5BB\uC744
+    \uC218 \uC788\uC5C8\uB2E4."
+  actionDescriptions:
+  - "\uC708\uC708...\uC778\uAC00?"
+  turn: 8
+  components: 20
+  parts: 10
