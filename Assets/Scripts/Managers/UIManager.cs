@@ -176,36 +176,67 @@ public class UIManager : SingletonBehaviour<UIManager>
 
 	public void AddResourceResult(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		GameObject result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Food", food);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Preserved", preserved);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Water", water);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Wood", wood);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Components", components);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/Resources Icon/Parts", parts);
+		GameObject result;
+		if (food != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Food", food);
+		}
+		if (preserved != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Preserved", preserved);
+		}
+		if (water != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Water", water);
+		}
+		if (wood != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Wood", wood);
+		}
+		if (components != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Components", components);
+		}
+		if (parts != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/Resources Icon/Parts", parts);
+		}
 	}
 
-	public void AddPlayerStatusResult(int health = 0, int sanity = 0)
+	public void AddPlayerStatusResult(int health = 0, int sanity = 0, int hunger = 0, int thirst = 0, int energy = 0)
 	{
-		GameObject result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/PlayerStatus Icon/Health", health);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/PlayerStatus Icon/Sanity", sanity);
-	}
-
-	public void AddPlayerStatusResult(int hunger = 0, int thirst = 0, int energy = 0)
-	{
-		GameObject result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/PlayerStatus Icon/Hunger", hunger);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/PlayerStatus Icon/Thirst", thirst);
-		result = Instantiate(resultPrefab, resultGrid);
-		InitResultObject(result, "Textures/PlayerStatus Icon/Energy", energy);
+		GameObject result;
+		if (health != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/PlayerStatus Icon/Health", health);
+		}
+		if (sanity != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/PlayerStatus Icon/Sanity", sanity);
+		}
+		if (hunger != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/PlayerStatus Icon/Hunger", hunger);
+		}
+		if (thirst != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/PlayerStatus Icon/Thirst", thirst);
+		}
+		if (energy != 0)
+		{
+			result = Instantiate(resultPrefab, resultGrid);
+			InitResultObject(result, "Textures/PlayerStatus Icon/Energy", energy);
+		}
 	}
 
 	private void InitResultObject(GameObject result, string path, int amount)
