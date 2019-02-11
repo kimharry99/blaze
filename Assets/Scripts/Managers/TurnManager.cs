@@ -49,11 +49,11 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		get
 		{
 			Vector2 time = Time();
-			if (time.x <= 6 || time.x >= 18)
+			if (time.x <= 5 || time.x >= 18)
 			{
 				return DayNight.Night;
 			}
-			else if (time.x <= 7 || time.x >= 17)
+			else if (time.x <= 7 || time.x >= 16)
 			{
 				return DayNight.Sunset;
 			}
