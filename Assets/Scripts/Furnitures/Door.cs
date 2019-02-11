@@ -9,11 +9,11 @@ public class Door : Furniture
 
     private readonly int[] thiefPreventionRate = { 0, 50, 75 };
 
-    public int ThiefPreventionRate { get { return thiefPreventionRate[Level]; } }
+    public int ThiefPreventionRate { get { return thiefPreventionRate[Level-1]; } }
 
     private void Start()
     {
-        Level = 0;
+        Level = 1;
     }
 
     public override void OnUseButtonClicked()

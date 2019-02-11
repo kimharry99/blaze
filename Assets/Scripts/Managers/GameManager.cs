@@ -141,7 +141,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             Thirst = Mathf.Max(0, Thirst - 2 * turn);
         }
-        //Thirst = 0
         else
         {
             Health = Mathf.Max(0, Health - 4 * turn);
@@ -150,7 +149,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
 
-		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
+		//TODO : Don't use energy while sleeping ;
 	}
 
     public bool CheckStatus(int health= 0, int mental = 0, int hunger = 0, int thirst = 0, int energy = 0)

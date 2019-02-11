@@ -9,8 +9,8 @@ public class Refrigerator : Furniture
     private readonly int[] powerConsumption = { 0, 15, 40, 60 };
     private readonly int[] lostFoodRate = { 20, 10, 5, 2 };
 
-    public int PowerConsumption { get { return powerConsumption[Level]; } }
-    public int LostFoodRate { get { return lostFoodRate[Level]; } }
+    public int PowerConsumption { get { return powerConsumption[Level-1]; } }
+    public int LostFoodRate { get { return lostFoodRate[Level-1]; } }
 
     public override void OnUseButtonClicked()
     {
@@ -19,7 +19,7 @@ public class Refrigerator : Furniture
 
     private void Start()
     {
-        Level = 0;
+        Level = 1;
     }
 
     private void UseFurniture()
