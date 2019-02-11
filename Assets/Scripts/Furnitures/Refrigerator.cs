@@ -17,15 +17,13 @@ public class Refrigerator : Furniture
         throw new System.NotImplementedException();
     }
 
-    // Start is called before the first frame update
     private void Start()
     {
         Level = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void UseFurniture()
     {
-        
+        throw new System.NotImplementedException();
     }
 }
