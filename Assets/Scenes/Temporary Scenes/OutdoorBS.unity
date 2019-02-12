@@ -4018,6 +4018,8 @@ MonoBehaviour:
   componentsUI: {fileID: 2082196295}
   partsUI: {fileID: 1216617091}
   playerStatusUI: {fileID: 918374649}
+  HealthUI: {fileID: 1181810197}
+  SanityUI: {fileID: 2115143941}
   hungerUI: {fileID: 821840029}
   thirstUI: {fileID: 1863052305}
   energyUI: {fileID: 1543972604}

@@ -29,6 +29,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Player Status UI
 	[Header("Player Status UI")]
 	public GameObject playerStatusUI;
+	public Slider HealthUI;
+	public Slider SanityUI;
 	public Slider hungerUI;
 	public Slider thirstUI;
 	public Slider energyUI;
@@ -95,6 +97,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Player Status UI Functions
 	public void UpdatePlayerStatusUI()
 	{
+		HealthUI.value = gm.Health / 100f;
+		SanityUI.value = gm.Sanity / 100f;
 		hungerUI.value = gm.Hunger / 100f;
 		thirstUI.value = gm.Thirst / 100f;
 		energyUI.value = gm.Energy / 100f;
