@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
@@ -45,7 +46,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	private void Start()
     {
-		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<NoneTile>(),"Assets/Tiles/StructureTiles/NoneTile.asset");
+		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<Weak>(),"Assets/Buffs/Weak.asset");
 		UpdateTiles();
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;

@@ -47,6 +47,14 @@ public class GameManager : SingletonBehaviour<GameManager>
     public int Energy { get; private set; }
 	public int Hunger { get; private set; }
 	public int Thirst { get; private set; }
+
+	[SerializeField]
+	private List<Buff> buffs = new List<Buff>();
+	public int healthChangePerTurn = 0;
+	public int sanityChangePerTurn = 0;
+	public int energyChangePerTurn = 0;
+	public int hungerChangePerTurn = 0;
+	public int thirstChangePerTurn = 0;
 	#endregion
 
 	public event Action OnResourceUpdated;
@@ -57,6 +65,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
+		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 		PlayerState.Transition(PlayerState.idle);
 	}
@@ -150,6 +159,11 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
 
 		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
+	}
+
+	private void OutsideStatusUpdateByTurn(int turn)
+	{
+		DayNight dayNight = TurnManager.inst.DayNight;
 	}
 
     public bool CheckStatus(int health= 0, int mental = 0, int hunger = 0, int thirst = 0, int energy = 0)
@@ -289,6 +303,29 @@ public class GameManager : SingletonBehaviour<GameManager>
 		}
 	}
 
+	public void AddBuff(Buff buff)
+	{
+		if (!buffs.Contains(buff))
+		{
+			buffs.Add(buff);
+		}
+	}
+
+	public void RemoveBuff(Buff buff)
+	{
+		if (buffs.Contains(buff))
+		{
+			buffs.Remove(buff);
+		}
+	}
+
+	private void ApplyBuffs(int turn)
+	{
+		foreach (var buff in buffs)
+		{
+			buff.Apply(turn);
+		}
+	}
 	#endregion
 
 	#region Game System Functions
