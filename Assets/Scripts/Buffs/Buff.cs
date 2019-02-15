@@ -5,13 +5,11 @@ using UnityEngine;
 public abstract class Buff : ScriptableObject
 {
 	public Sprite buffImage;
-	public int RemainedTurn { get; private set; }
-	public int BuffCount { get; private set; }
+	public int RemainedTurn { get; protected set; }
+	public int BuffCount { get; protected set; }
 	public string buffName;
 	public string description;
 	public abstract bool IsActivated { get; }
-	public abstract void Init();
-	public abstract void Remove();
 	public abstract void Apply(int turn);
 	protected virtual void OnTurnChanged(int turn) { }
 }
