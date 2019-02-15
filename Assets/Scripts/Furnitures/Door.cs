@@ -7,7 +7,16 @@ public class Door : Furniture
 {
 	public override FurnitureType type { get { return FurnitureType.Door; } }
 
-	public override void OnUseButtonClicked()
+    private readonly int[] thiefPreventionRate = { 0, 50, 75 };
+
+    public int ThiefPreventionRate { get { return thiefPreventionRate[Level-1]; } }
+
+    private void Start()
+    {
+        Level = 1;
+    }
+
+    public override void OnUseButtonClicked()
 	{
 		SceneManager.LoadScene("Outdoor");
 	}

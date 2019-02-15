@@ -39,6 +39,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Door { get; private set; }
 	public int Bag { get; private set; }
 	public int WareHouse { get; private set; }
+    public int Refrigerator { get; private set; }
 	#endregion
 
 	#region Player Status
@@ -149,7 +150,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             Thirst = Mathf.Max(0, Thirst - 2 * turn);
         }
-        //Thirst = 0
         else
         {
             Health = Mathf.Max(0, Health - 4 * turn);
@@ -158,7 +158,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
 
-		//TODO : Hunger < 0 Thirst < 0 Down Health, Mental
+		//TODO : Don't use energy while sleeping ;
 	}
 
 	private void OutsideStatusUpdateByTurn(int turn)
