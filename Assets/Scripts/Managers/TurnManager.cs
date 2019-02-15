@@ -104,7 +104,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	private void DayOver()
 	{
         RotFood();
-        LoseResource();
+        OccurTheifEvent();
 	}
     
     private void RotFood()
@@ -112,10 +112,18 @@ public class TurnManager : SingletonBehaviour<TurnManager>
         GameManager.inst.UseResource(food:GameManager.inst.Food * FindObjectOfType<Refrigerator>().LostFoodRate/100);
     }
 
-    private void LoseResource()
+    private void OccurTheifEvent()
     {
-        //int resourceScore = GameManager.inst.Food + GameManager.inst.Water + GameManager.inst.Components + 2 * GameManager.inst.Wood + 3 * (GameManager.inst.Preserved + GameManager.inst.Parts);
-        //int lostProbability = (int)Mathf.Clamp(0, 100, 8 * Mathf.Log(2, resourceScore)*Door.inst.ThiefPreventionRate/100);
+        int resourceScore = Mathf.Max(1,GameManager.inst.Food + GameManager.inst.Water + GameManager.inst.Components + 2 * GameManager.inst.Wood + 3 * (GameManager.inst.Preserved + GameManager.inst.Parts));
+        int lostProbability = (int)Mathf.Clamp(8 * Mathf.Log(resourceScore,2) - FindObjectOfType<Door>().ThiefPreventionRate,0.0f, 100.0f);
+
+        if(lostProbability> UnityEngine.Random.Range(0, 100))
+        {
+            //TODO : add resource loss
+            Debug.Log("Event occur");
+        }
+
+
     }
 
 	public void ChangeWeather()
