@@ -123,8 +123,10 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	public void UseTurn(int turn)
 	{
-		Turn += turn;
-		OnTurnPassed(turn);
+		for (int i = 0; i < turn; ++i)
+		{
+			Turn++;
+		}
 	}
 
 	private void DayOver()
