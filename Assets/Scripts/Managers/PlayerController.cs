@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.M))
         {
             GameManager.inst.Cure(100);
-            GameManager.inst.Heal(100);
+            GameManager.inst.ChangeSanity(100);
             GameManager.inst.Eat(100);
             GameManager.inst.Drink(100);
             GameManager.inst.Rest(100);

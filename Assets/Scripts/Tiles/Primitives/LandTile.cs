@@ -14,7 +14,9 @@ public abstract class LandTile : DefaultTile
 
 	public override void OnVisited(Vector3Int pos)
 	{
-		
+		int rand = Random.Range(0, 100);
+		if (rand < 2)
+			UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("HungryCat"));
 	}
 }
 

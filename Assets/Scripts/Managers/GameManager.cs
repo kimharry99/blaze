@@ -238,7 +238,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
     }
 
-    public void Heal (int amount)
+    public void ChangeSanity (int amount)
     {
         if (amount > 0)
         {

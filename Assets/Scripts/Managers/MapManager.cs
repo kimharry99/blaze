@@ -249,6 +249,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 			player.transform.position = start + direction * Vector2Utility.GetQuadricBeizerCurvePoint(Vector2.zero, Vector2.one, new Vector2(0, 1), new Vector2(0, 1), t).y;
 			yield return null;
 		}
+		landTilemap.GetTile<LandTile>(curPosition).OnVisited(curPosition);
 		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
 		tileInfos[curPosition].OnVisited();
 		isMoving = false;

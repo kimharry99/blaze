@@ -46,6 +46,6 @@ public class Bed : Furniture
         {
             GameManager.inst.Cure(usingTurn / CureTurnLeft);
         }
-        GameManager.inst.Heal(usingTurn / HealTurnLeft);
+        GameManager.inst.ChangeSanity(usingTurn / HealTurnLeft);
     }
 }
