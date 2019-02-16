@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HungryCat_Sad
   m_EditorClassIdentifier: 
   eventName: HungryCat_Sad
-  eventTitle: "\uB4B7\uBAA8\uC2B5"
+  eventTitle: "\uC4F8\uC4F8\uD55C \uB4B7\uBAA8\uC2B5"
   description: "\uACE0\uC591\uC774\uB294 \uB098\uB97C \uD55C\uCC38\uB3D9\uC548 \uBC14\uB77C\uBCF4\uB354\uB2C8,
     \uB098\uC5D0\uAC8C\uC11C \uC544\uBB34\uAC83\uB3C4 \uC5BB\uC744 \uC218 \uC5C6\uC74C\uC744
     \uAE68\uB2EC\uC558\uB294\uC9C0 \uC77C\uC5B4\uB098 \uBE44\uCC99\uBE44\uCC99 \uC790\uB9AC\uB97C
@@ -21,4 +21,4 @@ MonoBehaviour:
     \uBB34\uCC99 \uCE21\uC740\uD574 \uBCF4\uC600\uB2E4."
   actionDescriptions:
   - "\uBBF8\uC548\uD558\uC9C0\uB9CC... \uC5B4\uCA54\uC218 \uC5C6\uC5C8\uB2E4"
-  sanity: -10
+  sanity: -5
