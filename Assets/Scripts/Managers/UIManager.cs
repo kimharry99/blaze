@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
+using System.Linq;
 
 /// <summary>
 /// Manager of common UI between scenes
@@ -56,10 +57,20 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public RectTransform resultGrid;
 	#endregion
 
+	#region Buff UI
+	[Header("Buff UI")]
+	public GameObject buffPanel;
+	public GameObject buffInfoPanel;
+	public Text buffNameText;
+	public Text buffDescText;
+	public Dictionary<string, BuffUI> buffUIs = new Dictionary<string, BuffUI>();
+	#endregion
+
 	#region Prefabs
 	[Header("Prefabs")]
 	public GameObject eventButtonPrefab;
 	public GameObject resultPrefab;
+	public GameObject buffUIPrefab;
 	#endregion
 
 	#region Managers
@@ -285,4 +296,50 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gameObject.SetActive(scene.name != "Title");
 	}
 	#endregion
+
+	#region Buff UI Funcitons
+	public void UpdateBuffUI(Buff buff)
+	{
+		if (buff.IsActivated)
+		{
+			BuffUI buffUI;
+			if (!buffUIs.ContainsKey(buff.buffName))
+			{
+				buffUI = Instantiate(buffUIPrefab, buffPanel.transform).GetComponent<BuffUI>();
+				buffUI.GetComponent<RawImage>().texture = buff.buffTexture;
+				buffUI.Init(buff.buffName, buff.description);
+				buffUIs.Add(buff.buffName, buffUI);
+			}
+			else
+			{
+				buffUI = buffUIs[buff.buffName];
+				buffUI.gameObject.SetActive(true);
+			}
+			if (buff.BuffCount > 0)
+				buffUI.transform.Find("BuffCountText").GetComponent<Text>().text = "x" + buff.BuffCount.ToString();
+			if (buff.RemainedTurn > 0)
+			{
+				Vector2 time = tm.Time(buff.RemainedTurn);
+				buffUI.transform.Find("BuffTimeText").GetComponent<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00");
+			}
+		}
+		else if (buffUIs.ContainsKey(buff.buffName))
+		{
+			buffUIs[buff.buffName].gameObject.SetActive(false);
+		}
+		
+	}
+
+	public void OpenBuffInfoUI(string name, string description)
+	{
+		buffInfoPanel.SetActive(true);
+		buffNameText.text = name;
+		buffDescText.text = description;
+	}
+
+	public void CloseBuffInfoUI()
+	{
+		buffInfoPanel.SetActive(false);
+	}
+	#endregion region
 }

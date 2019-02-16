@@ -85,6 +85,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Update()
 	{
 		PlayerState.curState.StateUpdate();
+
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			Hunger = 0;
+		}
 	}
 
 	/// <summary>
@@ -323,7 +328,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		foreach (var buff in buffs)
 		{
-			buff.Apply(turn);
+			if (buff.IsActivated)
+				buff.Apply(turn);
+			UIManager.inst.UpdateBuffUI(buff);
 		}
 	}
 	#endregion
