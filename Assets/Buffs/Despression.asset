@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d050e74be79e58c4f9fc31b661bdc869, type: 3}
+  m_Name: Despression
+  m_EditorClassIdentifier: 
+  buffTexture: {fileID: 2800000, guid: 7d7a49df075dd594f80323d879a5fd15, type: 3}
+  buffName: "\uC6B0\uC6B8"
+  description: "\uC0B6\uC774 \uD798\uB4E4\uB2E4\uACE0 \uB290\uAEF4\uC9D1\uB2C8\uB2E4..."

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0683a72ef74346458dfa3ff5d25e332, type: 3}
-  m_Name: Starve
+  m_Script: {fileID: 11500000, guid: 042fa8aaf53b8ee41ad03cf8a1a55355, type: 3}
+  m_Name: Bleeding
   m_EditorClassIdentifier: 
-  buffTexture: {fileID: 2800000, guid: 62961db8eb04a1042939127965298271, type: 3}
-  buffName: "\uAD76\uC8FC\uB9BC"
-  description: "\uC2E0\uBC1C\uB3C4 \uBA39\uC744\uC218 \uC788\uC744 \uAC83 \uAC19\uC2B5\uB2C8\uB2E4.\n\uB2E4\uC74C\uACFC
+  buffTexture: {fileID: 2800000, guid: f92e184df79ef374b8811aecc1edeb10, type: 3}
+  buffName: "\uCD9C\uD608"
+  description: "\uC5B4\uC11C \uC9C0\uD608\uD574\uC57C \uD569\uB2C8\uB2E4!\n\uB2E4\uC74C\uACFC
     \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4 :\n\uB9E4 \uD134 \uAC74\uAC15
-    -1\n\uB9E4 \uD134 \uC815\uC2E0\uB825 -2"
+    -1 * (\uC2A4\uD0DD)"

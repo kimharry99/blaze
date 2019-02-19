@@ -58,6 +58,14 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int thirstChangePerTurn = 0;
 	#endregion
 
+	public bool IsOutside
+	{
+		get
+		{
+			return SceneManager.GetActiveScene().name == "OutdoorBS";
+		}
+	}
+
 	public event Action OnResourceUpdated;
 	public event Action OnPlayerStatusUpdated;
 
@@ -80,6 +88,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Thirst = 100;
 
 		OnPlayerStatusUpdated();
+
+		foreach (var buff in buffs)
+		{
+			buff.Init();
+		}
 	}
 
 	private void Update()
@@ -89,6 +102,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			Hunger = 0;
+			Thirst = 0;
 		}
 	}
 
@@ -136,6 +150,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void StatusUpdateByTurn(int turn)
 	{
+		/*
         if(Hunger >80)
         {
             Sanity = Mathf.Min(100, Sanity + 2 * turn);
@@ -162,7 +177,13 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
-
+		*/
+		Health = Mathf.Max(0, Health + healthChangePerTurn * turn);
+		Sanity = Mathf.Max(0, Sanity + sanityChangePerTurn * turn);
+		Hunger = Mathf.Max(0, Hunger + hungerChangePerTurn * turn);
+		Thirst = Mathf.Max(0, Thirst + thirstChangePerTurn * turn);
+		Energy = Mathf.Max(0, Energy + energyChangePerTurn * turn);
+		OnPlayerStatusUpdated();
 		//TODO : Don't use energy while sleeping ;
 	}
 
@@ -326,10 +347,18 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void ApplyBuffs(int turn)
 	{
+		healthChangePerTurn = 0;
+		sanityChangePerTurn = 0;
+		hungerChangePerTurn = -1;
+		thirstChangePerTurn = -2;
+		energyChangePerTurn = -1;
+
 		foreach (var buff in buffs)
 		{
 			if (buff.IsActivated)
+			{
 				buff.Apply(turn);
+			}
 			UIManager.inst.UpdateBuffUI(buff);
 		}
 	}

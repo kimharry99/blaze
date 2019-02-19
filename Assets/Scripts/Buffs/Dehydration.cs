@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bleeding : Buff
+public class Dehydration : Buff
 {
 	public override bool IsActivated
 	{
 		get
 		{
-			return BuffCount > 0;
+			return GameManager.inst.Thirst <= 0;
 		}
 	}
 
 	public override void Apply(int turn)
 	{
-		GameManager.inst.healthChangePerTurn -= BuffCount;
+		GameManager.inst.healthChangePerTurn -= 4;
+		GameManager.inst.sanityChangePerTurn -= 1;
 	}
 }

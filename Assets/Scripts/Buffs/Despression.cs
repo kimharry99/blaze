@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Despression : MonoBehaviour
+public class Despression : Buff
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public override bool IsActivated
+	{
+		get
+		{
+			return GameManager.inst.Sanity <= 50 && GameManager.inst.Sanity > 25;
+		}
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public override void Apply(int turn)
+	{
+		//TODO
+	}
 }

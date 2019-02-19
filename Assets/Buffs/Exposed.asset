@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 256a73405b68d904cb5f45382e03eeba, type: 3}
+  m_Name: Exposed
+  m_EditorClassIdentifier: 
+  buffTexture: {fileID: 2800000, guid: d1009ba17827a4342a882c5ebf456258, type: 3}
+  buffName: "\uD587\uBE5B\uC5D0 \uB178\uCD9C"
+  description: "\uB354\uC774\uC0C1 \uD587\uBE5B\uC740 \uC548\uC804\uD558\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4...\n\uB2E4\uC74C\uACFC
+    \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4 :\n\uB9E4 \uD134 \uAC74\uAC15
+    -1\n\uB9E4 \uD134 \uD654\uC0C1 \uBC1C\uC0DD \uD655\uB960 2%"

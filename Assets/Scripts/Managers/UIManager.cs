@@ -306,7 +306,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 			if (!buffUIs.ContainsKey(buff.buffName))
 			{
 				buffUI = Instantiate(buffUIPrefab, buffPanel.transform).GetComponent<BuffUI>();
-				buffUI.GetComponent<RawImage>().texture = buff.buffTexture;
+				buffUI.transform.Find("IconImage").GetComponent<RawImage>().texture = buff.buffTexture;
 				buffUI.Init(buff.buffName, buff.description);
 				buffUIs.Add(buff.buffName, buffUI);
 			}

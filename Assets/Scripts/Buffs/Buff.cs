@@ -12,5 +12,19 @@ public abstract class Buff : ScriptableObject
 	public string description;
 	public abstract bool IsActivated { get; }
 	public abstract void Apply(int turn);
-	protected virtual void OnTurnChanged(int turn) { }
+	public virtual void Init() { }
+	protected virtual void OnTurnPassed(int turn)
+	{
+		RemainedTurn = Mathf.Max(RemainedTurn - turn, 0);
+	}
+
+	public void SetRemainedTurn(int turn)
+	{
+		RemainedTurn = turn;
+	}
+
+	public void AddBuffCount(int count)
+	{
+		BuffCount += count;
+	}
 }
