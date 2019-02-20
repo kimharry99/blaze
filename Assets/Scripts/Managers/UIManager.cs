@@ -66,11 +66,20 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Dictionary<string, BuffUI> buffUIs = new Dictionary<string, BuffUI>();
 	#endregion
 
+	#region Cure UI
+	[Header("Cure UI")]
+	public GameObject curePanel;
+	public Text cureInfoText;
+	public RectTransform diseaseButtonGrid;
+	public Button cureButton;
+	#endregion
+
 	#region Prefabs
 	[Header("Prefabs")]
 	public GameObject eventButtonPrefab;
 	public GameObject resultPrefab;
 	public GameObject buffUIPrefab;
+	public GameObject diseaseButtonPrefab;
 	#endregion
 
 	#region Managers
@@ -342,4 +351,43 @@ public class UIManager : SingletonBehaviour<UIManager>
 		buffInfoPanel.SetActive(false);
 	}
 	#endregion region
+
+	#region Cure UI Functions
+	public void OpenCurePanel()
+	{
+		foreach (Transform transform in diseaseButtonGrid)
+		{
+			Destroy(transform.gameObject);
+		}
+		curePanel.SetActive(true);
+		foreach(var disease in gm.GetDiseases())
+		{
+			AddDiseaseButton(disease);
+		}
+	}
+
+	public void CloseCurePanel()
+	{
+		curePanel.SetActive(false);
+	}
+
+	public void AddDiseaseButton(Disease disease)
+	{
+		GameObject obj = Instantiate(diseaseButtonPrefab, diseaseButtonGrid);
+		obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeDisease(disease); });
+	}
+
+	public void ChangeDisease(Disease disease)
+	{
+		cureButton.onClick.RemoveAllListeners();
+		cureButton.onClick.AddListener(delegate {
+			disease.Cure();
+			OpenCurePanel();
+			UpdateBuffUI(disease);
+			cureButton.onClick.RemoveAllListeners();
+		});
+		cureButton.interactable = disease.IsCureable;
+		cureInfoText.text = disease.cureInfoString;
+	}
+	#endregion
 }

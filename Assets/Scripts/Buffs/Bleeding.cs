@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bleeding : Buff
+public class Bleeding : Disease
 {
 	public override bool IsActivated
 	{
@@ -12,8 +12,21 @@ public class Bleeding : Buff
 		}
 	}
 
+	public override bool IsCureable
+	{
+		get
+		{
+			return true;
+		}
+	}
+
 	public override void Apply(int turn)
 	{
 		GameManager.inst.healthChangePerTurn -= BuffCount;
+	}
+
+	public override void Cure()
+	{
+		throw new System.NotImplementedException();
 	}
 }

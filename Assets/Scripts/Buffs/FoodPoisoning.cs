@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoodPoisoning : Buff
+public class FoodPoisoning : Disease
 {
 	public override bool IsActivated
 	{
@@ -12,14 +12,28 @@ public class FoodPoisoning : Buff
 		}
 	}
 
+	public override bool IsCureable
+	{
+		get
+		{
+			return true;
+		}
+	}
+
 	public override void Apply(int turn)
 	{
 		GameManager.inst.hungerChangePerTurn -= 5;
 		GameManager.inst.thirstChangePerTurn -= 5;
 	}
 
+	public override void Cure()
+	{
+		RemainedTurn = 0;
+	}
+
 	public override void Init()
 	{
+		RemainedTurn = 10;
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 }

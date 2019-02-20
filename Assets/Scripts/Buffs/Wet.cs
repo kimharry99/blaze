@@ -16,7 +16,6 @@ public class Wet : Buff
 					RemainedTurn = 4;
 				}
 			}
-			Debug.Log(RemainedTurn);
 			return RemainedTurn > 0;
 		}
 	}

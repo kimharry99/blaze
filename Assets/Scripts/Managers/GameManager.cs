@@ -17,16 +17,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	#endregion
 
 	#region Items
-	public Dictionary<int, Item> items = new Dictionary<int, Item>();
-	public Dictionary<int, Item> bag = new Dictionary<int, Item>();
-	public float BagWeight
-	{
-		get
-		{
-			//TODO : Calculate weight of all items in the bag and return it
-			return 0;
-		}
-	}
+	public Dictionary<string, Item> items = new Dictionary<string, Item>();
 	#endregion
 
 	#region Furnitures
@@ -361,6 +352,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 			}
 			UIManager.inst.UpdateBuffUI(buff);
 		}
+	}
+
+	public List<Disease> GetDiseases()
+	{
+		List<Disease> diseases = new List<Disease>();
+		foreach(var buff in buffs)
+		{
+			if (buff.GetType().IsSubclassOf(typeof(Disease)) && buff.IsActivated)
+				diseases.Add((Disease)buff);
+		}
+		return diseases;
 	}
 	#endregion
 
