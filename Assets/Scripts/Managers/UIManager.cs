@@ -69,8 +69,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Cure UI
 	[Header("Cure UI")]
 	public GameObject curePanel;
-	public Text cureInfoText;
 	public RectTransform diseaseButtonGrid;
+	public RectTransform cureInfoGrid;
 	public Button cureButton;
 	#endregion
 
@@ -80,6 +80,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public GameObject resultPrefab;
 	public GameObject buffUIPrefab;
 	public GameObject diseaseButtonPrefab;
+	public GameObject resourceInfoPrefab;
 	#endregion
 
 	#region Managers
@@ -359,6 +360,10 @@ public class UIManager : SingletonBehaviour<UIManager>
 		{
 			Destroy(transform.gameObject);
 		}
+		foreach (Transform transform in cureInfoGrid)
+		{
+			Destroy(transform.gameObject);
+		}
 		curePanel.SetActive(true);
 		foreach(var disease in gm.GetDiseases())
 		{
@@ -387,7 +392,44 @@ public class UIManager : SingletonBehaviour<UIManager>
 			cureButton.onClick.RemoveAllListeners();
 		});
 		cureButton.interactable = disease.IsCureable;
-		cureInfoText.text = disease.cureInfoString;
+		foreach (var str in disease.cureInfoString.Split(' ', '\n'))
+		{
+			int curResource = 0;
+			GameObject obj = Instantiate(resourceInfoPrefab, cureInfoGrid);
+			string path = "Textures/";
+			string[] info = str.Split(',');
+			//TODO
+			switch (info[0])
+			{
+				case "Water":
+					curResource = gm.Water;
+					goto case "Dummy";
+				case "Food":
+					curResource = gm.Food;
+					goto case "Dummy";
+				case "Components":
+					curResource = gm.Components;
+					goto case "Dummy";
+				case "Parts":
+					curResource = gm.Parts;
+					goto case "Dummy";
+				case "Preserved":
+					curResource = gm.Preserved;
+					goto case "Dummy";
+				case "Wood":
+					curResource = gm.Wood;
+					goto case "Dummy";
+				case "Dummy":
+					path += ("Resources Icon/" + info[0]);
+					break;
+				default:
+					path += ("Items Icon/" + info[0]);
+					break;
+			}
+			obj.transform.Find("RawImage").GetComponent<RawImage>().texture = Resources.Load<Texture2D>(path);
+			obj.GetComponentInChildren<Text>().text = curResource + "/" + info[1];
+
+		}	
 	}
 	#endregion
 }
