@@ -44,12 +44,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Player Status
     public int Health { get; private set; }
+    public int MaxHealth { get; private set; }
     public int Sanity { get; private set; }
+    public int MaxSanity { get; private set; }
     public int Energy { get; private set; }
-	public int Hunger { get; private set; }
-	public int Thirst { get; private set; }
+    public int MaxEnergy { get; private set; }
+    public int Hunger { get; private set; }
+    public int MaxHunger { get; private set; }
+    public int Thirst { get; private set; }
+    public int MaxThirst { get; private set; }
 
-	[SerializeField]
+    [SerializeField]
 	private List<Buff> buffs = new List<Buff>();
 	public int healthChangePerTurn = 0;
 	public int sanityChangePerTurn = 0;
@@ -74,12 +79,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Start()
 	{
         Health = 100;
+        MaxHealth = 100;
         Sanity = 100;
-		Energy = 100;
-		Hunger = 100;
-		Thirst = 100;
+        MaxSanity = 100;
+        Energy = 100;
+        MaxEnergy = 100;
+        Hunger = 100;
+        MaxHunger = 100;
+        Thirst = 100;
+        MaxThirst = 100;
 
-		OnPlayerStatusUpdated();
+        OnPlayerStatusUpdated();
 	}
 
 	private void Update()
@@ -133,7 +143,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if(Hunger >80)
         {
-            Sanity = Mathf.Min(100, Sanity + 2 * turn);
+            Sanity = Mathf.Min(MaxSanity, Sanity + 2 * turn);
         }
         else if (Hunger == 0)
         {
@@ -144,7 +154,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         if (Thirst > 80)
         {
             Thirst = Mathf.Max(0, Thirst - turn);
-            Health = Mathf.Min(100, Health + turn);
+            Health = Mathf.Min(MaxHealth, Health + turn);
         }
         else if (0<Thirst && Thirst <81)
         {
@@ -224,7 +234,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(amount>0)
         {
-            Health = Mathf.Min(100, Health + amount);
+            Health = Mathf.Min(MaxHealth, Health + amount);
         }
         else
         {
@@ -237,7 +247,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if (amount > 0)
         {
-            Sanity = Mathf.Min(100, Sanity + amount);
+            Sanity = Mathf.Min(MaxSanity, Sanity + amount);
         }
         else
         {
@@ -250,7 +260,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Hunger = Mathf.Min(100, Hunger + amount);
+            Hunger = Mathf.Min(MaxHunger, Hunger + amount);
         }
         else
         {
@@ -263,7 +273,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Thirst = Mathf.Min(100, Thirst + amount);
+            Thirst = Mathf.Min(MaxThirst, Thirst + amount);
         }
         else
         {
@@ -276,7 +286,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Energy = Mathf.Min(100, Energy + amount);
+            Energy = Mathf.Min(MaxEnergy, Energy + amount);
         }
         else
         {
