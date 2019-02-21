@@ -95,10 +95,44 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public GameObject itemButtonPrefab;
 	#endregion
 
+	#region System UI
+	public GameObject systemPanel;
+	private GameObject openedPanel = null;
+	public GameObject utilityButtonPanel;
+
+	#endregion
+
+	public GameObject backgroundPanel;
+
 	#region Managers
 	private TurnManager tm;
 	private GameManager gm;
 	#endregion
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (openedPanel != null)
+			{
+				openedPanel.SetActive(false);
+				openedPanel = null;
+			}
+			else
+			{
+				OpenSystemPanel();
+			}
+		}
+
+		for (int i = 0; i <3; ++i)
+		{
+			if (Input.GetKeyDown(KeyCode.F1 + i))
+			{
+				utilityButtonPanel.transform.GetChild(i).GetComponent<Button>().onClick.Invoke();
+			}
+		}
+
+	}
 
 	#region Turn UI Functions
 	private void UpdateTimeUI(int turn)
@@ -368,6 +402,9 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Cure UI Functions
 	public void OpenCurePanel()
 	{
+		if (openedPanel != null)
+			openedPanel.SetActive(false);
+		openedPanel = curePanel;
 		foreach (Transform transform in diseaseButtonGrid)
 		{
 			Destroy(transform.gameObject);
@@ -436,6 +473,9 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Inventory UI Functions
 	public void OpenInventoryPanel()
 	{
+		if (openedPanel != null)
+			openedPanel.SetActive(false);
+		openedPanel = inventoryPanel;
 		inventoryPanel.SetActive(true);
 		foreach (Transform transform in itemButtonGrid.transform)
 		{
@@ -482,6 +522,16 @@ public class UIManager : SingletonBehaviour<UIManager>
 		{
 			useButton.SetActive(false);
 		}
+	}
+	#endregion
+
+	#region System UI Functions
+	public void OpenSystemPanel()
+	{
+		if (openedPanel != null)
+			openedPanel.SetActive(false);
+		openedPanel = systemPanel;
+		systemPanel.SetActive(true);
 	}
 	#endregion
 }
