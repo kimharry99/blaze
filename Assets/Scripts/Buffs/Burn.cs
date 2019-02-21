@@ -8,7 +8,7 @@ public class Burn : Buff
 	{
 		get
 		{
-			return RemainedTurn > 0;
+			return remainedTurn > 0;
 		}
 	}
 
@@ -25,7 +25,7 @@ public class Burn : Buff
 
 	protected override void OnTurnPassed(int turn)
 	{
-		if (RemainedTurn > 0 && RemainedTurn - turn <= 0)
+		if (remainedTurn > 0 && remainedTurn - turn <= 0)
 		{
 			float rand = Random.Range(0, 100);
 			if (rand < 50)

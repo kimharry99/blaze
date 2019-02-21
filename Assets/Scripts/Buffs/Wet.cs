@@ -13,10 +13,10 @@ public class Wet : Buff
 				if (TurnManager.inst.Weather == Weather.Rain && MapManager.inst.tileInfos[MapManager.inst.curPosition].structureType == StructureType.None)
 				{
 					Debug.Log("A");
-					RemainedTurn = 4;
+					remainedTurn = 4;
 				}
 			}
-			return RemainedTurn > 0;
+			return remainedTurn > 0;
 		}
 	}
 

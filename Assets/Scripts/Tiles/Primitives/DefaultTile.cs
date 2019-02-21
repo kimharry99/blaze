@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class DefaultTile : Tile
 {
+	public string tileName;
 	public abstract void OnVisited(Vector3Int pos);
 }
 

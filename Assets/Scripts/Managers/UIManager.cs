@@ -205,32 +205,32 @@ public class UIManager : SingletonBehaviour<UIManager>
 		if (food != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Food", food);
+			InitResultObject(result, "Textures/Items Icon/Food", food);
 		}
 		if (preserved != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Preserved", preserved);
+			InitResultObject(result, "Textures/Items Icon/Preserved", preserved);
 		}
 		if (water != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Water", water);
+			InitResultObject(result, "Textures/Items Icon/Water", water);
 		}
 		if (wood != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Wood", wood);
+			InitResultObject(result, "Textures/Items Icon/Wood", wood);
 		}
 		if (components != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Components", components);
+			InitResultObject(result, "Textures/Items Icon/Components", components);
 		}
 		if (parts != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Resources Icon/Parts", parts);
+			InitResultObject(result, "Textures/Items Icon/Parts", parts);
 		}
 	}
 
@@ -325,11 +325,11 @@ public class UIManager : SingletonBehaviour<UIManager>
 				buffUI = buffUIs[buff.buffName];
 				buffUI.gameObject.SetActive(true);
 			}
-			if (buff.BuffCount > 0)
-				buffUI.transform.Find("BuffCountText").GetComponent<Text>().text = "x" + buff.BuffCount.ToString();
-			if (buff.RemainedTurn > 0)
+			if (buff.buffCount > 0)
+				buffUI.transform.Find("BuffCountText").GetComponent<Text>().text = "x" + buff.buffCount.ToString();
+			if (buff.remainedTurn > 0)
 			{
-				Vector2 time = tm.Time(buff.RemainedTurn);
+				Vector2 time = tm.Time(buff.remainedTurn);
 				buffUI.transform.Find("BuffTimeText").GetComponent<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00");
 			}
 		}
@@ -399,33 +399,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 			string path = "Textures/";
 			string[] info = str.Split(',');
 			//TODO
-			switch (info[0])
-			{
-				case "Water":
-					curResource = gm.Water;
-					goto case "Dummy";
-				case "Food":
-					curResource = gm.Food;
-					goto case "Dummy";
-				case "Components":
-					curResource = gm.Components;
-					goto case "Dummy";
-				case "Parts":
-					curResource = gm.Parts;
-					goto case "Dummy";
-				case "Preserved":
-					curResource = gm.Preserved;
-					goto case "Dummy";
-				case "Wood":
-					curResource = gm.Wood;
-					goto case "Dummy";
-				case "Dummy":
-					path += ("Resources Icon/" + info[0]);
-					break;
-				default:
-					path += ("Items Icon/" + info[0]);
-					break;
-			}
+			curResource = GameManager.inst.items[info[0]].amount;
+			path += ("Items Icon/" + info[0]);
 			obj.transform.Find("RawImage").GetComponent<RawImage>().texture = Resources.Load<Texture2D>(path);
 			obj.GetComponentInChildren<Text>().text = curResource + "/" + info[1];
 

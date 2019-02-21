@@ -5,8 +5,9 @@ using UnityEngine;
 public abstract class Buff : ScriptableObject
 {
 	public Texture buffTexture;
-	public int RemainedTurn { get; protected set; }
-	public int BuffCount { get; protected set; }
+	[SerializeField]
+	public int remainedTurn;
+	public int buffCount;
 	public string buffName;
 	[TextArea]
 	public string description;
@@ -15,17 +16,17 @@ public abstract class Buff : ScriptableObject
 	public virtual void Init() { }
 	protected virtual void OnTurnPassed(int turn)
 	{
-		RemainedTurn = Mathf.Max(RemainedTurn - turn, 0);
+		remainedTurn = Mathf.Max(remainedTurn - turn, 0);
 	}
 
 	public void SetRemainedTurn(int turn)
 	{
-		RemainedTurn = turn;
+		remainedTurn = turn;
 	}
 
 	public void AddBuffCount(int count)
 	{
-		BuffCount += count;
+		buffCount += count;
 	}
 
 	public void LoadData(string json)

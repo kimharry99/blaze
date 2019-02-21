@@ -8,7 +8,7 @@ public class Bleeding : Disease
 	{
 		get
 		{
-			return BuffCount > 0;
+			return buffCount > 0;
 		}
 	}
 
@@ -22,7 +22,7 @@ public class Bleeding : Disease
 
 	public override void Apply(int turn)
 	{
-		GameManager.inst.healthChangePerTurn -= BuffCount;
+		GameManager.inst.healthChangePerTurn -= buffCount;
 	}
 
 	public override void Cure()

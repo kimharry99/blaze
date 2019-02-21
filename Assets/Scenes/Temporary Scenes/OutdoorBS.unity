@@ -2821,16 +2821,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3454a5b8ef6137a41bf64d83bf46ce26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffs:
-  - {fileID: 11400000, guid: 2276a236cadfc754cb3b5aba31bd7979, type: 2}
-  - {fileID: 11400000, guid: 4be32c28d95a30e4ab7da4fc474494e9, type: 2}
-  - {fileID: 11400000, guid: b7b05b99510f14a4b9e23fa299ad1446, type: 2}
-  - {fileID: 11400000, guid: 6533a11a5a6dbd0438c543a6216110dc, type: 2}
-  - {fileID: 11400000, guid: 5a6c071f80a1fd24a8324da7cd20cb58, type: 2}
-  - {fileID: 11400000, guid: 3270b9d707e45c54f89289a86760a426, type: 2}
-  - {fileID: 11400000, guid: 243c7389324fe0340bec5512045fc4fe, type: 2}
-  - {fileID: 11400000, guid: fa218dad632651d4ca6ff57a4ff8a4d7, type: 2}
-  - {fileID: 11400000, guid: fe54c24b17be9d54eb322b455ecf2972, type: 2}
   healthChangePerTurn: 0
   sanityChangePerTurn: 0
   energyChangePerTurn: 0
@@ -4675,7 +4665,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.9}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -10, y: -10}
+  m_SizeDelta: {x: -20, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1062643777
 MonoBehaviour:

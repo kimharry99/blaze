@@ -80,6 +80,11 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 			{
 				_weatherTurn = value;
 			}
+
+			if (FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>() != null && Weather == Weather.Rain)
+			{
+				FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>().RainIntensity = Mathf.Clamp(_weatherTurn / 20f, 0, 1);
+			}
 		}
 	}
 	#endregion
@@ -176,13 +181,17 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 				}
 				break;
 			case Weather.Rain:
-				if (rand < 30)
+				if (rand < 80)
 				{
 					Weather = Weather.Cloud;
 				}
 				break;
 		}
 		_weatherTurn = UnityEngine.Random.Range(20, 40);
+		if (Weather == Weather.Rain && FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>() != null)
+		{
+			FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>().RainIntensity = Mathf.Clamp(_weatherTurn / 20f, 0, 1);
+		}
 		UIManager.inst.UpdateWeatherUI();
 	}
 }

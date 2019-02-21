@@ -31,7 +31,9 @@ public class OutdoorUIManager : SingletonBehaviour<OutdoorUIManager>
 
 
 		TileInfo info = MapManager.inst.tileInfos[MapManager.inst.curPosition];
-		TileTypeText.text = info.landType.ToString() + "/" + info.structureType.ToString();
+		LandTile landTile = MapManager.inst.landTilemap.GetTile<LandTile>(MapManager.inst.curPosition);
+		StructureTile structureTile = MapManager.inst.structureTilemap.GetTile<StructureTile>(MapManager.inst.curPosition);
+		TileTypeText.text = landTile.tileName + "/" + structureTile.tileName;
 		resourceSlider.value = (info.water + info.food + info.preserved + info.wood + info.components + info.parts) / 20f;
 
 		StructureTile tile = MapManager.inst.structureTilemap.GetTile<StructureTile>(MapManager.inst.curPosition);

@@ -8,7 +8,7 @@ public class FoodPoisoning : Disease
 	{
 		get
 		{
-			return RemainedTurn > 0;
+			return remainedTurn > 0;
 		}
 	}
 
@@ -28,12 +28,11 @@ public class FoodPoisoning : Disease
 
 	public override void Cure()
 	{
-		RemainedTurn = 0;
+		remainedTurn = 0;
 	}
 
 	public override void Init()
 	{
-		RemainedTurn = 10;
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 }
