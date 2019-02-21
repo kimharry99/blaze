@@ -3,5 +3,6 @@
         "instanceID": 10884
     },
     "amount": 0,
-    "itemName": "Parts"
+    "itemIndexName": "Parts",
+    "itemName": "기계부품"
 }

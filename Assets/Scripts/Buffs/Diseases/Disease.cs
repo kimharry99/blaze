@@ -7,6 +7,5 @@ public abstract class Disease : Buff
 	[TextArea]
 	[SerializeField]
 	public string cureInfoString;
-	public abstract bool IsCureable { get; }
 	public abstract void Cure();
 }

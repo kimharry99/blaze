@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2800000, guid: 22aa7878b558a7e4d9f849b7e2ae48d0, type: 3}
   amount: 0
-  itemName: Water
+  itemIndexName: Water
+  itemName: "\uBB3C"

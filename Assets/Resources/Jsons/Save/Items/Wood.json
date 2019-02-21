@@ -3,5 +3,6 @@
         "instanceID": 10068
     },
     "amount": 0,
-    "itemName": "Wood"
+    "itemIndexName": "Wood",
+    "itemName": "목재"
 }

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2800000, guid: 2caa4fa49225e594d8fa7e5fa9cc0936, type: 3}
   amount: 0
-  itemName: Preserved
+  itemIndexName: Preserved
+  itemName: "\uBCF4\uC874\uC74C\uC2DD"

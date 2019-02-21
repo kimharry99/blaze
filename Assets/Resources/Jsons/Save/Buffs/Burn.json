@@ -1,0 +1,11 @@
+{
+    "buffTexture": {
+        "instanceID": 10156
+    },
+    "remainedTurn": 20,
+    "buffCount": 0,
+    "buffIndexName": "Burn",
+    "buffName": "화상",
+    "description": "빨갛게 달아오른 살갗이 찢어질듯 쓰라립니다.\n다음과 같은 효과를 받습니다 :\n매 턴 건강 -1\n매 턴 정신력 -2\n시간이 모두 지날시 50% 확률로 자연치유 되거나 세균감염 상태이상이 추가됩니다",
+    "cureInfoString": "Bandage,1\nWater,10"
+}

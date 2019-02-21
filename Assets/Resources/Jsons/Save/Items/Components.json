@@ -3,5 +3,6 @@
         "instanceID": 10492
     },
     "amount": 10,
-    "itemName": "Components"
+    "itemIndexName": "Components",
+    "itemName": "잡동사니"
 }

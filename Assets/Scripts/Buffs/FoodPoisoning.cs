@@ -12,14 +12,6 @@ public class FoodPoisoning : Disease
 		}
 	}
 
-	public override bool IsCureable
-	{
-		get
-		{
-			return true;
-		}
-	}
-
 	public override void Apply(int turn)
 	{
 		GameManager.inst.hungerChangePerTurn -= 5;
@@ -33,6 +25,7 @@ public class FoodPoisoning : Disease
 
 	public override void Init()
 	{
+		remainedTurn = 30;
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 }

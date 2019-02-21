@@ -3,5 +3,6 @@
         "instanceID": 10222
     },
     "amount": 0,
-    "itemName": "Food"
+    "itemIndexName": "Food",
+    "itemName": "음식"
 }

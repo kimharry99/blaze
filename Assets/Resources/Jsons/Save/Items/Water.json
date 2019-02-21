@@ -3,5 +3,6 @@
         "instanceID": 10478
     },
     "amount": 0,
-    "itemName": "Water"
+    "itemIndexName": "Water",
+    "itemName": "물"
 }

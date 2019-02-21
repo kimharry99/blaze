@@ -313,16 +313,16 @@ public class UIManager : SingletonBehaviour<UIManager>
 		if (buff.IsActivated)
 		{
 			BuffUI buffUI;
-			if (!buffUIs.ContainsKey(buff.buffName))
+			if (!buffUIs.ContainsKey(buff.buffIndexName))
 			{
 				buffUI = Instantiate(buffUIPrefab, buffPanel.transform).GetComponent<BuffUI>();
 				buffUI.transform.Find("IconImage").GetComponent<RawImage>().texture = buff.buffTexture;
-				buffUI.Init(buff.buffName, buff.description);
-				buffUIs.Add(buff.buffName, buffUI);
+				buffUI.Init(buff.buffIndexName, buff.description);
+				buffUIs.Add(buff.buffIndexName, buffUI);
 			}
 			else
 			{
-				buffUI = buffUIs[buff.buffName];
+				buffUI = buffUIs[buff.buffIndexName];
 				buffUI.gameObject.SetActive(true);
 			}
 			if (buff.buffCount > 0)
@@ -333,9 +333,9 @@ public class UIManager : SingletonBehaviour<UIManager>
 				buffUI.transform.Find("BuffTimeText").GetComponent<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00");
 			}
 		}
-		else if (buffUIs.ContainsKey(buff.buffName))
+		else if (buffUIs.ContainsKey(buff.buffIndexName))
 		{
-			buffUIs[buff.buffName].gameObject.SetActive(false);
+			buffUIs[buff.buffIndexName].gameObject.SetActive(false);
 		}
 		
 	}
@@ -379,11 +379,17 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public void AddDiseaseButton(Disease disease)
 	{
 		GameObject obj = Instantiate(diseaseButtonPrefab, diseaseButtonGrid);
+		obj.transform.Find("Image").GetComponent<RawImage>().texture = disease.buffTexture;
 		obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeDisease(disease); });
 	}
 
 	public void ChangeDisease(Disease disease)
 	{
+		foreach (Transform transform in cureInfoGrid)
+		{
+			Destroy(transform.gameObject);
+		}
+		cureButton.interactable = true;
 		cureButton.onClick.RemoveAllListeners();
 		cureButton.onClick.AddListener(delegate {
 			disease.Cure();
@@ -391,20 +397,27 @@ public class UIManager : SingletonBehaviour<UIManager>
 			UpdateBuffUI(disease);
 			cureButton.onClick.RemoveAllListeners();
 		});
-		cureButton.interactable = disease.IsCureable;
 		foreach (var str in disease.cureInfoString.Split(' ', '\n'))
 		{
 			int curResource = 0;
 			GameObject obj = Instantiate(resourceInfoPrefab, cureInfoGrid);
 			string path = "Textures/";
 			string[] info = str.Split(',');
-			//TODO
+
 			curResource = GameManager.inst.items[info[0]].amount;
 			path += ("Items Icon/" + info[0]);
 			obj.transform.Find("RawImage").GetComponent<RawImage>().texture = Resources.Load<Texture2D>(path);
 			obj.GetComponentInChildren<Text>().text = curResource + "/" + info[1];
+			if (curResource < int.Parse(info[1]))
+				cureButton.interactable = false;
 
-		}	
+			cureButton.onClick.AddListener(delegate {
+				gm.items[info[0]].amount -= int.Parse(info[1]);
+			});
+		}
+		cureButton.onClick.AddListener(delegate {
+			cureButton.onClick.RemoveAllListeners();
+		});
 	}
 	#endregion
 }

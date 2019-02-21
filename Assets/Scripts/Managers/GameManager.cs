@@ -81,8 +81,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Thirst = 100;
 
 		InitGame();
-		//SaveGameData();
-		LoadGameData();
+		SaveGameData();
+		//LoadGameData();
 
 		foreach (var buff in buffs.Values)
 		{
@@ -330,7 +330,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		if (!buffs.Values.ToList().Contains(buff))
 		{
-			buffs.Add(buff.buffName, buff);
+			buffs.Add(buff.buffIndexName, buff);
 		}
 	}
 
@@ -338,7 +338,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		if (buffs.Values.ToList().Contains(buff))
 		{
-			buffs.Remove(buff.buffName);
+			buffs.Remove(buff.buffIndexName);
 		}
 	}
 
@@ -398,13 +398,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 	#region Game Data Functions
 	public void InitGame()
 	{
-		foreach (var resource in Resources.LoadAll<BaseResource>("Items/BaseResources"))
+		foreach (var item in Resources.LoadAll<Item>("Items"))
 		{
-			items.Add(resource.itemName, resource);
+			items.Add(item.itemIndexName, item);
 		}
 		foreach (var buff in Resources.LoadAll<Buff>("Buffs/"))
 		{
-			buffs.Add(buff.buffName, buff);
+			buffs.Add(buff.buffIndexName, buff);
 		}
 	}
 
@@ -412,11 +412,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		foreach (var item in items.Values)
 		{
-			JsonHelper.JsonToFile(JsonUtility.ToJson(item, true), "Save/Items/" + item.itemName +".json");
+			JsonHelper.JsonToFile(JsonUtility.ToJson(item, true), "Save/Items/" + item.itemIndexName +".json");
 		}
 		foreach (var buff in buffs.Values)
 		{
-			JsonHelper.JsonToFile(JsonUtility.ToJson(buff, true), "Save/Buffs/" + buff.buffName + ".json");
+			JsonHelper.JsonToFile(JsonUtility.ToJson(buff, true), "Save/Buffs/" + buff.buffIndexName + ".json");
 		}
 	}
 
@@ -424,11 +424,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		foreach (var item in items.Values)
 		{
-			item.LoadData(JsonHelper.LoadJson("Save/Items/" + item.itemName));
+			item.LoadData(JsonHelper.LoadJson("Save/Items/" + item.itemIndexName));
 		}
 		foreach (var buff in buffs.Values)
 		{
-			buff.LoadData(JsonHelper.LoadJson("Save/Buffs/" + buff.buffName));
+			buff.LoadData(JsonHelper.LoadJson("Save/Buffs/" + buff.buffIndexName));
 		}
 	}
 	#endregion

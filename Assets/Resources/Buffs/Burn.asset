@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: 
   buffTexture: {fileID: 2800000, guid: f6fb3c43947b8374eb45b3e777db2caf, type: 3}
+  remainedTurn: 0
+  buffCount: 0
+  buffIndexName: Burn
   buffName: "\uD654\uC0C1"
   description: "\uBE68\uAC1B\uAC8C \uB2EC\uC544\uC624\uB978 \uC0B4\uAC17\uC774 \uCC22\uC5B4\uC9C8\uB4EF
     \uC4F0\uB77C\uB9BD\uB2C8\uB2E4.\n\uB2E4\uC74C\uACFC \uAC19\uC740 \uD6A8\uACFC\uB97C

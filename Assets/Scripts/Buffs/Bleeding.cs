@@ -12,14 +12,6 @@ public class Bleeding : Disease
 		}
 	}
 
-	public override bool IsCureable
-	{
-		get
-		{
-			return true;
-		}
-	}
-
 	public override void Apply(int turn)
 	{
 		GameManager.inst.healthChangePerTurn -= buffCount;
@@ -27,6 +19,6 @@ public class Bleeding : Disease
 
 	public override void Cure()
 	{
-		throw new System.NotImplementedException();
+		buffCount--;
 	}
 }

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Weak
   m_EditorClassIdentifier: 
   buffTexture: {fileID: 2800000, guid: 15a7ef23acd39cc4c8cb601f77d86205, type: 3}
+  remainedTurn: 0
+  buffCount: 0
+  buffIndexName: Weak
   buffName: "\uD5C8\uC57D"
   description: "\uBAB8\uC774 \uC57D\uD574\uC9C0\uACE0 \uC788\uC2B5\uB2C8\uB2E4...\n\uB2E4\uC74C\uACFC
     \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4 :"

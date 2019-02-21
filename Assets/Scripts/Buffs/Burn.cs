@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Burn : Buff
+public class Burn : Disease
 {
 	public override bool IsActivated
 	{
@@ -16,6 +16,11 @@ public class Burn : Buff
 	{
 		GameManager.inst.healthChangePerTurn -= 1;
 		GameManager.inst.sanityChangePerTurn -= 2;
+	}
+
+	public override void Cure()
+	{
+		remainedTurn = 0;
 	}
 
 	public override void Init()

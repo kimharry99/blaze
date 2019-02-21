@@ -8,6 +8,7 @@ public abstract class Buff : ScriptableObject
 	[SerializeField]
 	public int remainedTurn;
 	public int buffCount;
+	public string buffIndexName;
 	public string buffName;
 	[TextArea]
 	public string description;
