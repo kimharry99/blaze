@@ -27,4 +27,9 @@ public abstract class Buff : ScriptableObject
 	{
 		BuffCount += count;
 	}
+
+	public void LoadData(string json)
+	{
+		JsonUtility.FromJsonOverwrite(json, this);
+	}
 }

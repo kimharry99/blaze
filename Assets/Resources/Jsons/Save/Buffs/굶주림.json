@@ -1,0 +1,7 @@
+{
+    "buffTexture": {
+        "instanceID": 10498
+    },
+    "buffName": "굶주림",
+    "description": "신발도 먹을수 있을 것 같습니다.\n다음과 같은 효과를 받습니다 :\n매 턴 건강 -1\n매 턴 정신력 -2"
+}

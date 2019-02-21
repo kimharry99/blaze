@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +9,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 {
 
 	#region Resources
-	public int Water { get; private set; }
-	public int Food { get; private set; }
-	public int Preserved { get; private set; }
-	public int Wood { get; private set; }
-	public int Components { get; private set; }
-	public int Parts { get; private set; }
+	public int Water { get { return items["Water"].amount; } private set { items["Water"].amount = value; } }
+	public int Food { get { return items["Food"].amount; } private set { items["Food"].amount = value; } }
+	public int Preserved { get { return items["Preserved"].amount; } private set { items["Preserved"].amount = value; } }
+	public int Wood { get { return items["Wood"].amount; } private set { items["Wood"].amount = value; } }
+	public int Components { get { return items["Components"].amount; } private set { items["Components"].amount = value; } }
+	public int Parts { get { return items["Parts"].amount; } private set { items["Parts"].amount = value; } }
 	#endregion
 
 	#region Items
@@ -41,7 +42,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Thirst { get; private set; }
 
 	[SerializeField]
-	private List<Buff> buffs = new List<Buff>();
+	//private List<Buff> buffs = new List<Buff>();
+	private Dictionary<string, Buff> buffs = new Dictionary<string, Buff>();
 	public int healthChangePerTurn = 0;
 	public int sanityChangePerTurn = 0;
 	public int energyChangePerTurn = 0;
@@ -78,12 +80,16 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Hunger = 100;
 		Thirst = 100;
 
-		OnPlayerStatusUpdated();
+		InitGame();
+		//SaveGameData();
+		LoadGameData();
 
-		foreach (var buff in buffs)
+		foreach (var buff in buffs.Values)
 		{
 			buff.Init();
 		}
+		OnPlayerStatusUpdated();
+		OnResourceUpdated();
 	}
 
 	private void Update()
@@ -322,17 +328,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public void AddBuff(Buff buff)
 	{
-		if (!buffs.Contains(buff))
+		if (!buffs.Values.ToList().Contains(buff))
 		{
-			buffs.Add(buff);
+			buffs.Add(buff.buffName, buff);
 		}
 	}
 
 	public void RemoveBuff(Buff buff)
 	{
-		if (buffs.Contains(buff))
+		if (buffs.Values.ToList().Contains(buff))
 		{
-			buffs.Remove(buff);
+			buffs.Remove(buff.buffName);
 		}
 	}
 
@@ -344,7 +350,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		thirstChangePerTurn = -2;
 		energyChangePerTurn = -1;
 
-		foreach (var buff in buffs)
+		foreach (var buff in buffs.Values.ToList())
 		{
 			if (buff.IsActivated)
 			{
@@ -357,7 +363,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public List<Disease> GetDiseases()
 	{
 		List<Disease> diseases = new List<Disease>();
-		foreach(var buff in buffs)
+		foreach(var buff in buffs.Values)
 		{
 			if (buff.GetType().IsSubclassOf(typeof(Disease)) && buff.IsActivated)
 				diseases.Add((Disease)buff);
@@ -388,4 +394,42 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		ReservedTask();
 	}
+
+	#region Game Data Functions
+	public void InitGame()
+	{
+		foreach (var resource in Resources.LoadAll<BaseResource>("Items/BaseResources"))
+		{
+			items.Add(resource.itemName, resource);
+		}
+		foreach (var buff in Resources.LoadAll<Buff>("Buffs/"))
+		{
+			buffs.Add(buff.buffName, buff);
+		}
+	}
+
+	public void SaveGameData()
+	{
+		foreach (var item in items.Values)
+		{
+			JsonHelper.JsonToFile(JsonUtility.ToJson(item, true), "Save/Items/" + item.itemName +".json");
+		}
+		foreach (var buff in buffs.Values)
+		{
+			JsonHelper.JsonToFile(JsonUtility.ToJson(buff, true), "Save/Buffs/" + buff.buffName + ".json");
+		}
+	}
+
+	public void LoadGameData()
+	{
+		foreach (var item in items.Values)
+		{
+			item.LoadData(JsonHelper.LoadJson("Save/Items/" + item.itemName));
+		}
+		foreach (var buff in buffs.Values)
+		{
+			buff.LoadData(JsonHelper.LoadJson("Save/Buffs/" + buff.buffName));
+		}
+	}
+	#endregion
 }

@@ -24,6 +24,16 @@ public class JsonHelper : MonoBehaviour
 		return Resources.Load<TextAsset>("Jsons/" + path).text;
 	}
 
+	public static List<string> LoadJsonAll(string path)
+	{
+		List<string> jsons = new List<string>();
+		foreach(var textAsset in Resources.LoadAll<TextAsset>("Jsons/" + path))
+		{
+			jsons.Add(textAsset.text);
+		}
+		return jsons;
+	}
+
 }
 
 [Serializable]

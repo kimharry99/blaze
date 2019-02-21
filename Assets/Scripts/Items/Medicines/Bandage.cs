@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bandage : ConsumableItem
+public class Bandage : Medicine
 {
 	public override void Use(int amount)
 	{
-		throw new System.NotImplementedException();
+		
 	}
 }
