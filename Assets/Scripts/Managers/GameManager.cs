@@ -53,6 +53,32 @@ public class GameManager : SingletonBehaviour<GameManager>
     public int MaxHunger { get; private set; }
     public int Thirst { get; private set; }
     public int MaxThirst { get; private set; }
+    private int _experiencePoint = 0;
+    public int ExperiencePoint
+    {
+        get { return _experiencePoint; }
+        private set
+        {
+            _experiencePoint = value;
+            if (PlayerLevel == 50)
+            {
+                _experiencePoint = 0;
+            }
+            while (_experiencePoint >= maxExperiencePoint[PlayerLevel])
+            {
+                _experiencePoint -= maxExperiencePoint[PlayerLevel];
+                if (PlayerLevel == 49)
+                {
+                    _experiencePoint = 0;
+                }
+                ++PlayerLevel;
+                ++StatusPoint;
+            }
+        }
+    }
+    public int PlayerLevel { get; private set; }
+    private readonly int[] maxExperiencePoint = new int [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,999};
+    public int StatusPoint { get; private set; }
 
     [SerializeField]
 	private List<Buff> buffs = new List<Buff>();
@@ -88,6 +114,9 @@ public class GameManager : SingletonBehaviour<GameManager>
         MaxHunger = 100;
         Thirst = 100;
         MaxThirst = 100;
+        PlayerLevel = 0;
+        ExperiencePoint = 0;
+        StatusPoint = 0;
 
         OnPlayerStatusUpdated();
 	}
@@ -292,6 +321,12 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             Energy = Mathf.Max(0, Energy + amount);
         }
+        OnPlayerStatusUpdated();
+    }
+
+    public void GetExperiencePoint(int amount)
+    {
+        ExperiencePoint += amount;
         OnPlayerStatusUpdated();
     }
 
