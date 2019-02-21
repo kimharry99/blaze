@@ -1,8 +1,9 @@
 {
     "itemImage": {
-        "instanceID": 10492
+        "instanceID": 10564
     },
     "amount": 10,
     "itemIndexName": "Components",
-    "itemName": "잡동사니"
+    "itemName": "잡동사니",
+    "description": ""
 }

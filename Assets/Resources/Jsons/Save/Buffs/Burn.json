@@ -1,8 +1,8 @@
 {
     "buffTexture": {
-        "instanceID": 10156
+        "instanceID": 10212
     },
-    "remainedTurn": 20,
+    "remainedTurn": 0,
     "buffCount": 0,
     "buffIndexName": "Burn",
     "buffName": "화상",

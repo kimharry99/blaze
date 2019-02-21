@@ -74,6 +74,17 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Button cureButton;
 	#endregion
 
+	#region Inventory UI
+	[Header("Inventory UI")]
+	public GameObject inventoryPanel;
+	public GameObject useButton;
+	public RectTransform itemButtonGrid;
+	public RawImage itemImage;
+	public Text itemNameText;
+	public Text itemDescText;
+	public Text itemAmountText;
+	#endregion
+
 	#region Prefabs
 	[Header("Prefabs")]
 	public GameObject eventButtonPrefab;
@@ -81,6 +92,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public GameObject buffUIPrefab;
 	public GameObject diseaseButtonPrefab;
 	public GameObject resourceInfoPrefab;
+	public GameObject itemButtonPrefab;
 	#endregion
 
 	#region Managers
@@ -418,6 +430,58 @@ public class UIManager : SingletonBehaviour<UIManager>
 		cureButton.onClick.AddListener(delegate {
 			cureButton.onClick.RemoveAllListeners();
 		});
+	}
+	#endregion
+
+	#region Inventory UI Functions
+	public void OpenInventoryPanel()
+	{
+		inventoryPanel.SetActive(true);
+		foreach (Transform transform in itemButtonGrid.transform)
+		{
+			Destroy(transform.gameObject);
+		}
+		ChangeItem(null);
+
+		foreach (var item in gm.items.Values)
+		{
+			GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
+			obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(item); });
+			obj.GetComponentInChildren<Text>().text = item.amount.ToString();
+			obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = item.itemImage;
+		}
+	}
+
+	public void CloseInventoryPanel()
+	{
+		inventoryPanel.SetActive(false);
+	}
+
+	public void ChangeItem(Item item)
+	{
+		if (item == null)
+		{
+			itemNameText.text = "";
+			itemAmountText.text = "";
+			itemDescText.text = "";
+			itemImage.texture = null;
+			useButton.SetActive(false);
+			return;
+		}
+
+		itemNameText.text = item.itemName;
+		itemAmountText.text = item.amount.ToString();
+		itemDescText.text = item.description;
+		itemImage.texture = item.itemImage;
+		if (item.GetType().IsSubclassOf(typeof(ConsumableItem)))
+		{
+			useButton.SetActive(true);
+			useButton.GetComponent<Button>().onClick.AddListener(delegate { ((ConsumableItem)item).Use(1); });
+		}
+		else
+		{
+			useButton.SetActive(false);
+		}
 	}
 	#endregion
 }

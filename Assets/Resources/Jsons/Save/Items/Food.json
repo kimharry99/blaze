@@ -1,8 +1,9 @@
 {
     "itemImage": {
-        "instanceID": 10222
+        "instanceID": 10282
     },
     "amount": 0,
     "itemIndexName": "Food",
-    "itemName": "음식"
+    "itemName": "음식",
+    "description": ""
 }

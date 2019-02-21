@@ -1,8 +1,9 @@
 {
     "itemImage": {
-        "instanceID": 10068
+        "instanceID": 10118
     },
     "amount": 0,
     "itemIndexName": "Wood",
-    "itemName": "목재"
+    "itemName": "목재",
+    "description": ""
 }

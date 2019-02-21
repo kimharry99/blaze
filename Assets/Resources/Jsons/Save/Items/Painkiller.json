@@ -4,5 +4,6 @@
     },
     "amount": 10,
     "itemIndexName": "Painkiller",
-    "itemName": "진통제"
+    "itemName": "진통제",
+    "description": ""
 }

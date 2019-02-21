@@ -1,8 +1,9 @@
 {
     "itemImage": {
-        "instanceID": 10478
+        "instanceID": 10550
     },
     "amount": 0,
     "itemIndexName": "Water",
-    "itemName": "물"
+    "itemName": "물",
+    "description": ""
 }

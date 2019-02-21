@@ -9,6 +9,7 @@ public class Item : ScriptableObject
 	public int amount;
 	public string itemIndexName;
 	public string itemName;
+	public string description;
 	public void LoadData(string json)
 	{
 		JsonUtility.FromJsonOverwrite(json, this);

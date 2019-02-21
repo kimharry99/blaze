@@ -1,8 +1,9 @@
 {
     "itemImage": {
-        "instanceID": 10884
+        "instanceID": 10966
     },
     "amount": 0,
     "itemIndexName": "Parts",
-    "itemName": "기계부품"
+    "itemName": "기계부품",
+    "description": ""
 }
