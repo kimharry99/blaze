@@ -39,11 +39,11 @@ public class PlayerController : MonoBehaviour
 		}
         if(Input.GetKeyDown(KeyCode.M))
         {
-            GameManager.inst.Cure(100);
+            GameManager.inst.ChangeHealth(100);
             GameManager.inst.ChangeSanity(100);
-            GameManager.inst.Eat(100);
-            GameManager.inst.Drink(100);
-            GameManager.inst.Rest(100);
+            GameManager.inst.ChangeHunger(100);
+            GameManager.inst.ChangeThirst(100);
+            GameManager.inst.ChangeEnergy(100);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

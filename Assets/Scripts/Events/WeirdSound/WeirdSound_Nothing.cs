@@ -5,9 +5,10 @@ using UnityEngine.Events;
 
 public class WeirdSound_Nothing : LogEvent
 {
+	public int sanity = -5;
 	public override void EventStart()
 	{
-		UIManager.inst.AddPlayerStatusResult(sanity: -5);
+		UIManager.inst.AddPlayerStatusResult(sanity: sanity);
 	}
 
 	public override List<UnityAction> GetActions()
@@ -17,7 +18,7 @@ public class WeirdSound_Nothing : LogEvent
 
 	public void Confirm()
 	{
-		GameManager.inst.SanityDamaged(5);
+		GameManager.inst.ChangeSanity(sanity);
 		UIManager.inst.CloseEventLogPanel();
 	}
 }

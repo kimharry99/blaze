@@ -15,21 +15,21 @@ public class Table : Furniture
 				if (GameManager.inst.CheckResource(food: 10))
 				{
 					GameManager.inst.UseResource(food: 10);
-					GameManager.inst.Eat(30);
+					GameManager.inst.ChangeHunger(30);
 				}
 				break;
 			case 1:
 				if (GameManager.inst.CheckResource(preserved: 10))
 				{
 					GameManager.inst.UseResource(preserved: 10);
-					GameManager.inst.Eat(30);
+					GameManager.inst.ChangeHunger(30);
 				}
 				break;
 			case 2:
 				if (GameManager.inst.CheckResource(water: 10))
 				{
 					GameManager.inst.UseResource(water: 10);
-					GameManager.inst.Drink(30);
+					GameManager.inst.ChangeThirst(30);
 				}
 				break;
 			default:

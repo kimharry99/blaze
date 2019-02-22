@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 10992
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Fatal",
+    "buffName": "위독함",
+    "description": "황도천이 눈앞에 아른거립니다...\n다음과 같은 효과를 받습니다 :\n수면을 제외한 작업 시간 소모량 +50%"
+}

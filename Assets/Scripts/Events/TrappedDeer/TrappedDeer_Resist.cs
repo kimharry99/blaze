@@ -26,9 +26,9 @@ public class TrappedDeer_Resist : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(food: food);
-		GameManager.inst.HealthDamaged(-health);
-		GameManager.inst.SanityDamaged(-sanity);
-		GameManager.inst.Rest(energy);
+		GameManager.inst.ChangeHealth(health);
+		GameManager.inst.ChangeSanity(sanity);
+		GameManager.inst.ChangeEnergy(energy);
 		EndEvent();
 	}
 }

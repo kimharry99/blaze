@@ -30,7 +30,7 @@ public abstract class StructureTile : DefaultTile
 	private void Rest()
 	{
 		TurnManager.inst.UseTurn(4);
-		GameManager.inst.Rest(RestAmount);
+		GameManager.inst.ChangeEnergy(RestAmount);
 	}
 
 	public StructureTileInfo GetStructureTileInfo(Vector3Int position)

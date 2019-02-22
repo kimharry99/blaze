@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d85b6dba15a53ff4ab5d97fd340b872c, type: 3}
+  m_Name: Fatal
+  m_EditorClassIdentifier: 
+  buffTexture: {fileID: 2800000, guid: 9a24d06fd26c3c44a9ba5bd911dd2349, type: 3}
+  remainedTurn: 0
+  buffCount: 0
+  buffIndexName: Fatal
+  buffName: "\uC704\uB3C5\uD568"
+  description: "\uD669\uB3C4\uCC9C\uC774 \uB208\uC55E\uC5D0 \uC544\uB978\uAC70\uB9BD\uB2C8\uB2E4...\n\uB2E4\uC74C\uACFC
+    \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4 :\n\uC218\uBA74\uC744
+    \uC81C\uC678\uD55C \uC791\uC5C5 \uC2DC\uAC04 \uC18C\uBAA8\uB7C9 +50%"

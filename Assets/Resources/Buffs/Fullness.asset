@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff0a3367a26b814e8051a2cdc9de334, type: 3}
-  m_Name: Weak
+  m_Script: {fileID: 11500000, guid: 05c1a1fc75c632140ad41a8647387561, type: 3}
+  m_Name: Fullness
   m_EditorClassIdentifier: 
-  buffTexture: {fileID: 2800000, guid: 15a7ef23acd39cc4c8cb601f77d86205, type: 3}
+  buffTexture: {fileID: 0}
   remainedTurn: 0
   buffCount: 0
-  buffIndexName: Weak
-  buffName: "\uD5C8\uC57D"
-  description: "\uBAB8\uC774 \uC57D\uD574\uC9C0\uACE0 \uC788\uC2B5\uB2C8\uB2E4...\n\uB2E4\uC74C\uACFC
+  buffIndexName: Fullness
+  buffName: "\uB9CC\uBCF5"
+  description: "\uBC30\uAC00 \uBD80\uB985\uB2C8\uB2E4. \uD798\uC774 \uC19F\uC2B5\uB2C8\uB2E4...!\n\uB2E4\uC74C\uACFC
     \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4 :\n\uC218\uBA74\uC744
-    \uC81C\uC678\uD55C \uC791\uC5C5 \uC2DC\uAC04 \uC18C\uBAA8\uB7C9 +25%"
+    \uC81C\uC678\uD55C \uC791\uC5C5 \uC2DC\uAC04 \uC18C\uBAA8\uB7C9 -25%"

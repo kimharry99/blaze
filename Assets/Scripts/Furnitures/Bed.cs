@@ -41,10 +41,10 @@ public class Bed : Furniture
 
     private void UseFurniture()
     {
-        GameManager.inst.Rest(usingTurn*(EnergyPerTurn));
+        GameManager.inst.ChangeEnergy(usingTurn*(EnergyPerTurn));
         if (GameManager.inst.CheckStatus(health: 0, mental: 0, hunger: 0, thirst: 0, energy: 0))
         {
-            GameManager.inst.Cure(usingTurn / CureTurnLeft);
+            GameManager.inst.ChangeHealth(usingTurn / CureTurnLeft);
         }
         GameManager.inst.ChangeSanity(usingTurn / HealTurnLeft);
     }

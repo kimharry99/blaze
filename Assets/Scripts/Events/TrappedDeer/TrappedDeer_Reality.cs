@@ -23,7 +23,7 @@ public class TrappedDeer_Reality : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(food: food);
-		GameManager.inst.SanityDamaged(-sanity);
+		GameManager.inst.ChangeSanity(sanity);
 		EndEvent();
 	}
 }

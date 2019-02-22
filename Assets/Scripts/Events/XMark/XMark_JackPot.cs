@@ -21,9 +21,9 @@ public class XMark_JackPot : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(amount, amount, amount, amount, amount, amount);
-		GameManager.inst.Eat(100);
-		GameManager.inst.Drink(100);
-		GameManager.inst.Rest(100);
+		GameManager.inst.ChangeHunger(100);
+		GameManager.inst.ChangeThirst(100);
+		GameManager.inst.ChangeEnergy(100);
 		EndEvent();
 	}
 }

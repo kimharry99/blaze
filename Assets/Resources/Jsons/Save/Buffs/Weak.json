@@ -1,10 +1,10 @@
 {
     "buffTexture": {
-        "instanceID": 10208
+        "instanceID": 10176
     },
     "remainedTurn": 0,
     "buffCount": 0,
     "buffIndexName": "Weak",
     "buffName": "허약",
-    "description": "몸이 약해지고 있습니다...\n다음과 같은 효과를 받습니다 :"
+    "description": "몸이 약해지고 있습니다...\n다음과 같은 효과를 받습니다 :\n수면을 제외한 작업 시간 소모량 +25%"
 }

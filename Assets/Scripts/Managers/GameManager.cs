@@ -49,6 +49,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int energyChangePerTurn = 0;
 	public int hungerChangePerTurn = 0;
 	public int thirstChangePerTurn = 0;
+	public float statusRecoverConst = 1;
+	public float turnPenaltyConst = 1;
 	#endregion
 
 	public bool IsOutside
@@ -175,11 +177,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
 		*/
-		Health = Mathf.Max(0, Health + healthChangePerTurn * turn);
-		Sanity = Mathf.Max(0, Sanity + sanityChangePerTurn * turn);
-		Hunger = Mathf.Max(0, Hunger + hungerChangePerTurn * turn);
-		Thirst = Mathf.Max(0, Thirst + thirstChangePerTurn * turn);
-		Energy = Mathf.Max(0, Energy + energyChangePerTurn * turn);
+		ChangeHealth(healthChangePerTurn * turn);
+		ChangeSanity(sanityChangePerTurn * turn);
+		ChangeHunger(hungerChangePerTurn * turn);
+		ChangeThirst(thirstChangePerTurn * turn);
+		ChangeEnergy(energyChangePerTurn * turn);
 		OnPlayerStatusUpdated();
 		//TODO : Don't use energy while sleeping ;
 	}
@@ -194,43 +196,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         return Health > health && Sanity > mental && Hunger > hunger && Thirst > thirst && Energy > energy;
     }
 
-    public float CalculateTurnPenalty()
-    {
-        if (Health>50)
-        {
-            if (Hunger>80)
-            {
-                return 0.5f;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-        else if (Health>25)
-        {
-            if (Hunger>80)
-            {
-                return 1;
-            }
-            else
-            {
-                return 1.5f;
-            }
-        }
-        else
-        {
-            if (Hunger>80)
-            {
-                return 1.5f;
-            }
-            else
-            {
-                return 2;
-            }
-        }
-    }
-
     public int DisadvantageNeededTurn(float neededTurn)
     {
         if (Health > 50&&Hunger>80)
@@ -243,7 +208,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
     }
 
-    public void Cure(int amount)
+    public void ChangeHealth(int amount)
     {
         if(amount>0)
         {
@@ -252,6 +217,8 @@ public class GameManager : SingletonBehaviour<GameManager>
         else
         {
             Health = Mathf.Max(0, Health + amount);
+			if (Health <= 0)
+				GameOver();
         }
         OnPlayerStatusUpdated();
     }
@@ -265,11 +232,13 @@ public class GameManager : SingletonBehaviour<GameManager>
         else
         {
             Sanity = Mathf.Max(0, Sanity + amount);
-        }
+			if (Sanity <= 0)
+				GameOver();
+		}
         OnPlayerStatusUpdated();
     }
 
-    public void Eat(int amount)
+    public void ChangeHunger(int amount)
 	{
         if (amount > 0)
         {
@@ -282,7 +251,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
 	}
 
-	public void Drink(int amount)
+	public void ChangeThirst(int amount)
 	{
         if (amount > 0)
         {
@@ -295,7 +264,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
     }
 
-	public void Rest(int amount)
+	public void ChangeEnergy(int amount)
 	{
         if (amount > 0)
         {
@@ -307,24 +276,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         }
         OnPlayerStatusUpdated();
     }
-
-	public void HealthDamaged(int amount)
-	{
-		Health -= amount;
-		if (Health <= 0)
-		{
-			GameOver();
-		}
-	}
-
-	public void SanityDamaged(int amount)
-	{
-		Sanity -= amount;
-		if (Sanity <= 0)
-		{
-			GameOver();
-		}
-	}
 
 	public Buff GetBuff(string buffName)
 	{
@@ -338,6 +289,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 		hungerChangePerTurn = -1;
 		thirstChangePerTurn = -2;
 		energyChangePerTurn = -1;
+
+		turnPenaltyConst = 1;
+		statusRecoverConst = 1;
 
 		foreach (var buff in buffs.Values.ToList())
 		{
@@ -365,6 +319,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void GameOver()
 	{
+		Debug.Log("GameOver!");
 		//TODO : Handle gameover event
 	}
 
@@ -374,7 +329,16 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		ReservedTask = task;
 		if (!isDefinite)
-			neededTurn = DisadvantageNeededTurn(CalculateTurnPenalty() * neededTurn);
+		{
+			if (turnPenaltyConst > 1)
+			{
+				neededTurn = Mathf.FloorToInt(turnPenaltyConst * neededTurn);
+			}
+			else
+			{
+				neededTurn = Mathf.CeilToInt(turnPenaltyConst * neededTurn);
+			}
+		}
 		PlayerStateWork.remainedTurn = neededTurn;
 		PlayerState.Transition(PlayerState.work);
 	}

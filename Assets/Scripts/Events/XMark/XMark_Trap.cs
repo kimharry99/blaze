@@ -19,7 +19,7 @@ public class XMark_Trap : LogEvent
 
 	private void Confirm()
 	{
-		GameManager.inst.HealthDamaged(loseHealthAmount);
+		GameManager.inst.ChangeHealth(-loseHealthAmount);
 		EndEvent();
 	}
 }

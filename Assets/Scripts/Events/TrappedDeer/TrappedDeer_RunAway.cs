@@ -21,7 +21,7 @@ public class TrappedDeer_RunAway : LogEvent
 
 	private void Confirm()
 	{
-		GameManager.inst.HealthDamaged(-health);
+		GameManager.inst.ChangeHealth(health);
 		EndEvent();
 	}
 }

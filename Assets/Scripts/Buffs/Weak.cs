@@ -13,6 +13,6 @@ public class Weak : Buff
 
 	public override void Apply(int turn)
 	{
-		//TODO
+		GameManager.inst.turnPenaltyConst += 0.25f;
 	}
 }
