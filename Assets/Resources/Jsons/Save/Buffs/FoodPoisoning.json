@@ -2,7 +2,7 @@
     "buffTexture": {
         "instanceID": 10052
     },
-    "remainedTurn": 30,
+    "remainedTurn": 0,
     "buffCount": 0,
     "buffIndexName": "FoodPoisoning",
     "buffName": "식중독",

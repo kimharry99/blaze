@@ -8,4 +8,5 @@ public abstract class Disease : Buff
 	[SerializeField]
 	public string cureInfoString;
 	public abstract void Cure();
+	public abstract void AddNewDisease();
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FoodPoisoning
   m_EditorClassIdentifier: 
   buffTexture: {fileID: 2800000, guid: d86e71016b2fcde4989bd4ac9068073b, type: 3}
-  remainedTurn: 30
+  remainedTurn: 0
   buffCount: 0
   buffIndexName: FoodPoisoning
   buffName: "\uC2DD\uC911\uB3C5"

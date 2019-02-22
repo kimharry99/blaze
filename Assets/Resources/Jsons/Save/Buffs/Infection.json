@@ -1,0 +1,11 @@
+{
+    "buffTexture": {
+        "instanceID": 10360
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Infection",
+    "buffName": "감염병",
+    "description": "병에 걸리고 말았습니다... 건강하지 않으면 병은 낫지 않습니다.\n다음과 같은 효과를 받습니다 :\n매 턴 건강 -2\n건강이 50 이하일 경우, 자연 치유가 진행되지 않습니다.",
+    "cureInfoString": "Antibiotics,3"
+}

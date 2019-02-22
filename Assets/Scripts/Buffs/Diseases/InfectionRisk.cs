@@ -2,26 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wet : Buff
+public class InfectionRisk : Disease
 {
 	public override bool IsActivated
 	{
 		get
 		{
-			if (GameManager.inst.IsOutside)
-			{
-				if (TurnManager.inst.Weather == Weather.Rain && MapManager.inst.tileInfos[MapManager.inst.curPosition].structureType == StructureType.None)
-				{
-					remainedTurn = 4;
-				}
-			}
 			return remainedTurn > 0;
 		}
 	}
 
+	public override void AddNewDisease()
+	{
+		if (remainedTurn > 0)
+			remainedTurn /= 2;
+		else
+			remainedTurn = 48;
+	}
+
 	public override void Apply(int turn)
 	{
-		GameManager.inst.sanityChangePerTurn -= 1;
+		
+	}
+
+	public override void Cure()
+	{
+		remainedTurn = 0;
 	}
 
 	public override void Init()
@@ -31,8 +37,7 @@ public class Wet : Buff
 
 	protected override void OnTurnPassed(int turn)
 	{
-		float rand = Random.Range(0f, 100f);
-		if (rand < 3)
+		if (remainedTurn > 0 && remainedTurn - turn <= 0)
 		{
 			((Disease)GameManager.inst.GetBuff("Infection")).AddNewDisease();
 		}

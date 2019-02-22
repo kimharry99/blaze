@@ -1,0 +1,11 @@
+{
+    "buffTexture": {
+        "instanceID": 10360
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Infeciton",
+    "buffName": "걈염병",
+    "description": "",
+    "cureInfoString": ""
+}

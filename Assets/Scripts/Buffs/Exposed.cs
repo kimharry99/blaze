@@ -21,7 +21,7 @@ public class Exposed : Buff
 		float rand = Random.Range(0, 100);
 		if (rand < 2)
 		{
-			Debug.Log("화상");
+			((Disease)GameManager.inst.GetBuff("Burn")).AddNewDisease();
 		}
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Burn : Disease
+public class FoodPoisoning : Disease
 {
 	public override bool IsActivated
 	{
@@ -12,10 +12,15 @@ public class Burn : Disease
 		}
 	}
 
+	public override void AddNewDisease()
+	{
+		remainedTurn += 24;
+	}
+
 	public override void Apply(int turn)
 	{
-		GameManager.inst.healthChangePerTurn -= 1;
-		GameManager.inst.sanityChangePerTurn -= 2;
+		GameManager.inst.hungerChangePerTurn -= 5;
+		GameManager.inst.thirstChangePerTurn -= 5;
 	}
 
 	public override void Cure()
@@ -26,18 +31,5 @@ public class Burn : Disease
 	public override void Init()
 	{
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
-	}
-
-	protected override void OnTurnPassed(int turn)
-	{
-		if (remainedTurn > 0 && remainedTurn - turn <= 0)
-		{
-			float rand = Random.Range(0, 100);
-			if (rand < 50)
-			{
-				//TODO
-			}
-		}
-		base.OnTurnPassed(turn);
 	}
 }

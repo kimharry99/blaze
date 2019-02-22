@@ -20,9 +20,9 @@ public abstract class Buff : ScriptableObject
 		remainedTurn = Mathf.Max(remainedTurn - turn, 0);
 	}
 
-	public void SetRemainedTurn(int turn)
+	public void AddRemainedTurn(int turn)
 	{
-		remainedTurn = turn;
+		remainedTurn += turn;
 	}
 
 	public void AddBuffCount(int count)

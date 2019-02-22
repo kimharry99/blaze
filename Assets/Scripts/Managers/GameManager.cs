@@ -326,20 +326,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 		}
 	}
 
-	public void AddBuff(Buff buff)
+	public Buff GetBuff(string buffName)
 	{
-		if (!buffs.Values.ToList().Contains(buff))
-		{
-			buffs.Add(buff.buffIndexName, buff);
-		}
-	}
-
-	public void RemoveBuff(Buff buff)
-	{
-		if (buffs.Values.ToList().Contains(buff))
-		{
-			buffs.Remove(buff.buffIndexName);
-		}
+		return buffs[buffName];
 	}
 
 	private void ApplyBuffs(int turn)
