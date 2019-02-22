@@ -15,7 +15,8 @@ public class Bucket : Furniture
 	private void Start()
 	{
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
-	}
+        GameManager.inst.furnitures[(int)type] = new infoFurniture(Level, false);
+    }
 
 	public override void OnUseButtonClicked()
 	{

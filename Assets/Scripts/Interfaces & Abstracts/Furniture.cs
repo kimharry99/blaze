@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public enum FurnitureType
 {
-	Table,
-	Craft,
+    Craft,
+    Kitchen,
 	Bed,
-	Farm,
-	Kitchen,
+    Door,
+    Farm,
 	Bucket,
-	Door,
+    Generator,
     Refrigerator,
+    Bag,
 	None = -1
 }
 
@@ -20,6 +21,7 @@ public abstract class Furniture : MonoBehaviour
 {
 	public abstract FurnitureType type { get; }
 	public int Level { get; protected set; }
+    public bool IsRun { get; set; }
 	public GameObject furnitureUI;
 
 	protected virtual void OnTriggerEnter2D(Collider2D col)
@@ -58,5 +60,12 @@ public abstract class Furniture : MonoBehaviour
 	public virtual void Upgrade()
 	{
 		++Level;
+        setInfo();
 	}
+
+    public void setInfo()
+    {
+        GameManager.inst.furnitures[(int)type].level = Level;
+        GameManager.inst.furnitures[(int)type].isRun = IsRun;
+    }
 }

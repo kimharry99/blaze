@@ -71,9 +71,11 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void OnUpgradeButtonClicked(int wood, int components, int parts, Furniture furniture)
 	{
-		Debug.Log("ABC");
+        Debug.Log("ABC");
 		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
 			return;
+        if (furniture.type != FurnitureType.Craft && furniture.Level >= GameManager.inst.furnitures[(int)FurnitureType.Craft].level)
+            return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
 		CloseUpgradePanel();
 		GameManager.inst.StartTask(furniture.Upgrade, 4);
