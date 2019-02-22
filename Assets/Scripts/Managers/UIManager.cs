@@ -112,11 +112,11 @@ public class UIManager : SingletonBehaviour<UIManager>
 		energyUI.value = gm.Energy / 100f;
 
         StatusPointUI.text = gm.StatusPoint.ToString();
-        MaxHealthUI.text = gm.MaxHealth.ToString();
-        MaxSanityUI.text = gm.MaxSanity.ToString();
-        MaxHungerUI.text = gm.MaxHunger.ToString();
-        MaxThirstUI.text = gm.MaxThirst.ToString();
-        MaxEnergyUI.text = gm.MaxEnergy.ToString();
+        MaxHealthUI.text = gm.Health.ToString() + " / " + gm.MaxHealth.ToString();
+        MaxSanityUI.text = gm.Sanity.ToString() + " / " + gm.MaxSanity.ToString();
+        MaxHungerUI.text = gm.Hunger.ToString() + " / " + gm.MaxHunger.ToString();
+        MaxThirstUI.text = gm.Thirst.ToString() + " / " + gm.MaxThirst.ToString();
+        MaxEnergyUI.text = gm.Energy.ToString() + " / " + gm.MaxEnergy.ToString();
     }
 
 	public void OpenPlayerStatusUI()
