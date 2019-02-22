@@ -73,6 +73,7 @@ public class GameManager : SingletonBehaviour<GameManager>
                 }
                 ++PlayerLevel;
                 ++StatusPoint;
+                OnPlayerStatusUpdated();
             }
         }
     }
@@ -270,6 +271,61 @@ public class GameManager : SingletonBehaviour<GameManager>
             Health = Mathf.Max(0, Health + amount);
         }
         OnPlayerStatusUpdated();
+    }
+
+    public void IncreaseMaxHealth()
+    {
+        if(MaxHealth<110&&StatusPoint>0)
+        {
+            --StatusPoint;
+            ++MaxHealth;
+            ++Health;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxSanity()
+    {
+        if (MaxSanity < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxSanity;
+            ++Sanity;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxHunger()
+    {
+        if (MaxHunger < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxHunger;
+            ++Hunger;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxThirst()
+    {
+        if (MaxThirst < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxThirst;
+            ++Thirst;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxEnergy()
+    {
+        if (MaxEnergy < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxEnergy;
+            ++Energy;
+            OnPlayerStatusUpdated();
+        }
     }
 
     public void Heal (int amount)
