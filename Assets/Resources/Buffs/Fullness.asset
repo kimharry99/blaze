@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c1a1fc75c632140ad41a8647387561, type: 3}
   m_Name: Fullness
   m_EditorClassIdentifier: 
-  buffTexture: {fileID: 0}
+  buffTexture: {fileID: 2800000, guid: b8c0a213e3114a9459d5aeffdcd896ac, type: 3}
   remainedTurn: 0
   buffCount: 0
   buffIndexName: Fullness

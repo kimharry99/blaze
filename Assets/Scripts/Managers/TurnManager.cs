@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,8 +18,7 @@ public enum DayNight
 }
 public class TurnManager : SingletonBehaviour<TurnManager>
 {
-	public delegate void IntEvent(int turn);
-	public event IntEvent OnTurnPassed;
+	public event Action<int> OnTurnPassed;
 
 	#region Turn System Variables
 	public int Day { get; private set; }

@@ -14,4 +14,8 @@ public class Item : ScriptableObject
 	{
 		JsonUtility.FromJsonOverwrite(json, this);
 	}
+	public virtual void Init()
+	{
+
+	}
 }

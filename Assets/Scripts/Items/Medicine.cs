@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Medicine : ConsumableItem
+public class Medicine : Item
 {
-	public override void Use(int amount)
-	{
-		
-	}
+
 }

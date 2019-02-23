@@ -485,10 +485,27 @@ public class UIManager : SingletonBehaviour<UIManager>
 
 		foreach (var item in gm.items.Values)
 		{
-			GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
-			obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(item); });
-			obj.GetComponentInChildren<Text>().text = item.amount.ToString();
-			obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = item.itemImage;
+			if (item.GetType().IsSubclassOf(typeof(Food)) || item.GetType() == typeof(Food))
+			{
+				for (int i = 0; i < item.amount; ++i)
+				{
+					Food food = (Food)item;
+					GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
+					Debug.Log(i);
+					int remainedTurn = food.remainedTurns[i];
+					obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(food, remainedTurn); });
+					Vector2 time = TurnManager.inst.Time(food.remainedTurns[i]);
+					obj.GetComponentInChildren<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00"); 
+					obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = food.itemImage;
+				}
+			}
+			else
+			{
+				GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
+				obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(item); });
+				obj.GetComponentInChildren<Text>().text = item.amount.ToString();
+				obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = item.itemImage;
+			}
 		}
 	}
 
@@ -504,24 +521,35 @@ public class UIManager : SingletonBehaviour<UIManager>
 			itemNameText.text = "";
 			itemAmountText.text = "";
 			itemDescText.text = "";
-			itemImage.texture = null;
+			itemImage.color = Color.clear;
 			useButton.SetActive(false);
 			return;
 		}
 
+		itemImage.color = Color.white;
 		itemNameText.text = item.itemName;
 		itemAmountText.text = item.amount.ToString();
 		itemDescText.text = item.description;
 		itemImage.texture = item.itemImage;
-		if (item.GetType().IsSubclassOf(typeof(ConsumableItem)))
+		if (item.GetType().GetInterface("IConsumableItem") == typeof(IConsumableItem))
 		{
 			useButton.SetActive(true);
-			useButton.GetComponent<Button>().onClick.AddListener(delegate { ((ConsumableItem)item).Use(1); });
+			useButton.GetComponent<Button>().onClick.RemoveAllListeners();
+			useButton.GetComponent<Button>().onClick.AddListener(delegate { ((IConsumableItem)item).Use(); OpenInventoryPanel(); });
 		}
 		else
 		{
 			useButton.SetActive(false);
 		}
+	}
+	
+	public void ChangeItem(Food item, int remainedTurn)
+	{
+		ChangeItem(item);
+		useButton.GetComponent<Button>().onClick.RemoveAllListeners();
+		useButton.GetComponent<Button>().onClick.AddListener(delegate { item.Use(remainedTurn); OpenInventoryPanel(); });
+		Vector2 time = TurnManager.inst.Time(remainedTurn);
+		itemAmountText.text = time.x.ToString("00") + ":" + time.y.ToString("00");
 	}
 	#endregion
 

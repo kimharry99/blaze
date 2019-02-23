@@ -19,6 +19,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Items
 	public Dictionary<string, Item> items = new Dictionary<string, Item>();
+	public List<Food> foods = new List<Food>();
 	#endregion
 
 	#region Furnitures
@@ -86,10 +87,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 		SaveGameData();
 		//LoadGameData();
 
-		foreach (var buff in buffs.Values)
-		{
-			buff.Init();
-		}
 		OnPlayerStatusUpdated();
 		OnResourceUpdated();
 	}
@@ -177,11 +174,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
 		*/
-		ChangeHealth(healthChangePerTurn * turn);
-		ChangeSanity(sanityChangePerTurn * turn);
-		ChangeHunger(hungerChangePerTurn * turn);
-		ChangeThirst(thirstChangePerTurn * turn);
-		ChangeEnergy(energyChangePerTurn * turn);
+		ChangePlayerStatus(healthChangePerTurn * turn, sanityChangePerTurn * turn, healthChangePerTurn * turn, thirstChangePerTurn * turn, energyChangePerTurn * turn);
 		OnPlayerStatusUpdated();
 		//TODO : Don't use energy while sleeping ;
 	}
@@ -207,6 +200,15 @@ public class GameManager : SingletonBehaviour<GameManager>
             return (int)neededTurn;
         }
     }
+
+	public void ChangePlayerStatus(int health = 0, int sanity = 0, int hunger = 0, int thirst = 0, int energy = 0)
+	{
+		ChangeHealth(health);
+		ChangeSanity(sanity);
+		ChangeHunger(hunger);
+		ChangeThirst(thirst);
+		ChangeEnergy(energy);
+	}
 
     public void ChangeHealth(int amount)
     {
@@ -354,10 +356,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 		foreach (var item in Resources.LoadAll<Item>("Items"))
 		{
 			items.Add(item.itemIndexName, item);
+			item.Init();
 		}
 		foreach (var buff in Resources.LoadAll<Buff>("Buffs/"))
 		{
 			buffs.Add(buff.buffIndexName, buff);
+			buff.Init();
 		}
 	}
 
