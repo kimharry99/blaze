@@ -70,8 +70,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
-		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
+		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		PlayerState.Transition(PlayerState.idle);
 	}
 
@@ -86,6 +86,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 		InitGame();
 		SaveGameData();
 		//LoadGameData();
+
+		ApplyBuffs(1);
 
 		OnPlayerStatusUpdated();
 		OnResourceUpdated();
@@ -174,7 +176,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		Energy = Mathf.Max(0, Energy - turn);
         OnPlayerStatusUpdated();
 		*/
-		ChangePlayerStatus(healthChangePerTurn * turn, sanityChangePerTurn * turn, healthChangePerTurn * turn, thirstChangePerTurn * turn, energyChangePerTurn * turn);
+		ChangePlayerStatus(healthChangePerTurn * turn, sanityChangePerTurn * turn, hungerChangePerTurn * turn, thirstChangePerTurn * turn, energyChangePerTurn * turn);
 		OnPlayerStatusUpdated();
 		//TODO : Don't use energy while sleeping ;
 	}
@@ -303,6 +305,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 			}
 			UIManager.inst.UpdateBuffUI(buff);
 		}
+		UIManager.inst.UpdateStatusChangePerTurnUI();
 	}
 
 	public List<Disease> GetDiseases()

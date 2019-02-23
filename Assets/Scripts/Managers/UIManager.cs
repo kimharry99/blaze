@@ -35,6 +35,11 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Slider hungerUI;
 	public Slider thirstUI;
 	public Slider energyUI;
+	public Text healthPerTurnText;
+	public Text sanityPerTurnText;
+	public Text hungerPerTurnText;
+	public Text thirstPerTurnText;
+	public Text energyPerTurnText;
 	#endregion
 
 	#region Turn Passing UI
@@ -124,7 +129,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 			}
 		}
 
-		for (int i = 0; i <3; ++i)
+		for (int i = 0; i < 3; ++i)
 		{
 			if (Input.GetKeyDown(KeyCode.F1 + i))
 			{
@@ -169,6 +174,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		hungerUI.value = gm.Hunger / 100f;
 		thirstUI.value = gm.Thirst / 100f;
 		energyUI.value = gm.Energy / 100f;
+	}
+
+	public void UpdateStatusChangePerTurnUI()
+	{
+		IntegerTextFormatting(healthPerTurnText, gm.healthChangePerTurn, true);
+		IntegerTextFormatting(sanityPerTurnText, gm.sanityChangePerTurn, true);
+		IntegerTextFormatting(hungerPerTurnText, gm.hungerChangePerTurn, true);
+		IntegerTextFormatting(thirstPerTurnText, gm.thirstChangePerTurn, true);
+		IntegerTextFormatting(energyPerTurnText, gm.energyChangePerTurn, true);
 	}
 
 	public void OpenPlayerStatusUI()
@@ -251,32 +265,32 @@ public class UIManager : SingletonBehaviour<UIManager>
 		if (food != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Food", food);
+			InitResultObject(result, "Food", food, true);
 		}
 		if (preserved != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Preserved", preserved);
+			InitResultObject(result, "Preserved", preserved, true);
 		}
 		if (water != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Water", water);
+			InitResultObject(result, "Water", water, true);
 		}
 		if (wood != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Wood", wood);
+			InitResultObject(result, "Wood", wood, true);
 		}
 		if (components != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Components", components);
+			InitResultObject(result, "Components", components, true);
 		}
 		if (parts != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/ItemsIcon/Parts", parts);
+			InitResultObject(result, "Parts", parts, true);
 		}
 	}
 
@@ -310,12 +324,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		}
 	}
 
-	private void InitResultObject(GameObject result, string path, int amount)
+	private void InitResultObject(GameObject result, string path, int amount, bool isItem = false)
 	{
-		result.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(path);
-		result.GetComponentInChildren<Text>().text = amount.ToString("+#;-#;0");
+		if (isItem)
+			result.GetComponentInChildren<RawImage>().texture = GameManager.inst.items[path].itemImage;
+		else
+			result.GetComponentInChildren<RawImage>().texture = Resources.Load<Texture>(path);
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount);
+		//result.GetComponentInChildren<Text>().text = amount.ToString("+#;-#;0");
 	}
-
 	public void CloseEventLogPanel()
 	{
 		eventLogPanel.SetActive(false);
@@ -562,6 +579,20 @@ public class UIManager : SingletonBehaviour<UIManager>
 			openedPanel.SetActive(false);
 		openedPanel = systemPanel;
 		systemPanel.SetActive(true);
+	}
+	#endregion
+
+	#region Utility Functions
+	public static void IntegerTextFormatting(Text textUI, int value, bool isIgnoreZero = false)
+	{
+		if (value >= 0)
+			textUI.color = Color.black;
+		else if (value < 0)
+			textUI.color = Color.red;
+		if (value != 0 || !isIgnoreZero)
+			textUI.text = value.ToString("+#;-#;0");
+		else
+			textUI.text = "";
 	}
 	#endregion
 }
