@@ -251,32 +251,32 @@ public class UIManager : SingletonBehaviour<UIManager>
 		if (food != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Food", food);
+			InitResultObject(result, "Textures/ItemsIcon/Food", food);
 		}
 		if (preserved != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Preserved", preserved);
+			InitResultObject(result, "Textures/ItemsIcon/Preserved", preserved);
 		}
 		if (water != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Water", water);
+			InitResultObject(result, "Textures/ItemsIcon/Water", water);
 		}
 		if (wood != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Wood", wood);
+			InitResultObject(result, "Textures/ItemsIcon/Wood", wood);
 		}
 		if (components != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Components", components);
+			InitResultObject(result, "Textures/ItemsIcon/Components", components);
 		}
 		if (parts != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/Items Icon/Parts", parts);
+			InitResultObject(result, "Textures/ItemsIcon/Parts", parts);
 		}
 	}
 
@@ -286,27 +286,27 @@ public class UIManager : SingletonBehaviour<UIManager>
 		if (health != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/PlayerStatus Icon/Health", health);
+			InitResultObject(result, "Textures/PlayerStatusIcon/Health", health);
 		}
 		if (sanity != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/PlayerStatus Icon/Sanity", sanity);
+			InitResultObject(result, "Textures/PlayerStatusIcon/Sanity", sanity);
 		}
 		if (hunger != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/PlayerStatus Icon/Hunger", hunger);
+			InitResultObject(result, "Textures/PlayerStatusIcon/Hunger", hunger);
 		}
 		if (thirst != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/PlayerStatus Icon/Thirst", thirst);
+			InitResultObject(result, "Textures/PlayerStatusIcon/Thirst", thirst);
 		}
 		if (energy != 0)
 		{
 			result = Instantiate(resultPrefab, resultGrid);
-			InitResultObject(result, "Textures/PlayerStatus Icon/Energy", energy);
+			InitResultObject(result, "Textures/PlayerStatusIcon/Energy", energy);
 		}
 	}
 
@@ -485,6 +485,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 
 		foreach (var item in gm.items.Values)
 		{
+			if (item.amount <= 0)
+				continue;
 			if (item.GetType().IsSubclassOf(typeof(Food)) || item.GetType() == typeof(Food))
 			{
 				for (int i = 0; i < item.amount; ++i)

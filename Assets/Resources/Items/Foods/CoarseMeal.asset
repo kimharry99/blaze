@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CoarseMeal
   m_EditorClassIdentifier: 
   itemImage: {fileID: 0}
-  amount: 1
+  amount: 0
   itemIndexName: CoarseMeal
   itemName: "\uC870\uC545\uD55C \uC2DD\uC0AC"
   description: 
-  remainedTurns: 06000000
+  remainedTurns: 
   health: 30
   sanity: -5
   hunger: 0
