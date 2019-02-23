@@ -56,7 +56,10 @@ public class TileInfo
 			switch (TurnManager.inst.DayNight)
 			{
 				case DayNight.Day:
-					timeColor = Color.white;
+					if (TurnManager.inst.Weather == Weather.Sun)
+						timeColor = Color.white;
+					else
+						timeColor = new Color(0.8f, 0.8f, 0.8f);
 					break;
 				case DayNight.Sunset:
 					timeColor = new Color(1, 0.5f, 0);

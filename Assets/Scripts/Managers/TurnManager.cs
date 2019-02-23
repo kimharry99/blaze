@@ -192,6 +192,10 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		{
 			FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>().RainIntensity = Mathf.Clamp(_weatherTurn / 20f, 0, 1);
 		}
+		else if (FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>() != null)
+		{
+			FindObjectOfType<DigitalRuby.RainMaker.RainScript2D>().RainIntensity = 0;
+		}
 		UIManager.inst.UpdateWeatherUI();
 	}
 }

@@ -24,6 +24,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	private Color BaseTileColor = Color.white;
 
+	public Animator playerAnimator;
+
 	public int SightDistance
 	{
 		get
@@ -226,6 +228,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
 		GameManager.inst.StartTask(Move, moveCost);
 		isMoving = true;
+		Debug.Log(curPosition.x + " " + tilePosition.x);
+		player.GetComponent<SpriteRenderer>().flipX = curPosition.y > tilePosition.y;
+		playerAnimator.SetBool("IsWalking", true);
 	}
 
 	private void Move()
@@ -244,7 +249,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
 	{
 		Vector3 direction = end - start;
-		for (float t = 0; t <= 1; t += 0.05f)
+		for (float t = 0; t <= 1; t += 0.025f)
 		{
 			player.transform.position = start + direction * Vector2Utility.GetQuadricBeizerCurvePoint(Vector2.zero, Vector2.one, new Vector2(0, 1), new Vector2(0, 1), t).y;
 			yield return null;
@@ -253,6 +258,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
 		tileInfos[curPosition].OnVisited();
 		isMoving = false;
+		playerAnimator.SetBool("IsWalking", false);
 	}
 	#endregion
 }
