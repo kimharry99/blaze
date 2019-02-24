@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Door : Furniture
+public class DoorObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Door; } }
 

@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Home.unity
     guid: e399960a03d803140a6e754f935fdc5d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Temporary Scenes/OutdoorBS.unity
     guid: 20d708276a804de41a99807a5879d072
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Temporary Scenes/HomeBS.unity
     guid: b08bf681ad27c4142bb7dc757b6e4d55
   m_configObjects: {}

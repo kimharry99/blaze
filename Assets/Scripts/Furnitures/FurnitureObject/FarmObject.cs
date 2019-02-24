@@ -9,7 +9,7 @@ enum FarmState
 	Harvest
 }
 
-public class Farm : Furniture
+public class FarmObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Farm; } }
 	public int[] turnLeft = new int[3];

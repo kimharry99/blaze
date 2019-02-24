@@ -9,6 +9,7 @@ public abstract class LogEvent : ScriptableObject
 
 	public string eventName;
 	public string eventTitle;
+	[TextArea]
 	public string description;
 	public List<string> actionDescriptions;
 

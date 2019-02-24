@@ -1,17 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class UpgradeButton : MonoBehaviour
 {
+	public UnityEvent OnClicked;
+	public string furnitureName;
 	private void OnMouseUp()
 	{
-		Debug.Log(EventSystem.current.IsPointerOverGameObject());
 		if (EventSystem.current.IsPointerOverGameObject())
 			return;
-		Furniture furniture = GetComponentInParent<Furniture>();
-		if (furniture.Level <= 3)
-			HomeUIManager.inst.OpenUpgradePanel(furniture);
+		Debug.Log(furnitureName);
+		Furniture furniture = GameManager.inst.furnitures[furnitureName];
+		if (furniture.level <= 3)
+			OnClicked.Invoke();
 	}
 }

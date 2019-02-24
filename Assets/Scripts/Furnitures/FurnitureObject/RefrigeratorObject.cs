@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Refrigerator : Furniture
+public class RefrigeratorObject : FurnitureObject
 {
     public override FurnitureType type { get { return FurnitureType.Refrigerator; } }
 

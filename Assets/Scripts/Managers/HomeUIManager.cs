@@ -11,6 +11,14 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 {
 	public GameObject[] furnitureUIs = new GameObject[10];
 
+	#region Bucket UI Variables
+	[Header("Bucket UI")]
+	public GameObject bucketPanel;
+	public Text bucketWaterText;
+	public Slider bucketWaterSlider;
+	public Button bucketHarvestButton;
+	#endregion
+
 	#region Upgrade UI
 	public GameObject upgradePanel;
 	public Text woodText;
@@ -38,10 +46,10 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	#endregion
 
 	#region Upgrade UI Functions
-	public void OpenUpgradePanel(Furniture furniture)
+	public void OpenUpgradePanel(string furnitureName)
 	{
 		upgradePanel.SetActive(true);
-		UpdateUpgradePanel(furniture);
+		UpdateUpgradePanel(gm.furnitures[furnitureName]);
 	}
 
 	public void CloseUpgradePanel()
@@ -51,10 +59,10 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void UpdateUpgradePanel(Furniture furniture)
 	{
-		int level = furniture.Level;
-		FurnitureUpgradeInfo info = JsonHelper.LoadFurnitureUpgradeInfo(furniture.type);
+		int level = furniture.level;
+		FurnitureUpgradeInfo info = JsonHelper.LoadFurnitureUpgradeInfo(furniture);
 
-		furnitureText.text = furniture.type.ToString();
+		furnitureText.text = furniture.furnitureName;
 
 		woodText.text = "x " + info.wood[level].ToString();
 		componentsText.text = "x " + info.components[level].ToString();
@@ -71,7 +79,6 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void OnUpgradeButtonClicked(int wood, int components, int parts, Furniture furniture)
 	{
-		Debug.Log("ABC");
 		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
 			return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
@@ -79,6 +86,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		GameManager.inst.StartTask(furniture.Upgrade, 4);
 	}
 	#endregion
+
 
 	private void Awake()
 	{
@@ -90,4 +98,27 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		obj.SetActive(false);
 	}
+
+	#region Bucket UI Functions
+	public void OpenBucketPanel()
+	{
+		bucketPanel.SetActive(true);
+		Bucket bucket = (Bucket)gm.furnitures["Bucket"];
+		bucketHarvestButton.interactable = bucket.water > 0;
+		bucketWaterText.text = bucket.water.ToString() + "/" + bucket.MaxCapacity.ToString();
+		bucketWaterSlider.value = bucket.water / (float)bucket.MaxCapacity;
+	}
+
+	public void CloseBucketPanel()
+	{
+		bucketPanel.SetActive(false);
+	}
+
+	public void Bucket_HarvestWater()
+	{
+		Bucket bucket = (Bucket)gm.furnitures["Bucket"];
+		bucket.HarvestWater();
+		OpenBucketPanel();
+	}
+	#endregion
 }

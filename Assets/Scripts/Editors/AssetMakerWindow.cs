@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class AssetMakerWindow : EditorWindow
 {
 	MonoScript script;
@@ -32,3 +33,4 @@ public class AssetMakerWindow : EditorWindow
 		}
 	}
 }
+#endif

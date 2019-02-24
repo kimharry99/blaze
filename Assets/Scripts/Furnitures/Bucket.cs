@@ -4,36 +4,33 @@ using UnityEngine;
 
 public class Bucket : Furniture
 {
-	public override FurnitureType type { get { return FurnitureType.Bucket; } }
+	private readonly int[] waterPerTurn = { 0, 2, 3, 5 };
+	private readonly int[] maxCapacity = { 0, 30, 60, 120 };
 
-	private readonly int[] waterPerTurn = { 2, 3, 5 };
-	private readonly int[] maxCapacity = { 30, 60, 120 };
+	public int MaxCapacity { get { return maxCapacity[level]; } }
+	public int water;
 
-	public int MaxCapacity { get { return maxCapacity[Level]; } }
-	public int Water { get; private set; }
+	private bool isUsing = false;
 
-	private void Start()
+	public override void Init()
 	{
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
-	public override void OnUseButtonClicked()
+	public override void OnTurnPassed(int turn)
 	{
-		if (Water > 0)
-			GameManager.inst.StartTask(UseFurniture, Mathf.CeilToInt(Water / 30f));
-	}
-
-	public void UseFurniture()
-	{
-		GameManager.inst.GetResource(water: Water);
-		Water = 0;
-	}
-
-	public void OnTurnPassed(int turn)
-	{
-		if (TurnManager.inst.Weather == Weather.Rain)
+		if (TurnManager.inst.Weather == Weather.Rain && !isUsing)
 		{
-			Water = Mathf.Min(MaxCapacity, Water + turn * waterPerTurn[Level]);
+			water = Mathf.Min(MaxCapacity, water + turn * waterPerTurn[level]);
 		}
+	}
+
+	public void HarvestWater()
+	{
+		GameManager.inst.GetResource(water: water);
+		water = 0;
+		isUsing = true;
+		TurnManager.inst.UseTurn(2);
+		isUsing = false;
 	}
 }

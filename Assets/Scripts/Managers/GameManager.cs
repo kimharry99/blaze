@@ -33,6 +33,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int Bag { get; private set; }
 	public int WareHouse { get; private set; }
     public int Refrigerator { get; private set; }
+	public Dictionary<string, Furniture> furnitures = new Dictionary<string, Furniture>();
 	#endregion
 
 	#region Player Status
@@ -356,7 +357,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	#region Game Data Functions
 	public void InitGame()
 	{
-		foreach (var item in Resources.LoadAll<Item>("Items"))
+		foreach (var item in Resources.LoadAll<Item>("Items/"))
 		{
 			items.Add(item.itemIndexName, item);
 			item.Init();
@@ -365,6 +366,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		{
 			buffs.Add(buff.buffIndexName, buff);
 			buff.Init();
+		}
+		foreach (var furniture in Resources.LoadAll<Furniture>("Furnitures/"))
+		{
+			furnitures.Add(furniture.furnitureName, furniture);
+			furniture.Init();
 		}
 	}
 

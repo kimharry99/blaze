@@ -16,7 +16,7 @@ public enum FurnitureType
 	None = -1
 }
 
-public abstract class Furniture : MonoBehaviour
+public abstract class FurnitureObject : MonoBehaviour
 {
 	public abstract FurnitureType type { get; }
 	public int Level { get; protected set; }

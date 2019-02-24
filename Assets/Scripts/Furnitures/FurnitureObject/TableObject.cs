@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Table : Furniture
+public class TableObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Table; } }
 	private int option = 0;

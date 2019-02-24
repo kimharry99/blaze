@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kitchen : Furniture
+public class KitchenObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Kitchen; } }
 	// Start is called before the first frame update

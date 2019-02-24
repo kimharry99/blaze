@@ -7,10 +7,9 @@ using UnityEngine.Events;
 
 public class JsonHelper : MonoBehaviour
 {
-	public static FurnitureUpgradeInfo LoadFurnitureUpgradeInfo(FurnitureType type)
+	public static FurnitureUpgradeInfo LoadFurnitureUpgradeInfo(Furniture furniture)
 	{
-		Debug.Log(type.ToString());
-;		string json = LoadJson("FurnitureUpgradeInfo/" + type.ToString());
+;		string json = LoadJson("FurnitureUpgradeInfo/" + furniture.furnitureName);
 		return JsonUtility.FromJson<FurnitureUpgradeInfo>(json);
 	}
 
