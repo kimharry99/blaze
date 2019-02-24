@@ -18,8 +18,8 @@ MonoBehaviour:
   itemName: "\uC870\uC545\uD55C \uC2DD\uC0AC"
   description: 
   remainedTurns: 
-  health: 30
+  health: 0
   sanity: -5
-  hunger: 0
+  hunger: 30
   thirst: 0
   energy: 0
