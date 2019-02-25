@@ -106,17 +106,7 @@ public class Kitchen : Furniture
         GameManager.inst.furnitures[(int)type] = new infoFurniture(Level, false);
     }
 
-	protected override void OnTriggerEnter2D(Collider2D collision)
-	{
-		throw new System.NotImplementedException();
-	}
-
-	public override void OpenFurnitureUI()
-	{
-		base.OpenFurnitureUI();
-	}
-
-	public override void OnUseButtonClicked()
+    public override void OnUseButtonClicked()
 	{
         if (option >= 3 && Level < 2) return;
         if (option >= 4 && Level < 3) return;

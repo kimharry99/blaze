@@ -56,6 +56,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 		furnitureText.text = furniture.type.ToString();
 
+        if (level >= 3) return;
+
 		woodText.text = "x " + info.wood[level].ToString();
 		componentsText.text = "x " + info.components[level].ToString();
 		partsText.text = "x " + info.parts[level].ToString();
