@@ -326,6 +326,13 @@ public class UIManager : SingletonBehaviour<UIManager>
 		}
 	}
 
+	public void AddBuffResult(string buffName, int amount = 0)
+	{
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		result.GetComponentInChildren<RawImage>().texture = gm.GetBuff(buffName).buffTexture;
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount);
+	}
+
 	private void InitResultObject(GameObject result, string path, int amount, bool isItem = false)
 	{
 		if (isItem)
