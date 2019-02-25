@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 using System.Linq;
+using System.Reflection;
 
 /// <summary>
 /// Manager of common UI between scenes
@@ -40,14 +41,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text hungerPerTurnText;
 	public Text thirstPerTurnText;
 	public Text energyPerTurnText;
-
-    public GameObject characterUI;
-    public Text StatusPointUI;
-    public Text MaxHealthUI;
-    public Text MaxSanityUI;
-    public Text MaxHungerUI;
-    public Text MaxThirstUI;
-    public Text MaxEnergyUI;
     #endregion
 
     #region Turn Passing UI
@@ -96,6 +89,17 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text itemNameText;
 	public Text itemDescText;
 	public Text itemAmountText;
+	#endregion
+
+	#region Character Info UI
+	[Header("Character Info UI")]
+	public GameObject characterPanel;
+	public Text StatusPointUI;
+	public Text MaxHealthUI;
+	public Text MaxSanityUI;
+	public Text MaxHungerUI;
+	public Text MaxThirstUI;
+	public Text MaxEnergyUI;
 	#endregion
 
 	#region Prefabs
@@ -177,18 +181,11 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#region Player Status UI Functions
 	public void UpdatePlayerStatusUI()
 	{
-		HealthUI.value = gm.Health / 100f;
-		SanityUI.value = gm.Sanity / 100f;
-		hungerUI.value = gm.Hunger / 100f;
-		thirstUI.value = gm.Thirst / 100f;
-		energyUI.value = gm.Energy / 100f;
-
-        StatusPointUI.text = gm.StatusPoint.ToString();
-        MaxHealthUI.text = gm.Health.ToString() + " / " + gm.MaxHealth.ToString();
-        MaxSanityUI.text = gm.Sanity.ToString() + " / " + gm.MaxSanity.ToString();
-        MaxHungerUI.text = gm.Hunger.ToString() + " / " + gm.MaxHunger.ToString();
-        MaxThirstUI.text = gm.Thirst.ToString() + " / " + gm.MaxThirst.ToString();
-        MaxEnergyUI.text = gm.Energy.ToString() + " / " + gm.MaxEnergy.ToString();
+		HealthUI.value = gm.Health / (float)gm.MaxHealth;
+		SanityUI.value = gm.Sanity / (float)gm.MaxSanity;
+		hungerUI.value = gm.Hunger / (float)gm.MaxHunger;
+		thirstUI.value = gm.Thirst / (float)gm.MaxThirst;
+		energyUI.value = gm.Energy / (float)gm.MaxEnergy;
     }
 
 	public void UpdateStatusChangePerTurnUI()
@@ -199,26 +196,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 		IntegerTextFormatting(thirstPerTurnText, gm.thirstChangePerTurn, true);
 		IntegerTextFormatting(energyPerTurnText, gm.energyChangePerTurn, true);
 	}
-
-	public void OpenPlayerStatusUI()
-	{
-		playerStatusUI.SetActive(true);
-	}
-
-	public void ClosePlayerStatusUI()
-	{
-		playerStatusUI.SetActive(false);
-	}
-
-    public void OpenCharacterUI()
-    {
-        characterUI.SetActive(true);
-    }
-
-    public void CloseCharacterUI()
-    {
-        characterUI.SetActive(false);
-    }
     #endregion
 
     #region Turn Passing UI Functions
@@ -620,4 +597,49 @@ public class UIManager : SingletonBehaviour<UIManager>
 			textUI.text = "";
 	}
 	#endregion
+
+	#region Character Info UI Functions
+	public void OpenCharacterUI()
+	{
+		if (openedPanel != null)
+			openedPanel.SetActive(false);
+		openedPanel = characterPanel;
+		characterPanel.SetActive(true);
+		StatusPointUI.text = gm.StatusPoint.ToString();
+		MaxHealthUI.text = gm.Health.ToString() + " / " + gm.MaxHealth.ToString();
+		MaxSanityUI.text = gm.Sanity.ToString() + " / " + gm.MaxSanity.ToString();
+		MaxHungerUI.text = gm.Hunger.ToString() + " / " + gm.MaxHunger.ToString();
+		MaxThirstUI.text = gm.Thirst.ToString() + " / " + gm.MaxThirst.ToString();
+		MaxEnergyUI.text = gm.Energy.ToString() + " / " + gm.MaxEnergy.ToString();
+	}
+
+	public void CloseCharacterUI()
+	{
+		characterPanel.SetActive(false);
+	}
+
+	public void OnIncreaseButtonClicked(string name)
+	{
+		switch (name)
+		{
+			case "Health":
+				gm.IncreaseMaxHealth();
+				break;
+			case "Sanity":
+				gm.IncreaseMaxSanity();
+				break;
+			case "Hunger":
+				gm.IncreaseMaxHunger();
+				break;
+			case "Thirst":
+				gm.IncreaseMaxThirst();
+				break;
+			case "Energy":
+				gm.IncreaseMaxEnergy();
+				break;
+		}
+		OpenCharacterUI();
+	}
+	#endregion
+
 }

@@ -140,8 +140,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 		if (Input.GetKeyDown(KeyCode.M))
 		{
-			Hunger = 0;
-			Thirst = 0;
+			ExperiencePoint += 100;
 		}
 	}
 
