@@ -38,10 +38,42 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Player Status
     public int Health { get; private set; }
+    public int MaxHealth { get; private set; }
     public int Sanity { get; private set; }
+    public int MaxSanity { get; private set; }
     public int Energy { get; private set; }
-	public int Hunger { get; private set; }
-	public int Thirst { get; private set; }
+    public int MaxEnergy { get; private set; }
+    public int Hunger { get; private set; }
+    public int MaxHunger { get; private set; }
+    public int Thirst { get; private set; }
+    public int MaxThirst { get; private set; }
+    private int _experiencePoint = 0;
+    public int ExperiencePoint
+    {
+        get { return _experiencePoint; }
+        private set
+        {
+            _experiencePoint = value;
+            if (PlayerLevel == 50)
+            {
+                _experiencePoint = 0;
+            }
+            while (_experiencePoint >= maxExperiencePoint[PlayerLevel])
+            {
+                _experiencePoint -= maxExperiencePoint[PlayerLevel];
+                if (PlayerLevel == 49)
+                {
+                    _experiencePoint = 0;
+                }
+                ++PlayerLevel;
+                ++StatusPoint;
+                OnPlayerStatusUpdated();
+            }
+        }
+    }
+    public int PlayerLevel { get; private set; }
+    private readonly int[] maxExperiencePoint = new int [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,999};
+    public int StatusPoint { get; private set; }
 
 	[SerializeField]
 	//private List<Buff> buffs = new List<Buff>();
@@ -79,10 +111,18 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Start()
 	{
         Health = 100;
+        MaxHealth = 100;
         Sanity = 100;
-		Energy = 100;
-		Hunger = 100;
-		Thirst = 100;
+        MaxSanity = 100;
+        Energy = 100;
+        MaxEnergy = 100;
+        Hunger = 100;
+        MaxHunger = 100;
+        Thirst = 100;
+        MaxThirst = 100;
+        PlayerLevel = 0;
+        ExperiencePoint = 0;
+        StatusPoint = 0;
 
 		InitGame();
 		SaveGameData();
@@ -152,7 +192,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 		/*
         if(Hunger >80)
         {
-            Sanity = Mathf.Min(100, Sanity + 2 * turn);
+            Sanity = Mathf.Min(MaxSanity, Sanity + 2 * turn);
         }
         else if (Hunger == 0)
         {
@@ -163,7 +203,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         if (Thirst > 80)
         {
             Thirst = Mathf.Max(0, Thirst - turn);
-            Health = Mathf.Min(100, Health + turn);
+            Health = Mathf.Min(MaxHealth, Health + turn);
         }
         else if (0<Thirst && Thirst <81)
         {
@@ -217,7 +257,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(amount>0)
         {
-            Health = Mathf.Min(100, Health + amount);
+            Health = Mathf.Min(MaxHealth, Health + amount);
         }
         else
         {
@@ -228,11 +268,66 @@ public class GameManager : SingletonBehaviour<GameManager>
         OnPlayerStatusUpdated();
     }
 
-    public void ChangeSanity (int amount)
+    public void IncreaseMaxHealth()
     {
+        if(MaxHealth<110&&StatusPoint>0)
+        {
+            --StatusPoint;
+            ++MaxHealth;
+            ++Health;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxSanity()
+    {
+        if (MaxSanity < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxSanity;
+            ++Sanity;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxHunger()
+    {
+        if (MaxHunger < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxHunger;
+            ++Hunger;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxThirst()
+    {
+        if (MaxThirst < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxThirst;
+            ++Thirst;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+    public void IncreaseMaxEnergy()
+    {
+        if (MaxEnergy < 110 && StatusPoint > 0)
+        {
+            --StatusPoint;
+            ++MaxEnergy;
+            ++Energy;
+            OnPlayerStatusUpdated();
+        }
+    }
+
+	public void ChangeSanity(int amount)
+	{
         if (amount > 0)
         {
-            Sanity = Mathf.Min(100, Sanity + amount);
+            Sanity = Mathf.Min(MaxSanity, Sanity + amount);
         }
         else
         {
@@ -247,7 +342,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Hunger = Mathf.Min(100, Hunger + amount);
+            Hunger = Mathf.Min(MaxHunger, Hunger + amount);
         }
         else
         {
@@ -260,7 +355,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Thirst = Mathf.Min(100, Thirst + amount);
+            Thirst = Mathf.Min(MaxThirst, Thirst + amount);
         }
         else
         {
@@ -273,12 +368,19 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Energy = Mathf.Min(100, Energy + amount);
+            Energy = Mathf.Min(MaxEnergy, Energy + amount);
         }
         else
         {
             Energy = Mathf.Max(0, Energy + amount);
         }
+        OnPlayerStatusUpdated();
+    }
+
+
+    public void GetExperiencePoint(int amount)
+    {
+        ExperiencePoint += amount;
         OnPlayerStatusUpdated();
     }
 

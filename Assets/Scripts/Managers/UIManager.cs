@@ -40,10 +40,18 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text hungerPerTurnText;
 	public Text thirstPerTurnText;
 	public Text energyPerTurnText;
-	#endregion
 
-	#region Turn Passing UI
-	[Header("Turn Passing UI")]
+    public GameObject characterUI;
+    public Text StatusPointUI;
+    public Text MaxHealthUI;
+    public Text MaxSanityUI;
+    public Text MaxHungerUI;
+    public Text MaxThirstUI;
+    public Text MaxEnergyUI;
+    #endregion
+
+    #region Turn Passing UI
+    [Header("Turn Passing UI")]
 	public GameObject turnPassUI;
 	public Slider turnPassSlider;
 	#endregion
@@ -174,7 +182,14 @@ public class UIManager : SingletonBehaviour<UIManager>
 		hungerUI.value = gm.Hunger / 100f;
 		thirstUI.value = gm.Thirst / 100f;
 		energyUI.value = gm.Energy / 100f;
-	}
+
+        StatusPointUI.text = gm.StatusPoint.ToString();
+        MaxHealthUI.text = gm.Health.ToString() + " / " + gm.MaxHealth.ToString();
+        MaxSanityUI.text = gm.Sanity.ToString() + " / " + gm.MaxSanity.ToString();
+        MaxHungerUI.text = gm.Hunger.ToString() + " / " + gm.MaxHunger.ToString();
+        MaxThirstUI.text = gm.Thirst.ToString() + " / " + gm.MaxThirst.ToString();
+        MaxEnergyUI.text = gm.Energy.ToString() + " / " + gm.MaxEnergy.ToString();
+    }
 
 	public void UpdateStatusChangePerTurnUI()
 	{
@@ -194,10 +209,20 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		playerStatusUI.SetActive(false);
 	}
-	#endregion
 
-	#region Turn Passing UI Functions
-	public void OpenTurnPassUI(int maxTurn, string info)
+    public void OpenCharacterUI()
+    {
+        characterUI.SetActive(true);
+    }
+
+    public void CloseCharacterUI()
+    {
+        characterUI.SetActive(false);
+    }
+    #endregion
+
+    #region Turn Passing UI Functions
+    public void OpenTurnPassUI(int maxTurn, string info)
 	{
 		turnPassUI.SetActive(true);
 		//turnPassInfoText.text = info;
