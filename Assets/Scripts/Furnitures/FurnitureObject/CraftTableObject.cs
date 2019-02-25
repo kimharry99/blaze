@@ -14,12 +14,7 @@ public class CraftTableObject : FurnitureObject
 	// Start is called before the first frame update
 	void Start()
     {
-        
+        Level = 1;
+        //GameManager.inst.furnitures[(int)type] = new infoFurniture(Level, false);
     }
-
-	// Update is called once per frame
-	void Update()
-	{
-
-	}
 }

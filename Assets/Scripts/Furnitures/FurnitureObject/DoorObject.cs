@@ -14,6 +14,7 @@ public class DoorObject : FurnitureObject
     private void Start()
     {
         Level = 1;
+       //GameManager.inst.furnitures[(int)type] = new infoFurniture(Level, false);
     }
 
     public override void OnUseButtonClicked()

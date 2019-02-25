@@ -15,7 +15,7 @@ public class Bucket : Furniture
 	public override void Init()
 	{
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
-	}
+    }
 
 	public override void OnTurnPassed(int turn)
 	{

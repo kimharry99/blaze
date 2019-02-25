@@ -5,6 +5,18 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public struct infoFurniture
+{
+    public int level;
+    public bool isRun;
+
+    public infoFurniture(int Level, bool IsRun)
+    {
+        level = Level;
+        isRun = IsRun;
+    }
+}
+
 public class GameManager : SingletonBehaviour<GameManager>
 {
 
@@ -19,19 +31,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	#region Items
 	public Dictionary<string, Item> items = new Dictionary<string, Item>();
-	public List<Food> foods = new List<Food>();
 	#endregion
 
-	#region Furnitures
+    #region Furnitures
+    //public infoFurniture[] furnitures = new infoFurniture[10];
 	public int Table { get; private set; }
 	public int Craft { get; private set; }
 	public int Bed { get; private set; }
-	public int Garden { get; private set; }
 	public int Kitchen { get; private set; }
 	public int Bucket { get; private set; }
 	public int Door { get; private set; }
 	public int Bag { get; private set; }
-	public int WareHouse { get; private set; }
     public int Refrigerator { get; private set; }
 	public Dictionary<string, Furniture> furnitures = new Dictionary<string, Furniture>();
 	#endregion

@@ -228,7 +228,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
 		GameManager.inst.StartTask(Move, moveCost);
 		isMoving = true;
-		Debug.Log(curPosition.x + " " + tilePosition.x);
 		player.GetComponent<SpriteRenderer>().flipX = curPosition.y > tilePosition.y;
 		playerAnimator.SetBool("IsWalking", true);
 	}
