@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 10234
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Fullness",
+    "buffName": "만복",
+    "description": "배가 부릅니다. 힘이 솟습니다...!\n다음과 같은 효과를 받습니다 :\n수면을 제외한 작업 시간 소모량 -25%"
+}

@@ -1,0 +1,15 @@
+{
+    "itemImage": {
+        "instanceID": 0
+    },
+    "amount": 0,
+    "itemIndexName": "FineMeal",
+    "itemName": "호화로운 식사",
+    "description": "",
+    "remainedTurns": [],
+    "health": 0,
+    "sanity": 10,
+    "hunger": 40,
+    "thirst": 0,
+    "energy": 0
+}

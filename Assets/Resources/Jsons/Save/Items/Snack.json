@@ -1,0 +1,15 @@
+{
+    "itemImage": {
+        "instanceID": 0
+    },
+    "amount": 0,
+    "itemIndexName": "Snack",
+    "itemName": "달콤한 간식",
+    "description": "",
+    "remainedTurns": [],
+    "health": 0,
+    "sanity": 20,
+    "hunger": 20,
+    "thirst": 0,
+    "energy": 0
+}

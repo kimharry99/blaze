@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 10486
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Despair",
+    "buffName": "절망",
+    "description": "희망이라곤 조금도 보이지 않습니다...\n다음과 같은 효과를 받습니다 :\n정신력을 제외한 상태 회복량 -50%"
+}

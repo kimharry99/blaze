@@ -1,0 +1,11 @@
+{
+    "buffTexture": {
+        "instanceID": 11034
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Bleeding",
+    "buffName": "출혈",
+    "description": "어서 지혈해야 합니다!\n다음과 같은 효과를 받습니다 :\n매 턴 건강 -1 * (스택)",
+    "cureInfoString": "Bandage,1"
+}

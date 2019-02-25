@@ -1,0 +1,11 @@
+{
+    "buffTexture": {
+        "instanceID": 10072
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "FoodPoisoning",
+    "buffName": "식중독",
+    "description": "화장실과 한몸이 되어가는듯 합니다...\n다음과 같은 효과를 받습니다 :\n매 턴 허기 -5\n매 턴 갈증 -5",
+    "cureInfoString": "Antibiotics,1"
+}

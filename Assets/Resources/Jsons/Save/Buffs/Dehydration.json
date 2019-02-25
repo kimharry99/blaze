@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 10392
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Dehydration",
+    "buffName": "탈수",
+    "description": "목이 타들어가고 있습니다.\n다음과 같은 효과를 받습니다 :\n매 턴 건강 -4\n매 턴 정신력 -1"
+}

@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 11230
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Despression",
+    "buffName": "우울",
+    "description": "삶이 힘들다고 느껴집니다...\n다음과 같은 효과를 받습니다 :\n정신력을 제외한 상태 회복량 -25%"
+}

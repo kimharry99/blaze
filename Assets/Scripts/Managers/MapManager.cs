@@ -41,7 +41,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	private void Awake()
 	{
-		//MapMaking(10);
+		//MapMaking(20);
 		//SaveMapData();
 		LoadMapData();
 	}
