@@ -16,6 +16,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 	[Header("Turn UI")]
 	public Text dayUI;
 	public Text timeUI;
+	public RectTransform minuteHand;
+	public RectTransform hourHand;
 	#endregion
 
 	#region Resource UI
@@ -152,17 +154,14 @@ public class UIManager : SingletonBehaviour<UIManager>
 	}
 
 	#region Turn UI Functions
-	private void UpdateTimeUI(int turn)
+	private void UpdateTimerUI(int turn)
 	{
 		Vector2 time = tm.Time();
 		int hour = (int)time.x;
 		int minute = (int)time.y;
-		timeUI.text = hour.ToString("00") + ":" + minute.ToString("00");
-	}
-
-	private void UpdateDayUI(int turn)
-	{
-		dayUI.text = "Day " + tm.Day.ToString();
+		hourHand.rotation = Quaternion.Euler(0, 0, -30 * hour - 0.5f * minute);
+		minuteHand.rotation = Quaternion.Euler(0, 0, -6 * minute);
+		dayUI.text = tm.Day.ToString();
 	}
 	#endregion
 
@@ -364,8 +363,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gm = GameManager.inst;
 		tm = TurnManager.inst;
 
-		tm.OnTurnPassed += UpdateTimeUI;
-		tm.OnTurnPassed += UpdateDayUI;
+		tm.OnTurnPassed += UpdateTimerUI;
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		gm.OnResourceUpdated += UpdateResourcesUI;
 

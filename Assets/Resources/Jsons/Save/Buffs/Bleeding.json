@@ -1,8 +1,8 @@
 {
     "buffTexture": {
-        "instanceID": 11034
+        "instanceID": 11084
     },
-    "remainedTurn": 0,
+    "remainedTurn": 4,
     "buffCount": 0,
     "buffIndexName": "Bleeding",
     "buffName": "출혈",

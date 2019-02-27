@@ -1,8 +1,8 @@
 {
     "itemImage": {
-        "instanceID": 10364
+        "instanceID": 10370
     },
-    "amount": 0,
+    "amount": 10,
     "itemIndexName": "Preserved",
     "itemName": "보존음식",
     "description": ""
