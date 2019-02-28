@@ -31,6 +31,7 @@ public class FoodPoisoning : Disease
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 }
