@@ -10,7 +10,7 @@ public class XMark_JackPot : LogEvent
 	public override void EventStart()
 	{
 		UIManager.inst.AddResourceResult(amount, amount, amount, amount, amount, amount);
-		UIManager.inst.AddPlayerStatusResult(100, 100, 100);
+		UIManager.inst.AddPlayerStatusResult(GameManager.inst.MaxHunger, GameManager.inst.MaxThirst, GameManager.inst.MaxEnergy);
 	}
 
 	public override List<UnityAction> GetActions()
@@ -21,9 +21,9 @@ public class XMark_JackPot : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(amount, amount, amount, amount, amount, amount);
-		GameManager.inst.ChangeHunger(100);
-		GameManager.inst.ChangeThirst(100);
-		GameManager.inst.ChangeEnergy(100);
+		GameManager.inst.ChangeHunger(GameManager.inst.MaxHunger);
+		GameManager.inst.ChangeThirst(GameManager.inst.MaxThirst);
+		GameManager.inst.ChangeEnergy(GameManager.inst.MaxEnergy);
 		EndEvent();
 	}
 }

@@ -19,6 +19,6 @@ public class WeirdSound_Nothing : LogEvent
 	public void Confirm()
 	{
 		GameManager.inst.ChangeSanity(sanity);
-		UIManager.inst.CloseEventLogPanel();
+		EndEvent();
 	}
 }

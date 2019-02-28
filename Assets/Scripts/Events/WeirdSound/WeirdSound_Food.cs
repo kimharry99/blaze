@@ -23,6 +23,6 @@ public class WeirdSound_Food : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(preserved: preserved, water: water);
-		UIManager.inst.CloseEventLogPanel();
+		EndEvent();
 	}
 }
