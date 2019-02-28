@@ -113,6 +113,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
+		InitGame();
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		PlayerState.Transition(PlayerState.idle);
@@ -134,7 +135,6 @@ public class GameManager : SingletonBehaviour<GameManager>
         ExperiencePoint = 0;
         StatusPoint = 0;
 
-		InitGame();
 		SaveGameData();
 		//LoadGameData();
 
@@ -183,12 +183,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public void GetResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		Water += water;
-		Food += food;
-		Preserved += preserved;
-		Wood += wood;
-		Components += components;
-		Parts += parts;
+		Water = Mathf.Max(Water + water, 0);
+		Food = Mathf.Max(Food + food, 0);
+		Preserved = Mathf.Max(Preserved + preserved, 0);
+		Wood = Mathf.Max(Wood + wood, 0);
+		Components = Mathf.Max(Components + components, 0);
+		Parts = Mathf.Max(Parts + parts, 0);
 		OnResourceUpdated();
 	}
 

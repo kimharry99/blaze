@@ -329,7 +329,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		GameObject result = Instantiate(resultPrefab, resultGrid);
 		result.GetComponentInChildren<RawImage>().texture = gm.GetBuff(buffName).buffTexture;
-		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount);
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount, true);
 	}
 
 	private void InitResultObject(GameObject result, string path, int amount, bool isItem = false)
