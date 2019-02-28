@@ -92,12 +92,13 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
+		Weather = Weather.Cloud;
+		ChangeWeather();
 	}
 
 	private void Start()
 	{
-		Weather = Weather.Cloud;
-		ChangeWeather();
+
 	}
 
 	#region Utility Functions
