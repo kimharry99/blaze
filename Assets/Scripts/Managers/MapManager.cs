@@ -241,8 +241,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 		UpdateTiles();
-		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
-		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
 	}
 
 	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
