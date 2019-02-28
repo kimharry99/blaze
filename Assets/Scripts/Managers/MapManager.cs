@@ -240,7 +240,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 		curPosition = destPosition;
 
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
-		UpdateTiles();
 	}
 
 	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
@@ -256,6 +255,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		tileInfos[curPosition].OnVisited();
 		isMoving = false;
 		playerAnimator.SetBool("IsWalking", false);
+		UpdateTiles();
 	}
 	#endregion
 }
