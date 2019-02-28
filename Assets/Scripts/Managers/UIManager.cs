@@ -18,6 +18,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text timeUI;
 	public RectTransform minuteHand;
 	public RectTransform hourHand;
+	public RawImage dayNightImage;
+	public Texture2D[] dayNightTextures;
 	#endregion
 
 	#region Resource UI
@@ -154,7 +156,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	}
 
 	#region Turn UI Functions
-	private void UpdateTimerUI(int turn)
+	public void UpdateTimerUI(int turn)
 	{
 		Vector2 time = tm.Time();
 		int hour = (int)time.x;
@@ -162,6 +164,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 		hourHand.rotation = Quaternion.Euler(0, 0, -30 * hour - 0.5f * minute);
 		minuteHand.rotation = Quaternion.Euler(0, 0, -6 * minute);
 		dayUI.text = tm.Day.ToString();
+		dayNightImage.texture = dayNightTextures[(int)TurnManager.inst.DayNight + 1];
 	}
 	#endregion
 

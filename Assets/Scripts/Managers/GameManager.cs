@@ -138,10 +138,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		SaveGameData();
 		//LoadGameData();
 
-		ApplyBuffs(1);
-
 		OnPlayerStatusUpdated();
 		OnResourceUpdated();
+
+		ApplyBuffs(0);
+		UIManager.inst.UpdateTimerUI(0);
 	}
 
 	private void Update()
