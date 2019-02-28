@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class ForestTile : StructureTile
 {
-	public override StructureType Type { get { return StructureType.Forest; } }
-
 	public override int RestAmount { get { return 15; } }
 
 	public override void OnVisited(Vector3Int pos)
@@ -20,8 +18,19 @@ public class ForestTile : StructureTile
 				UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("XMark"));
 				return;
 			}
+			rand = Random.Range(0, 100);
+			if (rand < 2)
+			{
+				UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("TrappedDeer"));
+				return;
+			}
+			rand = Random.Range(0, 100);
+			if (rand < 2)
+			{
+				UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("Fire"));
+				return;
+			}
 		}
-		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("TrappedDeer"));
 	}
 
 	public override void OnExplored()

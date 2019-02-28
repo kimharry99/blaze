@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PainKiller
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2800000, guid: 70592cb92ea405c4797299e663e2424f, type: 3}
-  amount: 10
+  amount: 0
   itemIndexName: Painkiller
   itemName: "\uC9C4\uD1B5\uC81C"
   description: 

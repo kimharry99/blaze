@@ -18,6 +18,7 @@ public class InfectionRisk : Disease
 			remainedTurn /= 2;
 		else
 			remainedTurn = 48;
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)

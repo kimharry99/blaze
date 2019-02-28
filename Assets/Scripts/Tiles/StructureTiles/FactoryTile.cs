@@ -5,8 +5,6 @@ using UnityEngine.Events;
 
 public class FactoryTile : StructureTile
 {
-	public override StructureType Type { get { return StructureType.Factory; } }
-
 	public override int RestAmount { get { return 20; } }
 
 	public override void OnVisited(Vector3Int pos)

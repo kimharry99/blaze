@@ -7,7 +7,7 @@ public class XMark_Ignore : LogEvent
 {
 	public override void EventStart()
 	{
-		throw new System.NotImplementedException();
+		
 	}
 
 	public override List<UnityAction> GetActions()

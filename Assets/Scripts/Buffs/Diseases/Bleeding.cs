@@ -17,6 +17,7 @@ public class Bleeding : Disease
 		if (buffCount == 0)
 			remainedTurn = 4;
 		++buffCount;
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)

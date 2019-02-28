@@ -1,8 +1,8 @@
 {
     "buffTexture": {
-        "instanceID": 10436
+        "instanceID": 10452
     },
-    "remainedTurn": 192,
+    "remainedTurn": 0,
     "buffCount": 0,
     "buffIndexName": "Infection",
     "buffName": "감염병",

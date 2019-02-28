@@ -7,8 +7,6 @@ using UnityEngine.Tilemaps;
 
 public class HomeTile : StructureTile
 {
-	public override StructureType Type { get { return StructureType.Home; } }
-
 	public override int RestAmount { get { return 30; } }
 
 	public override void OnVisited(Vector3Int pos)
