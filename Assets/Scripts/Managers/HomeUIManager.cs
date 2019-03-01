@@ -42,6 +42,12 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Text bedUsingTurnText;
     #endregion
 
+    #region Door UI Variables
+    [Header("Door UI")]
+    public GameObject doorPanel;
+    public Button doorUseButton;
+    #endregion
+
     #region Upgrade UI
     public GameObject upgradePanel;
 	public Text woodText;
@@ -294,6 +300,25 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         Bed bed = (Bed)gm.furnitures["Bed"];
         bed.UseBed();
         OpenBedPanel();
+    }
+    #endregion
+
+    #region Door UI Functions
+    public void OpenDoorPanel()
+    {
+        doorPanel.SetActive(true);
+    }
+
+    public void CloseDoorPanel()
+    {
+        doorPanel.SetActive(false);
+    }
+
+    public void Door_GoOutside()
+    {
+        Door door = (Door)gm.furnitures["Door"];
+        door.GoOutside();
+        CloseDoorPanel();
     }
     #endregion
 }
