@@ -20,3 +20,4 @@ MonoBehaviour:
   actionDescriptions:
   - "\uB545\uC744 \uD30C \uBCF8\uB2E4 (1\uC2DC\uAC04 \uC18C\uBAA8)"
   - "\uBB34\uC2DC\uD55C\uB2E4"
+  eventTexture: {fileID: 2800000, guid: 7cf06b1fb124ce9469d1b7d767e117ee, type: 3}

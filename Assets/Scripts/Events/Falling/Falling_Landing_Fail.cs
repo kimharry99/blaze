@@ -1,15 +1,16 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.Events;
 
-public class Falling_Grab_Success : LogEvent
+public class Falling_Landing_Fail : LogEvent
 {
+	public int health = -10;
 	public int bleedCount = 2;
+
 	public override void EventStart()
 	{
+		UIManager.inst.AddPlayerStatusResult(health: health);
 		UIManager.inst.AddBuffResult("Bleeding", bleedCount);
 	}
 
@@ -22,6 +23,7 @@ public class Falling_Grab_Success : LogEvent
 	{
 		for (int i = 0; i < bleedCount; ++i)
 			((Disease)GameManager.inst.GetBuff("Bleeding")).AddNewDisease();
+		GameManager.inst.ChangeHealth(health);
 		EndEvent();
 	}
 }

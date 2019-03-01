@@ -65,6 +65,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text descriptionText;
 	public RectTransform optionGrid;
 	public RectTransform resultGrid;
+	public RawImage eventImage;
 	#endregion
 
 	#region Buff UI
@@ -261,6 +262,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
 			eventButton.GetComponentInChildren<Text>().text = logEvent.actionDescriptions[i];
 		}
+
+		eventImage.texture = logEvent.eventTexture;
 	}
 
 	public void AddResourceResult(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
