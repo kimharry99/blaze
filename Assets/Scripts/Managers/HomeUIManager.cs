@@ -31,7 +31,15 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Slider[] farmSliders = new Slider[3];
     public Button[] farmCropSelectButtons = new Button[3];
     public Button[] farmHarvestButtons = new Button[3];
-    public Button[] farmCancelButtons = new Button[3]; 
+    public Button[] farmCancelButtons = new Button[3];
+    #endregion
+
+    #region Bed UI Variables
+    [Header("Bed UI")]
+    public GameObject bedPanel;
+    public Button bedTurnPlusButton;
+    public Button bedTurnMinusButton;
+    public Text bedUsingTurnText;
     #endregion
 
     #region Upgrade UI
@@ -232,6 +240,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         CloseCropSelectPanel(farm.selectedSlot);
         CloseFarmPanel();
     }
+
     public void Farm_HarvestCrop(int slot)
     {
         Farm farm = (Farm)gm.furnitures["Farm"];
@@ -249,6 +258,42 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         slotImages[farm.selectedSlot].GetComponent<Image>().sprite = null;
         farm.CancelCrops();
         OpenFarmPanel();
+    }
+    #endregion
+
+    #region Bed UI Functions
+    public void OpenBedPanel()
+    {
+        bedPanel.SetActive(true);
+        Bed bed = (Bed)gm.furnitures["Bed"];
+        bedTurnMinusButton.interactable = bed.usingTurn > 0;
+        bedUsingTurnText.text = bed.usingTurn.ToString();
+    }
+
+    public void CloseBedPanel()
+    {
+        bedPanel.SetActive(false);
+    }
+
+    public void Bed_PlusTurn()
+    {
+        Bed bed = (Bed)gm.furnitures["Bed"];
+        bed.PlusTurn();
+        OpenBedPanel();
+    }
+
+    public void Bed_MinusTurn()
+    {
+        Bed bed = (Bed)gm.furnitures["Bed"];
+        bed.MinusTurn();
+        OpenBedPanel();
+    }
+
+    public void Bed_UseBed()
+    {
+        Bed bed = (Bed)gm.furnitures["Bed"];
+        bed.UseBed();
+        OpenBedPanel();
     }
     #endregion
 }
