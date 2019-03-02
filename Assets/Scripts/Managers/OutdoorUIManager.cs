@@ -42,10 +42,9 @@ public class OutdoorUIManager : SingletonBehaviour<OutdoorUIManager>
 		int i = 0;
 		foreach(var action in tile.GetTileActions())
 		{
-			i++;
 			GameObject btn = Instantiate(ActionOptionButton, ActionPanel.transform);
 			btn.GetComponent<Button>().onClick.AddListener(action);
-			btn.GetComponentInChildren<Text>().text = i.ToString() + ". " + action.Method.Name;
+			btn.GetComponentInChildren<Text>().text = tile.actionNames[i++];
 		}
 	}
 }

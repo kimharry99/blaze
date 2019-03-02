@@ -44,6 +44,13 @@ public class ForestTile : StructureTile
 	public override List<UnityAction> GetTileActions()
 	{
 		List<UnityAction> actions = base.GetTileActions();
+		if (!MapManager.inst.GetCurrentTileInfo().isHarvested)
+			actions.Add(WoodCutting);
 		return actions;
+	}
+
+	private void WoodCutting()
+	{
+		EventManager.inst.StartEvent("WoodCutting");
 	}
 }

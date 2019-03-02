@@ -11,7 +11,7 @@ public abstract class StructureTile : DefaultTile
 {
 	public StructureType type;
 	public abstract int RestAmount { get; }
-
+	public List<string> actionNames = new List<string> { "1.탐험하기", "2.쉬어가기" };
 	public virtual List<UnityAction> GetTileActions()
 	{
 		List<UnityAction> actions = new List<UnityAction>

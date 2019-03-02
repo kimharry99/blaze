@@ -203,6 +203,11 @@ public class MapManager : SingletonBehaviour<MapManager>
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, -1, 0) == tilePosition;
 		*/
 	}
+
+	public TileInfo GetCurrentTileInfo()
+	{
+		return tileInfos[curPosition];
+	}
 	#endregion
 
 	private void OnTurnPassed(int turn)

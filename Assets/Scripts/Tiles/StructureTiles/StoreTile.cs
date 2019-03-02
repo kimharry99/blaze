@@ -15,6 +15,13 @@ public class StoreTile : StructureTile
 	public override List<UnityAction> GetTileActions()
 	{
 		List<UnityAction> actions = base.GetTileActions();
+		if (!MapManager.inst.GetCurrentTileInfo().isHarvested)
+			actions.Add(RaidStorage);
 		return actions;
+	}
+
+	private void RaidStorage()
+	{
+		EventManager.inst.StartEvent("RaidStorage");
 	}
 }

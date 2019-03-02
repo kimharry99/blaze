@@ -16,6 +16,13 @@ public class FactoryTile : StructureTile
 	public override List<UnityAction> GetTileActions()
 	{
 		List<UnityAction> actions = base.GetTileActions();
+		if (!MapManager.inst.GetCurrentTileInfo().isHarvested)
+			actions.Add(DisassembleMachine);
 		return actions;
+	}
+
+	public void DisassembleMachine()
+	{
+		EventManager.inst.StartEvent("DisassembleMachine");
 	}
 }

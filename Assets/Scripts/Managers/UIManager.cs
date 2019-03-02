@@ -338,6 +338,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount, true);
 	}
 
+	public void AddItemResult(string itemName, int amount)
+	{
+		if (amount <= 0)
+			return;
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		result.GetComponentInChildren<RawImage>().texture = gm.items[itemName].itemImage;
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount, true);
+	}
+
 	private void InitResultObject(GameObject result, string path, int amount, bool isItem = false)
 	{
 		if (isItem)
