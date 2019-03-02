@@ -27,6 +27,6 @@ MonoBehaviour:
     \uB77C\uB294\uAC74, \uC8FC\uC778\uC774 \uC0AC\uB77C\uC84C\uB2E4\uB294 \uB73B\uC774\uACA0\uC9C0..."
   actionDescriptions:
   - "\uBB3C\uAC74\uAC12\uC740 \uC800\uC758 \uAC10\uC0AC\uB85C \uC9C0\uBD88\uD558\uACA0\uC2B5\uB2C8\uB2E4."
-  eventTexture: {fileID: 0}
+  eventTexture: {fileID: 2800000, guid: c5616b68d6287194b8d32b20b8b00c73, type: 3}
   minResource: 10
   maxResource: 20

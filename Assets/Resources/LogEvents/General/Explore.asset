@@ -18,3 +18,4 @@ MonoBehaviour:
     \uAC19\uC740 \uC790\uC6D0\uC744 \uAC74\uC9C8 \uC218 \uC788\uC5C8\uB2E4."
   actionDescriptions:
   - "\uD655\uC778"
+  eventTexture: {fileID: 2800000, guid: c5616b68d6287194b8d32b20b8b00c73, type: 3}

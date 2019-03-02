@@ -20,6 +20,6 @@ MonoBehaviour:
     \uBB3C\uAC74\uC740 \uC774\uC81C \uB098\uC758 \uAC83\uC774 \uB418\uC5C8\uB2E4."
   actionDescriptions:
   - "\uB124\uAC74 \uB0B4\uAEBC. \uB0B4\uAEC0 \uB2F9\uC5F0\uD788 \uB0B4\uAEBC."
-  eventTexture: {fileID: 0}
+  eventTexture: {fileID: 2800000, guid: 1f408c0e859f3ac46acca48a74b46196, type: 3}
   minComponents: 30
   maxComponents: 40
