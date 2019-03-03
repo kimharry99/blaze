@@ -13,7 +13,7 @@ public class EventManager : SingletonBehaviour<EventManager>
 
 	private void Awake()
 	{
-		SetStatic();
+		DontDestroyOnLoad(this);
 		foreach (var logEvent in Resources.LoadAll<LogEvent>("LogEvents/"))
 		{
 			events.Add(logEvent.eventName, logEvent);

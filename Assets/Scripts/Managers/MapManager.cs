@@ -231,10 +231,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 	{
 		destPosition = tilePosition;
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
-		GameManager.inst.StartTask(Move, moveCost);
-		isMoving = true;
 		player.GetComponent<SpriteRenderer>().flipX = curPosition.y > tilePosition.y;
 		playerAnimator.SetBool("IsWalking", true);
+		GameManager.inst.StartTask(Move, moveCost);
+		isMoving = true;
 	}
 
 	private void Move()

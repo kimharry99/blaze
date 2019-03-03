@@ -48,7 +48,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	{
 		get
 		{
-			Vector2 time = Time();
+			Vector2 time = GetTime();
 			if (time.x <= 5 || time.x >= 18)
 			{
 				return DayNight.Night;
@@ -107,7 +107,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	/// 0:00 when turn = 0, 23:45 when turn = 95
 	/// </summary>
 	/// <returns>x is hour, y is minute</returns>
-	public Vector2 Time()
+	public Vector2 GetTime()
 	{
 		Vector2 time = new Vector2
 		{
@@ -116,7 +116,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		};
 		return time;
 	}
-	public Vector2 Time(int turn)
+	public Vector2 GetTime(int turn)
 	{
 		Vector2 time = new Vector2
 		{
@@ -129,10 +129,29 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	public void UseTurn(int turn)
 	{
+		
 		for (int i = 0; i < turn; ++i)
 		{
 			Turn++;
 		}
+		
+		//StartCoroutine(TurnPassRoutine(turn, GameManager.inst.turnPassTime / turn));
+	}
+
+	private IEnumerator TurnPassRoutine(int remainedTurn, float timer)
+	{
+		RectTransform minuteHand = UIManager.inst.minuteHand;
+		RectTransform hourHand = UIManager.inst.hourHand;
+
+		for (float i = timer; i > 0; i -= Time.deltaTime)
+		{
+			minuteHand.Rotate(0, 0, 30 * Time.deltaTime / timer);
+			hourHand.Rotate(0, 0, 7.5f * Time.deltaTime / timer);
+			yield return null;
+		}
+
+		if (remainedTurn > 1)
+			StartCoroutine(TurnPassRoutine(remainedTurn - 1, timer));
 	}
 
 	private void DayOver()
