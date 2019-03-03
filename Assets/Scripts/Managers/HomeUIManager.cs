@@ -186,8 +186,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public void OnGeneratorUseButtonClicked()
 	{
 		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
-		generator.Use();
-		OpenGeneratorPanel();
+		GameManager.inst.StartTask(delegate { generator.Use(); OpenGeneratorPanel(); }, 4);
 	}
 
 	public void OnGeneratorHarvestButtonClicked()
