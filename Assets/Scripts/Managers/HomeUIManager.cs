@@ -19,6 +19,18 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Button bucketHarvestButton;
 	#endregion
 
+	#region Generator UI Variables
+	[Header("Generator UI")]
+	public GameObject generatorPanel;
+	public Button generatorUseButton;
+	public Button[] generatorOptionButtons;
+
+	public GameObject generatorChargePanel;
+	public Button generatorHarvestButton;
+	public Slider generatorRemainedTurnSlider;
+	public Text generatorRemainedTimeText;
+	#endregion
+
 	#region Upgrade UI
 	public GameObject upgradePanel;
 	public Text woodText;
@@ -125,6 +137,64 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		Bucket bucket = (Bucket)gm.furnitures["Bucket"];
 		bucket.HarvestWater();
 		OpenBucketPanel();
+	}
+	#endregion
+
+	#region Generator UI Functions
+	public void OpenGeneratorPanel()
+	{
+		Debug.Log("Generator");
+		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
+		if (generator.remainedTurn > 0 || generator.isFinished)
+		{
+			generatorChargePanel.SetActive(true);
+			generatorPanel.SetActive(false);
+			generatorHarvestButton.interactable = generator.isFinished;
+			generatorRemainedTurnSlider.value = (generator.neededTurn[generator.option] - generator.remainedTurn) / generator.neededTurn[generator.option];
+			if (!generator.isFinished) {
+				Vector2 time = TurnManager.inst.GetTime(generator.remainedTurn);
+				generatorRemainedTimeText.text = time.x.ToString("00") + ":" + time.y.ToString("00");
+			}
+		}
+		else
+		{
+			generatorChargePanel.SetActive(false);
+			generatorPanel.SetActive(true);
+			foreach (var btn in generatorOptionButtons)
+			{
+				btn.interactable = false;
+			}
+			for (int i = 0; i < GameManager.inst.furnitures["Generator"].level; ++i)
+			{
+				generatorOptionButtons[i].interactable = true;
+			}
+		}
+	}
+
+	public void CloseGeneratorPanel()
+	{
+		generatorChargePanel.SetActive(false);
+		generatorPanel.SetActive(false);
+	}
+
+	public void ChangeGeneratorOption(int option)
+	{
+		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
+		generatorUseButton.interactable = GameManager.inst.CheckResource(wood: generator.woodNeeded[option], parts: generator.partsNeeded[option]);
+	}
+
+	public void OnGeneratorUseButtonClicked()
+	{
+		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
+		generator.Use();
+		OpenGeneratorPanel();
+	}
+
+	public void OnGeneratorHarvestButtonClicked()
+	{
+		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
+		generator.Harvest();
+		OpenGeneratorPanel();
 	}
 	#endregion
 }

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2f246c2cd53bc49bf6947bc7944937, type: 3}
+  m_Name: Generator
+  m_EditorClassIdentifier: 
+  furnitureName: Generator
+  level: 1
+  woodNeeded: 140000001e00000028000000
+  partsNeeded: 050000000a00000014000000
+  neededTurn: 14000000280000001e000000
+  option: 0
+  remainedTurn: 0
+  isFinished: 1
