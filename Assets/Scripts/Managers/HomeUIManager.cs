@@ -48,6 +48,24 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Button doorUseButton;
     #endregion
 
+    #region Kitchen UI Variables
+    [Header("Kitchen UI")]
+    public GameObject kitchenPanel;
+    public Button[] kitchenRecipieButtons = new Button[7];
+    public Text[] kitchenIngredientInfoText = new Text[4];
+    public Button kitchenCookButton;
+    #endregion
+
+    #region SolarWaterPrufier UI Variables
+    [Header("SolarWaterPrufier UI")]
+    public GameObject solarWaterPurifierPanel;
+    public Button solarWaterPurifierHarvestButton;
+    public Button solarWaterPurifierInputButton;
+    public Button solarWaterPurifierCancelButton;
+    public Text solarWaterPurifierText;
+    public Slider solarWaterPurifierSlider;
+    #endregion
+
     #region Upgrade UI
     public GameObject upgradePanel;
 	public Text woodText;
@@ -319,6 +337,68 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         Door door = (Door)gm.furnitures["Door"];
         door.GoOutside();
         CloseDoorPanel();
+    }
+    #endregion
+
+    #region Kitche UI Functions
+    public void OpenKitchenPanel()
+    {
+        kitchenPanel.SetActive(true);
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        kitchenRecipieButtons[3].interactable = kitchen.level > 1;
+        for(int i = 4; i < 7; i++)
+        {
+            kitchenRecipieButtons[i].interactable = kitchen.level > 2;
+        }
+        for(int i = 0; i < 4; i++)
+        {
+            kitchenIngredientInfoText[i].text = kitchen.usingResource[i].ToString();
+        }
+        kitchenCookButton.interactable = gm.CheckResource(water: kitchen.usingResource[2], food: kitchen.usingResource[0], preserved: kitchen.usingResource[1], components: kitchen.usingResource[3])&&kitchen.selectedRecipie!=-1;
+    }
+
+    public void CloseKitchenPanel()
+    {
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        kitchenPanel.SetActive(false);
+        kitchen.SelectRecipie(-1);
+        
+    }
+
+    public void Kitchen_SelectRecipie(int recipie)
+    {
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        kitchen.SelectRecipie(recipie);
+        OpenKitchenPanel();
+    }
+
+    public void Kitchen_UseMoreIngredient(int option)
+    {
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        if (option == 0)
+        {
+            if (kitchen.usingResource[1] > 0)
+            {
+                kitchen.usingResource[0]++;
+                kitchen.usingResource[1]--;
+            }
+        }
+        else
+        {
+            if (kitchen.usingResource[0] > 0)
+            {
+                kitchen.usingResource[0]--;
+                kitchen.usingResource[1]++;
+            }
+        }
+        OpenKitchenPanel();
+    }
+
+    public void Kitchen_CookFood()
+    {
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        kitchen.CookFood();
+        CloseKitchenPanel();
     }
     #endregion
 }
