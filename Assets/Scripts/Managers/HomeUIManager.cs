@@ -48,6 +48,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Button doorUseButton;
     #endregion
 
+    #region Kitchen UI Variables
+    [Header("Kitchen UI")]
+    public GameObject kitchenPanel;
+    public Button[] kitchenButtons = new Button[7];
+    public int kitchenOption;
+    #endregion
+
     #region Upgrade UI
     public GameObject upgradePanel;
 	public Text woodText;
@@ -110,15 +117,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void OnUpgradeButtonClicked(int wood, int components, int parts, Furniture furniture)
 	{
-		/*
 		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
 			return;
-        if (furniture.type != FurnitureType.Craft && furniture.level >= GameManager.inst.furnitures[(int)FurnitureType.Craft].level)
+        if (furniture.name != "Craft" && furniture.level >= GameManager.inst.furnitures["Craft"].level)
             return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
 		CloseUpgradePanel();
 		GameManager.inst.StartTask(furniture.Upgrade, 4);
-		*/
 	}
 	#endregion
 
@@ -319,6 +324,14 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         Door door = (Door)gm.furnitures["Door"];
         door.GoOutside();
         CloseDoorPanel();
+    }
+    #endregion
+
+    #region Kitchen UI Functions
+    public void SelectRecipie(int recipie)
+    {
+        Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+        kitchen.SelectRecipie(recipie);
     }
     #endregion
 }

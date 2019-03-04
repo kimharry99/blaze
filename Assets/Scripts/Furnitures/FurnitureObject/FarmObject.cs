@@ -2,22 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum FarmState
-{
-	Idle,
-	Grow,
-	Harvest
-}
-
-enum FarmCrops
-{
-	Lettuce,
-	Carrot,
-	Bean,
-	Potato,
-	None = -1
-}
-
 public class FarmObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Farm; } }

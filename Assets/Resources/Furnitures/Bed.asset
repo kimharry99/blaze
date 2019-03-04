@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a297cb7752fc8eb45a8336d9d49ddf89, type: 3}
   m_Name: Bed
   m_EditorClassIdentifier: 
-  furnitureName: 
+  furnitureName: Bed
   level: 0
+  usingTurn: 1

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Bucket
   m_EditorClassIdentifier: 
   furnitureName: Bucket
-  level: 2
+  level: 0
   water: 20

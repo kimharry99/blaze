@@ -9,12 +9,12 @@ public class Furniture : ScriptableObject
 
 	public virtual void Init()
 	{
-
+        
 	}
 
 	public virtual void OnTurnPassed(int turn)
 	{
-
+        
 	}
 
 	public virtual void Upgrade()

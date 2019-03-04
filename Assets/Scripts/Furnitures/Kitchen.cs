@@ -1,11 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Kitchen : Furniture
 {
     public int selectedRecipie = -1; //None
     public int[] usingResource = new int[4];
+    
+
+    public void Awake()
+    {
+        furnitureName = "Kitchen";
+        SetButtons();
+    }
+
+    public void SetButtons()
+    {
+        for (int i = 0; i < 7; i++)
+            HomeUIManager.inst.kitchenButtons[i].interactable = false;
+    }
+
+    public override void Upgrade()
+    {
+        base.Upgrade();
+        if(level >= 1)
+        {
+            for (int i = 0; i < 3; i++)
+                HomeUIManager.inst.kitchenButtons[i].interactable = true;
+        }
+        if (level >= 2)
+        {
+            for (int i = 4; i < 5; i++)
+                HomeUIManager.inst.kitchenButtons[i].interactable = true;
+        }
+        if (level >= 3)
+        {
+            for (int i = 5; i < 7; i++)
+                HomeUIManager.inst.kitchenButtons[i].interactable = true;
+        }
+    }
 
     public void SelectRecipie(int recipie)
     {

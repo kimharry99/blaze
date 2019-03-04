@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Kitchen
   m_EditorClassIdentifier: 
   furnitureName: Kitchen
-  level: 3
+  level: 0
   selectedRecipie: -1
   usingResource: 00000000000000000000000000000000
