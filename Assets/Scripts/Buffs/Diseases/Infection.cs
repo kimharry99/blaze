@@ -15,6 +15,7 @@ public class Infection : Disease
 	public override void AddNewDisease()
 	{
 		remainedTurn = Mathf.Clamp(96, 192, 2 * remainedTurn);
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)
@@ -29,6 +30,7 @@ public class Infection : Disease
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 

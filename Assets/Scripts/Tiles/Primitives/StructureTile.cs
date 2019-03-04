@@ -9,9 +9,9 @@ using UnityEngine.Tilemaps;
 /// </summary>
 public abstract class StructureTile : DefaultTile
 {
-	public abstract StructureType Type { get; }
+	public StructureType type;
 	public abstract int RestAmount { get; }
-
+	public List<string> actionNames = new List<string> { "1.탐험하기", "2.쉬어가기" };
 	public virtual List<UnityAction> GetTileActions()
 	{
 		List<UnityAction> actions = new List<UnityAction>
@@ -35,7 +35,7 @@ public abstract class StructureTile : DefaultTile
 
 	public StructureTileInfo GetStructureTileInfo(Vector3Int position)
 	{
-		return new StructureTileInfo(position, Type);
+		return new StructureTileInfo(position, type);
 	}
 
 	public override void OnVisited(Vector3Int pos)

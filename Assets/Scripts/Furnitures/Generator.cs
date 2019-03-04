@@ -5,58 +5,34 @@ using UnityEngine;
 
 public class Generator : Furniture
 {
-	private readonly int[] woodPerTurn = { 1, 2, 3 };
-	private readonly int[] maxCapacity = { 30, 80, 200 };
+	public int[] woodNeeded;
+	public int[] partsNeeded;
+	public int[] neededTurn;
+	public int option = 0;
+	public int remainedTurn = 0;
+	public bool isFinished = false;
 
-    private int option = 0;
-    private int selectLevel = 0;
-
-    public int MaxCapacity { get { return maxCapacity[selectLevel]; } }
-
-	public void UseFurniture()
+	public override void OnTurnPassed(int turn)
 	{
-		/*
-        if (Level == 0) return;
-        switch(option)
-        {
-            case 0: //전원 차단
-                foreach (var type in Enum.GetValues(typeof(FurnitureType)))
-                {
-                    GameManager.inst.furnitures[(int)type].isRun = false;
-                }
-                break;
-            case 1:
-            case 2:
-            case 3:
-                if(option <= Level && selectLevel != option)
-                {
-                    selectLevel = option;
-                }
-                break;
-            default:
-                Debug.Log("There is no Option for " + option.ToString());
-                break;
-        }
-		*/
+		remainedTurn -= turn;
+		if (remainedTurn <= 0)
+		{
+			remainedTurn = 0;
+			TurnManager.inst.OnTurnPassed -= OnTurnPassed;
+			isFinished = true;
+		}
 	}
 
-    public void SetOption(int opt)
-    {
-        option = opt;
-    }
+	public void Use()
+	{
+		GameManager.inst.UseResource(wood: woodNeeded[option], parts: partsNeeded[option]);
+		remainedTurn = neededTurn[option];
+		TurnManager.inst.OnTurnPassed += OnTurnPassed;
+	}
 
- //   public void OnTurnPassed(int turn)
-	//{
- //       if (!GameManager.inst.CheckResource(wood: woodPerTurn[selectLevel]))
- //       {
- //           foreach (var type in Enum.GetValues(typeof(FurnitureType)))
- //           {
- //               //GameManager.inst.furnitures[(int)type].isRun = false;
- //           }
- //       }
- //       else
- //       {
- //           GameManager.inst.UseResource(wood: woodPerTurn[selectLevel]);
- //       }
-	//}
+	public void Harvest()
+	{
+		GameManager.inst.items["Battery"].amount += option + 1;
+		isFinished = false;
+	}
 }

@@ -26,6 +26,7 @@ public class Wet : Buff
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 

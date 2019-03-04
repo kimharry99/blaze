@@ -1,0 +1,10 @@
+{
+    "buffTexture": {
+        "instanceID": 0
+    },
+    "remainedTurn": 0,
+    "buffCount": 0,
+    "buffIndexName": "Exhaust",
+    "buffName": "탈진",
+    "description": "눈꺼풀이 천근만근입니다...\n다음과 같은 효과를 받습니다 :\n수면을 제외한 작업 시간 소모량 +50%"
+}

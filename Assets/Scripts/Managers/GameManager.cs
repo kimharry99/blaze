@@ -110,9 +110,14 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public event Action ReservedTask;
 
+	#region Option Variables
+	public float turnPassTime = 0.25f;
+	#endregion
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
+		InitGame();
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		PlayerState.Transition(PlayerState.idle);
@@ -134,14 +139,14 @@ public class GameManager : SingletonBehaviour<GameManager>
         ExperiencePoint = 0;
         StatusPoint = 0;
 
-		InitGame();
 		SaveGameData();
 		//LoadGameData();
 
-		ApplyBuffs(1);
-
 		OnPlayerStatusUpdated();
 		OnResourceUpdated();
+
+		ApplyBuffs(0);
+		UIManager.inst.UpdateTimerUI(0);
 	}
 
 	private void Update()
@@ -183,12 +188,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public void GetResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		Water += water;
-		Food += food;
-		Preserved += preserved;
-		Wood += wood;
-		Components += components;
-		Parts += parts;
+		Water = Mathf.Max(Water + water, 0);
+		Food = Mathf.Max(Food + food, 0);
+		Preserved = Mathf.Max(Preserved + preserved, 0);
+		Wood = Mathf.Max(Wood + wood, 0);
+		Components = Mathf.Max(Components + components, 0);
+		Parts = Mathf.Max(Parts + parts, 0);
 		OnResourceUpdated();
 	}
 
@@ -198,34 +203,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void StatusUpdateByTurn(int turn)
 	{
-		/*
-        if(Hunger >80)
-        {
-            Sanity = Mathf.Min(MaxSanity, Sanity + 2 * turn);
-        }
-        else if (Hunger == 0)
-        {
-            Health = Mathf.Max(0, Health - 4 * turn);
-            Sanity = Mathf.Max(0, Sanity - 2 * turn);
-        }
-		Hunger = Mathf.Max(0, Hunger - turn);
-        if (Thirst > 80)
-        {
-            Thirst = Mathf.Max(0, Thirst - turn);
-            Health = Mathf.Min(MaxHealth, Health + turn);
-        }
-        else if (0<Thirst && Thirst <81)
-        {
-            Thirst = Mathf.Max(0, Thirst - 2 * turn);
-        }
-        else
-        {
-            Health = Mathf.Max(0, Health - 4 * turn);
-            Sanity = Mathf.Max(0, Sanity - 2 * turn);
-        }
-		Energy = Mathf.Max(0, Energy - turn);
-        OnPlayerStatusUpdated();
-		*/
 		ChangePlayerStatus(healthChangePerTurn * turn, sanityChangePerTurn * turn, hungerChangePerTurn * turn, thirstChangePerTurn * turn, energyChangePerTurn * turn);
 		OnPlayerStatusUpdated();
 		//TODO : Don't use energy while sleeping ;
@@ -243,9 +220,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 
     public int DisadvantageNeededTurn(float neededTurn)
     {
-        if (Health > 50&&Hunger>80)
-        { 
-            return (int)Math.Ceiling(neededTurn);
+        if (Health > 50 && Hunger>80)
+        {
+			return (int)Math.Ceiling(neededTurn);
         }
         else
         {

@@ -17,6 +17,6 @@ public class WeirdSound_Ignore : LogEvent
 
 	private void Confirm()
 	{
-		UIManager.inst.CloseEventLogPanel();
+		EndEvent();
 	}
 }

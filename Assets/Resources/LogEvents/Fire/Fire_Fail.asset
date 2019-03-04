@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351f0d2f549fede43a1cdb43d3845b79, type: 3}
+  m_Name: Fire_Fail
+  m_EditorClassIdentifier: 
+  eventName: Fire_Fail
+  eventTitle: "\uC7AC\uC559"
+  description: "\uBD88\uAE38\uC744 \uC7A1\uC558\uB2E4\uACE0 \uC0DD\uAC01\uD588\uC9C0\uB9CC,
+    \uB4A4\uB97C \uB3CC\uC544\uBD24\uC744 \uB54C \uB098\uB97C \uBC18\uAE34\uAC74 \uC9D1\uCC44\uB9CC\uD55C
+    \uBD88\uC774\uC5C8\uB2E4.\n\uC704\uD5D8\uC744 \uAC10\uC218\uD558\uB294\uAC8C \uC544\uB2C8\uC5C8\uB2E4...\n\uB2E4\uD589\uD788
+    \uBD88\uAE38\uC744 \uB6AB\uB294\uB370 \uC131\uACF5\uD588\uC9C0\uB9CC, \uBD88\uC744
+    \uBAA8\uB4E0 \uC232\uC744 \uC9D1\uC5B4\uC0BC\uCF30\uB2E4."
+  actionDescriptions:
+  - "\uC2E4\uB85C \uD654\uB048\uD55C \uCEA0\uD504\uD30C\uC774\uC5B4\uB85C\uAD70..."
+  turn: 4
+  health: -20
+  sanity: -10

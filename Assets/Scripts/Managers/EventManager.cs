@@ -13,7 +13,7 @@ public class EventManager : SingletonBehaviour<EventManager>
 
 	private void Awake()
 	{
-
+		DontDestroyOnLoad(this);
 		foreach (var logEvent in Resources.LoadAll<LogEvent>("LogEvents/"))
 		{
 			events.Add(logEvent.eventName, logEvent);
@@ -23,6 +23,11 @@ public class EventManager : SingletonBehaviour<EventManager>
 	public LogEvent GetEvent(string eventName)
 	{
 		return events[eventName];
+	}
+
+	public void StartEvent(string eventName)
+	{
+		UIManager.inst.OpenEventLogPanel(events[eventName]);
 	}
 }
 

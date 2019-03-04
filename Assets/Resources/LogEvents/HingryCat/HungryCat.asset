@@ -24,6 +24,7 @@ MonoBehaviour:
     10 \uC18C\uBAA8)"
   - "\uBB3C\uC744 \uC900\uB2E4 (1\uD134 \uC18C\uBAA8, \uBB3C 10 \uC18C\uBAA8)"
   - "\uC544\uBB34\uAC83\uB3C4 \uC8FC\uC9C0 \uC54A\uB294\uB2E4"
+  eventTexture: {fileID: 2800000, guid: 488a1fbad10b66749a1a857997ff8106, type: 3}
   food: 20
   preserved: 10
   water: 10

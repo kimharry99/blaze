@@ -18,6 +18,7 @@ public class InfectionRisk : Disease
 			remainedTurn /= 2;
 		else
 			remainedTurn = 48;
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)
@@ -32,6 +33,7 @@ public class InfectionRisk : Disease
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 

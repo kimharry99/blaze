@@ -35,3 +35,6 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   tileName: "\uC9D1"
+  type: 0
+  actionNames:
+  - "1.\uC9D1\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30"

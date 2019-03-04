@@ -16,6 +16,6 @@ public class Item : ScriptableObject
 	}
 	public virtual void Init()
 	{
-
+		amount = 0;
 	}
 }

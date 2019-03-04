@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class XMark_Trap : LogEvent
 {
-	public int loseHealthAmount = 30;
+	public int loseHealthAmount = -30;
 
 	public override void EventStart()
 	{
@@ -19,7 +19,7 @@ public class XMark_Trap : LogEvent
 
 	private void Confirm()
 	{
-		GameManager.inst.ChangeHealth(-loseHealthAmount);
+		GameManager.inst.ChangeHealth(loseHealthAmount);
 		EndEvent();
 	}
 }

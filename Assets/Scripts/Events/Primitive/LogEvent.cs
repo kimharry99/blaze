@@ -12,6 +12,7 @@ public abstract class LogEvent : ScriptableObject
 	[TextArea]
 	public string description;
 	public List<string> actionDescriptions;
+	public Texture2D eventTexture;
 
 	public abstract void EventStart();
 	public abstract List<UnityAction> GetActions();

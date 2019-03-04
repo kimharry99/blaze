@@ -50,19 +50,22 @@ public class PlayerStateWork : PlayerState
 
 	protected override void Enter()
 	{
-		UIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
-		timer = 0.25f;
-		passedTurn = 0;
+		Debug.Log(GameManager.inst.turnPassTime);
+		//UIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
+		TurnManager.inst.StartCoroutine(TurnPassRoutine(remainedTurn, GameManager.inst.turnPassTime / remainedTurn));
+		//timer = 0.25f;
+		//passedTurn = 0;
 	}
 
 	protected override void Exit()
 	{
-		UIManager.inst.CloseTurnPassUI();
+		//UIManager.inst.CloseTurnPassUI();
 		GameManager.inst.EndTask();
 	}
 
 	public override void StateUpdate()
 	{
+		/*
 		timer -= Time.deltaTime;
 		if (timer <= 0)
 		{
@@ -77,5 +80,24 @@ public class PlayerStateWork : PlayerState
 			UIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
 			timer = 0.25f;
 		}
+		*/
+	}
+
+	private IEnumerator TurnPassRoutine(int remainedTurn, float timer)
+	{
+		RectTransform minuteHand = UIManager.inst.minuteHand;
+		RectTransform hourHand = UIManager.inst.hourHand;
+
+		for (float i = timer; i > 0; i -= Time.deltaTime)
+		{
+			minuteHand.Rotate(0, 0, -90 * Time.deltaTime / timer);
+			hourHand.Rotate(0, 0, -7.5f * Time.deltaTime / timer);
+			yield return null;
+		}
+		TurnManager.inst.UseTurn(1);
+		if (remainedTurn > 1)
+			TurnManager.inst.StartCoroutine(TurnPassRoutine(remainedTurn - 1, timer));
+		else
+			Transition(idle);
 	}
 }

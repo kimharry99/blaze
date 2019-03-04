@@ -203,6 +203,11 @@ public class MapManager : SingletonBehaviour<MapManager>
 			curPosition + new Vector3Int((Mathf.Abs(curPosition.y) % 2) * 2 - 1, -1, 0) == tilePosition;
 		*/
 	}
+
+	public TileInfo GetCurrentTileInfo()
+	{
+		return tileInfos[curPosition];
+	}
 	#endregion
 
 	private void OnTurnPassed(int turn)
@@ -226,10 +231,10 @@ public class MapManager : SingletonBehaviour<MapManager>
 	{
 		destPosition = tilePosition;
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
-		GameManager.inst.StartTask(Move, moveCost);
-		isMoving = true;
 		player.GetComponent<SpriteRenderer>().flipX = curPosition.y > tilePosition.y;
 		playerAnimator.SetBool("IsWalking", true);
+		GameManager.inst.StartTask(Move, moveCost);
+		isMoving = true;
 	}
 
 	private void Move()
@@ -240,9 +245,6 @@ public class MapManager : SingletonBehaviour<MapManager>
 		curPosition = destPosition;
 
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
-		UpdateTiles();
-		//if (structureTilemap.GetTile<StructureTile>(curPOsition) != null)
-		//	structureTilemap.GetTile<StructureTile>(curPOsition).OnVisited();
 	}
 
 	private IEnumerator CharacterMove(Vector3 start, Vector3 end)
@@ -258,6 +260,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		tileInfos[curPosition].OnVisited();
 		isMoving = false;
 		playerAnimator.SetBool("IsWalking", false);
+		UpdateTiles();
 	}
 	#endregion
 }

@@ -46,6 +46,7 @@ public class TileInfo
 
 	#region Flags
 	public bool isVisited;
+	public bool isHarvested;
 	#endregion
 
 	public Color TileColor {
@@ -88,7 +89,7 @@ public class TileInfo
 		}
 	}
 
-	public void Init(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0, bool isVisited = false)
+	public void Init(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0, bool isVisited = false, bool isHarvested = false)
 	{
 		this.water = water;
 		this.food = food;
@@ -97,6 +98,7 @@ public class TileInfo
 		this.components = components;
 		this.parts = parts;
 		this.isVisited = isVisited;
+		this.isHarvested = isHarvested;
 	}
 
 	public LandType landType;
@@ -109,7 +111,7 @@ public class TileInfo
 		this.structureType = structureType;
 	}
 
-	public TileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type, LandType landType, StructureType structureType, bool isVisited = false)
+	public TileInfo(Vector3Int position, int water, int food, int preserved, int wood, int components, int parts, string type, LandType landType, StructureType structureType, bool isVisited = false, bool isHarvested = false)
 	{
 		this.position = position;
 		this.water = water;
@@ -121,6 +123,8 @@ public class TileInfo
 		this.isVisited = isVisited;
 		this.landType = landType;
 		this.structureType = structureType;
+		this.isVisited = isVisited;
+		this.isHarvested = isHarvested;
 	}
 
 	public void TakeResources(ref int food, ref int preserved, ref int water, ref int wood, ref int components, ref int parts)

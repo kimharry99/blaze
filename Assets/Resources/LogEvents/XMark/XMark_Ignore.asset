@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbae3c218c4956f46bf8fde23d317650, type: 3}
+  m_Name: XMark_Ignore
+  m_EditorClassIdentifier: 
+  eventName: XMark_Ignore
+  eventTitle: "\uB099\uC11C\uAE08\uC9C0"
+  description: "\uC544\uB9C8 \uB204\uAD70\uAC00\uAC00 \uC21C\uC9C4\uD55C \uC0AC\uB78C\uC744
+    \uB09A\uC544\uBCF4\uB824 \uC7A5\uB09C\uC9C8\uC744 \uD55C \uAC83\uC77C\uAC70\uB2E4.\n\uC800\uB7F0
+    \uAC74 \uAE54\uB054\uD788 \uBB34\uC2DC\uD558\uACE0 \uAC00\uB294\uAC83\uC774 \uC2E0\uC0C1\uC5D0
+    \uC88B\uC744 \uAC70\uB2E4."
+  actionDescriptions:
+  - "\uBA54\uB871\uC774\uB2E4."

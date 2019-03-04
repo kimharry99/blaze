@@ -7,21 +7,21 @@ using UnityEngine.Events;
 
 public class Falling_Grab_Success : LogEvent
 {
+	public int bleedCount = 2;
 	public override void EventStart()
 	{
-		UIManager.inst.AddBuffResult("Bleeding", 2);
+		UIManager.inst.AddBuffResult("Bleeding", bleedCount);
 	}
 
 	public override List<UnityAction> GetActions()
 	{
-		return new List<UnityAction>
-		{
-			Confirm
-		};
+		return new List<UnityAction> { Confirm };
 	}
 
-	public void Confirm()
+	private void Confirm()
 	{
-		GameManager.inst.GetBuff("Bleeding").buffCount += 2;
+		for (int i = 0; i < bleedCount; ++i)
+			((Disease)GameManager.inst.GetBuff("Bleeding")).AddNewDisease();
+		EndEvent();
 	}
 }

@@ -15,6 +15,7 @@ public class Burn : Disease
 	public override void AddNewDisease()
 	{
 		remainedTurn += 12;
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)
@@ -30,6 +31,7 @@ public class Burn : Disease
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 

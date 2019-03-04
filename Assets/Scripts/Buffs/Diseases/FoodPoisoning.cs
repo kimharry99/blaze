@@ -15,6 +15,7 @@ public class FoodPoisoning : Disease
 	public override void AddNewDisease()
 	{
 		remainedTurn += 24;
+		UIManager.inst.UpdateBuffUI(this);
 	}
 
 	public override void Apply(int turn)
@@ -30,6 +31,7 @@ public class FoodPoisoning : Disease
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 }

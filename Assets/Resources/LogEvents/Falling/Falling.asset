@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 069a355cfeb8ffa49a29dc4e1b6236b7, type: 3}
+  m_Name: Falling
+  m_EditorClassIdentifier: 
+  eventName: Falling
+  eventTitle: "\uCD94\uB77D"
+  description: "\uD5D8\uD55C \uAE38\uC744 \uC624\uB974\uB358 \uB3C4\uC911, \uBC1C\uC744
+    \uC798\uBABB \uB51B\uC5B4 \uC911\uC2EC\uC744 \uC783\uACE0 \uB118\uC5B4\uC838 \uC808\uBCBD\uC5D0
+    \uB5A8\uC5B4\uC84C\uB2E4.\n\uB192\uC740 \uC808\uBCBD\uC740 \uC544\uB2C8\uC9C0\uB9CC,
+    \uADF8\uB798\uB3C4 \uADF8\uB300\uB85C \uB5A8\uC5B4\uC9C0\uBA74 \uD070 \uBD80\uC0C1\uC744
+    \uC785\uC744 \uAC83\uC774\uB2E4.\n\uB098\uB294..."
+  actionDescriptions:
+  - "\uC808\uBCBD\uC5D0 \uC790\uB780 \uB098\uBB34\uB97C \uBD99\uC7A1\uC544 \uBCF4\uB824\uD55C\uB2E4."
+  - "\uCC29\uC9C0 \uC790\uC138\uB97C \uC900\uBE44\uD55C\uB2E4."
+  eventTexture: {fileID: 2800000, guid: 441f490ea25fc494bb01679a5a299469, type: 3}

@@ -23,6 +23,6 @@ public class WeirdSound_Cat : LogEvent
 	private void Confirm()
 	{
 		GameManager.inst.GetResource(components: components, parts: parts);
-		UIManager.inst.CloseEventLogPanel();
+		EndEvent();
 	}
 }

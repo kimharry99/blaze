@@ -9,7 +9,7 @@ public class Furniture : ScriptableObject
 
 	public virtual void Init()
 	{
-        
+		level = 0;
 	}
 
 	public virtual void OnTurnPassed(int turn)

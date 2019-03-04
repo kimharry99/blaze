@@ -16,6 +16,10 @@ public class UIManager : SingletonBehaviour<UIManager>
 	[Header("Turn UI")]
 	public Text dayUI;
 	public Text timeUI;
+	public RectTransform minuteHand;
+	public RectTransform hourHand;
+	public RawImage dayNightImage;
+	public Texture2D[] dayNightTextures;
 	#endregion
 
 	#region Resource UI
@@ -43,12 +47,6 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text energyPerTurnText;
     #endregion
 
-    #region Turn Passing UI
-    [Header("Turn Passing UI")]
-	public GameObject turnPassUI;
-	public Slider turnPassSlider;
-	#endregion
-
 	#region Weather UI
 	[Header("Weather UI")]
 	public Image weatherUI;
@@ -61,6 +59,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text descriptionText;
 	public RectTransform optionGrid;
 	public RectTransform resultGrid;
+	public RawImage eventImage;
 	#endregion
 
 	#region Buff UI
@@ -152,17 +151,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 	}
 
 	#region Turn UI Functions
-	private void UpdateTimeUI(int turn)
+	public void UpdateTimerUI(int turn)
 	{
-		Vector2 time = tm.Time();
+		Vector2 time = tm.GetTime();
 		int hour = (int)time.x;
 		int minute = (int)time.y;
-		timeUI.text = hour.ToString("00") + ":" + minute.ToString("00");
-	}
-
-	private void UpdateDayUI(int turn)
-	{
-		dayUI.text = "Day " + tm.Day.ToString();
+		hourHand.rotation = Quaternion.Euler(0, 0, -30 * hour - 0.5f * minute);
+		minuteHand.rotation = Quaternion.Euler(0, 0, -6 * minute);
+		dayUI.text = tm.Day.ToString();
+		dayNightImage.texture = dayNightTextures[(int)TurnManager.inst.DayNight + 1];
 	}
 	#endregion
 
@@ -199,11 +196,12 @@ public class UIManager : SingletonBehaviour<UIManager>
     #endregion
 
     #region Turn Passing UI Functions
+	/*
     public void OpenTurnPassUI(int maxTurn, string info)
 	{
 		turnPassUI.SetActive(true);
 		//turnPassInfoText.text = info;
-		Vector2 time = tm.Time(maxTurn);
+		Vector2 time = tm.GetTime(maxTurn);
 		//turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = 0;
 	}
@@ -215,11 +213,12 @@ public class UIManager : SingletonBehaviour<UIManager>
 
 	public void UpdateTurnPassUI(int passedTurn, int maxTurn)
 	{
-		Vector2 time = tm.Time(maxTurn);
-		Vector2 curTime = tm.Time(passedTurn);
+		Vector2 time = tm.GetTime(maxTurn);
+		Vector2 curTime = tm.GetTime(passedTurn);
 		//turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = passedTurn / (float)maxTurn;
 	}
+	*/
 	#endregion
 
 	#region Weather UI Functions
@@ -259,6 +258,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 			eventButton.GetComponent<Button>().onClick.AddListener(actions[i]);
 			eventButton.GetComponentInChildren<Text>().text = logEvent.actionDescriptions[i];
 		}
+
+		eventImage.texture = logEvent.eventTexture;
 	}
 
 	public void AddResourceResult(int food = 0, int preserved = 0, int water = 0, int wood = 0, int components = 0, int parts = 0)
@@ -330,7 +331,16 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		GameObject result = Instantiate(resultPrefab, resultGrid);
 		result.GetComponentInChildren<RawImage>().texture = gm.GetBuff(buffName).buffTexture;
-		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount);
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount, true);
+	}
+
+	public void AddItemResult(string itemName, int amount)
+	{
+		if (amount <= 0)
+			return;
+		GameObject result = Instantiate(resultPrefab, resultGrid);
+		result.GetComponentInChildren<RawImage>().texture = gm.items[itemName].itemImage;
+		IntegerTextFormatting(result.GetComponentInChildren<Text>(), amount, true);
 	}
 
 	private void InitResultObject(GameObject result, string path, int amount, bool isItem = false)
@@ -364,8 +374,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gm = GameManager.inst;
 		tm = TurnManager.inst;
 
-		tm.OnTurnPassed += UpdateTimeUI;
-		tm.OnTurnPassed += UpdateDayUI;
+		tm.OnTurnPassed += UpdateTimerUI;
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		gm.OnResourceUpdated += UpdateResourcesUI;
 
@@ -401,7 +410,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 				buffUI.transform.Find("BuffCountText").GetComponent<Text>().text = "x" + buff.buffCount.ToString();
 			if (buff.remainedTurn > 0)
 			{
-				Vector2 time = tm.Time(buff.remainedTurn);
+				Vector2 time = tm.GetTime(buff.remainedTurn);
 				buffUI.transform.Find("BuffTimeText").GetComponent<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00");
 			}
 		}
@@ -522,7 +531,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 					Debug.Log(i);
 					int remainedTurn = food.remainedTurns[i];
 					obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(food, remainedTurn); });
-					Vector2 time = TurnManager.inst.Time(food.remainedTurns[i]);
+					Vector2 time = TurnManager.inst.GetTime(food.remainedTurns[i]);
 					obj.GetComponentInChildren<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00"); 
 					obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = food.itemImage;
 				}
@@ -576,7 +585,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 		ChangeItem(item);
 		useButton.GetComponent<Button>().onClick.RemoveAllListeners();
 		useButton.GetComponent<Button>().onClick.AddListener(delegate { item.Use(remainedTurn); OpenInventoryPanel(); });
-		Vector2 time = TurnManager.inst.Time(remainedTurn);
+		Vector2 time = TurnManager.inst.GetTime(remainedTurn);
 		itemAmountText.text = time.x.ToString("00") + ":" + time.y.ToString("00");
 	}
 	#endregion

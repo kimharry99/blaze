@@ -24,6 +24,7 @@ public class Food : Item, IConsumableItem
 
 	public override void Init()
 	{
+		base.Init();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 

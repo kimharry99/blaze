@@ -2764,6 +2764,7 @@ MonoBehaviour:
   thirstChangePerTurn: 0
   statusRecoverConst: 1
   turnPenaltyConst: 1
+  turnPassTime: 0.25
 --- !u!4 &200769145
 Transform:
   m_ObjectHideFlags: 0
@@ -11506,20 +11507,22 @@ MonoBehaviour:
   doorPanel: {fileID: 1568326121}
   doorUseButton: {fileID: 496869559}
   kitchenPanel: {fileID: 263239340}
-  kitchenRecipieButtons:
-  - {fileID: 360879129}
-  - {fileID: 520662165}
-  - {fileID: 706164408}
-  - {fileID: 311656952}
-  - {fileID: 690789532}
-  - {fileID: 1554847948}
-  - {fileID: 204103086}
-  kitchenIngredientInfoText:
-  - {fileID: 1207361588}
-  - {fileID: 2046962675}
-  - {fileID: 353568719}
-  - {fileID: 1908508230}
-  kitchenCookButton: {fileID: 1190171555}
+  kitchenButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  kitchenOption: 0
+  generatorPanel: {fileID: 0}
+  generatorUseButton: {fileID: 0}
+  generatorOptionButtons: []
+  generatorChargePanel: {fileID: 0}
+  generatorHarvestButton: {fileID: 0}
+  generatorRemainedTurnSlider: {fileID: 0}
+  generatorRemainedTimeText: {fileID: 0}
   upgradePanel: {fileID: 843688547}
   woodText: {fileID: 1426958947}
   componentsText: {fileID: 1578804135}
@@ -13070,6 +13073,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayUI: {fileID: 1916352557}
   timeUI: {fileID: 1275361436}
+  minuteHand: {fileID: 0}
+  hourHand: {fileID: 0}
+  dayNightImage: {fileID: 0}
+  dayNightTextures: []
   foodUI: {fileID: 1163391674}
   preservedUI: {fileID: 1226521844}
   waterUI: {fileID: 1687077488}
@@ -13087,14 +13094,13 @@ MonoBehaviour:
   hungerPerTurnText: {fileID: 1276480533}
   thirstPerTurnText: {fileID: 346085396}
   energyPerTurnText: {fileID: 1699657347}
-  turnPassUI: {fileID: 1951790900}
-  turnPassSlider: {fileID: 569245084}
   weatherUI: {fileID: 1798343493}
   eventLogPanel: {fileID: 719973155}
   titleText: {fileID: 850804443}
   descriptionText: {fileID: 748614902}
   optionGrid: {fileID: 1667111584}
   resultGrid: {fileID: 1808301876}
+  eventImage: {fileID: 0}
   buffPanel: {fileID: 1099377775}
   buffInfoPanel: {fileID: 535994694}
   buffNameText: {fileID: 1398143289}
