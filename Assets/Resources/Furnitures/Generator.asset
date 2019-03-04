@@ -19,4 +19,4 @@ MonoBehaviour:
   neededTurn: 14000000280000001e000000
   option: 0
   remainedTurn: 0
-  isFinished: 1
+  isFinished: 0
