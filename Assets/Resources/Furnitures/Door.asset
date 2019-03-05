@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195ae5aab27a0fd41868253d82f01053, type: 3}
   m_Name: Door
   m_EditorClassIdentifier: 
-  furnitureName: 
+  furnitureName: Door
   level: 0

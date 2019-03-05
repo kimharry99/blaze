@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
 enum FarmState
 {
 	Idle,
@@ -17,7 +18,7 @@ enum FarmCrops
 	Potato,
 	None = -1
 }
-
+*/
 public class FarmObject : FurnitureObject
 {
 	public override FurnitureType type { get { return FurnitureType.Farm; } }

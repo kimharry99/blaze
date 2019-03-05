@@ -66,6 +66,14 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Slider solarWaterPurifierSlider;
     #endregion
 
+    #region Refrigerator UI Variables
+    [Header("Refrigerator UI")]
+    public GameObject RefrigeratorPanel;
+    public Button RefrigeratorChargeButton;
+    public Text RefrigeratorText;
+    public Slider RefrigeratorSlider;
+    #endregion
+
     #region Upgrade UI
     public GameObject upgradePanel;
 	public Text woodText;
@@ -78,7 +86,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	#region Managers
 	private GameManager gm;
 	private TurnManager tm;
-	#endregion
+	#endregion 
 
 	#region Furniture UI Functions
 	public void OpenFurnitureUI(FurnitureType type)
@@ -442,6 +450,33 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
         solarWaterPurifier.CancelJob();
         OpenSolarWaterPrufierPanel();
+    }
+    #endregion
+
+    #region Refrigerator UI Functions
+    public void OpenRefrigeratorPanel()
+    {
+        Refrigerator refrigerator = (Refrigerator)gm.furnitures["Refrigerator"];
+        RefrigeratorPanel.SetActive(true);
+        RefrigeratorText.text = refrigerator.power.ToString() + "/" + refrigerator.MaxCapacity.ToString();
+        RefrigeratorSlider.value = refrigerator.power / (float)refrigerator.MaxCapacity;
+        //RefrigeratorChargeButton.interactable = GameManager.inst.items["Battery"].amount > 0;
+        if (refrigerator.isTurnOff)
+        {
+            RefrigeratorText.text = "Turned Off";
+            RefrigeratorSlider.value = 0;
+        }
+    }
+    
+    public void CloseRefrigeratorPanel()
+    {
+        RefrigeratorPanel.SetActive(false);
+    }
+
+    public void Refrigerator_UseBattery()
+    {
+        Refrigerator refrigerator = (Refrigerator)gm.furnitures["Refrigerator"];
+        refrigerator.UseBattery();
     }
     #endregion
 }
