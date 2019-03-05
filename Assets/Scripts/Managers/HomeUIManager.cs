@@ -401,4 +401,43 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         CloseKitchenPanel();
     }
     #endregion
+
+    #region SolarWaterPrufier UI Functions
+    public void OpenSolarWaterPrufierPanel()
+    {
+        solarWaterPurifierPanel.SetActive(true);
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        solarWaterPurifierInputButton.interactable = !solarWaterPurifier.isUsing;
+        solarWaterPurifierHarvestButton.interactable = solarWaterPurifier.cleanWater>0;
+        solarWaterPurifierCancelButton.interactable = solarWaterPurifier.isUsing;
+        solarWaterPurifierText.text = solarWaterPurifier.turnLeft + "/" + solarWaterPurifier.RequiresTurn;
+        solarWaterPurifierSlider.value = solarWaterPurifier.turnLeft / (float)solarWaterPurifier.RequiresTurn;
+    }
+
+    public void CloseSolarWaterPrufierPanel()
+    {
+        solarWaterPurifierPanel.SetActive(false);
+    }
+
+    public void SolarWaterPurifier_InputWater()
+    {
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        solarWaterPurifier.InputWater();
+        OpenSolarWaterPrufierPanel();
+    }
+
+    public void SolarWaterPrufier_HarvestWater()
+    {
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        solarWaterPurifier.HarvestCleanWater();
+        OpenSolarWaterPrufierPanel();
+    }
+
+    public void SolarWaterPrufier_CancelJob()
+    {
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        solarWaterPurifier.CancelJob();
+        OpenSolarWaterPrufierPanel();
+    }
+    #endregion
 }
