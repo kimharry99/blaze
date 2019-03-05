@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Door
   m_EditorClassIdentifier: 
   furnitureName: Door
-  level: 0
+  level: 1
+  curPower: 0

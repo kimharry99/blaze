@@ -6,16 +6,22 @@ public class PlayerController : MonoBehaviour
 {
 	public static FurnitureType selectedFurniture;
 	public int speed;
+	public Animator playerAnimator;
 
 	private void Update()
 	{
+		playerAnimator.SetBool("IsWalking", false);
 		if (Input.GetKey(KeyCode.A))
 		{
 			transform.position -= new Vector3(1, 0, 0) * speed * Time.deltaTime;
+			GetComponent<SpriteRenderer>().flipX = true;
+			playerAnimator.SetBool("IsWalking", true);
 		}
 		if (Input.GetKey(KeyCode.D))
 		{
 			transform.position += new Vector3(1, 0, 0) * speed * Time.deltaTime;
+			GetComponent<SpriteRenderer>().flipX = false;
+			playerAnimator.SetBool("IsWalking", true);
 		}
 		if (Input.GetKeyDown(KeyCode.E))
 		{
@@ -33,6 +39,10 @@ public class PlayerController : MonoBehaviour
         {
             TurnManager.inst.UseTurn(5);
         }
+		if (Input.GetKeyDown(KeyCode.Insert))
+		{
+			TurnManager.inst.UseTurn(96);
+		}
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			GameManager.inst.GetResource(100000, 100000, 100000, 100000, 100000, 100000);
