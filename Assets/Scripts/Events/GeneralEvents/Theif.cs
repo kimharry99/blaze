@@ -19,7 +19,6 @@ public class Theif : LogEvent
 		wood = -Mathf.CeilToInt(GameManager.inst.items["Wood"].amount * resourceLossRate);
 		components = -Mathf.CeilToInt(GameManager.inst.items["Components"].amount * resourceLossRate);
 		parts = -Mathf.CeilToInt(GameManager.inst.items["Parts"].amount * resourceLossRate);
-		Debug.Log(severity + " " + food + " " + preserved + " " + water + " " + wood + " " + components + " " + parts);
 
 		UIManager.inst.AddResourceResult(food, preserved, water, wood, components, parts);
 		UIManager.inst.AddPlayerStatusResult(health: healthLoss);

@@ -14,7 +14,12 @@ public class Bed : Furniture
 
     public int usingTurn = 1;
 
-    public void PlusTurn()
+	public override void Init()
+	{
+		level = 1;
+	}
+
+	public void PlusTurn()
     {
         usingTurn++;
     }
