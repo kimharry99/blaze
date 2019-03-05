@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-		transform.position = Vector3.SmoothDamp(transform.position, player.position + offset, ref velocity, smoothTime);
+		Vector3 afterPos = Vector3.SmoothDamp(transform.position, player.position + offset, ref velocity, smoothTime);
+		if (afterPos.x > -11 && afterPos.x < 11)
+			transform.position = afterPos;
     }
 }
