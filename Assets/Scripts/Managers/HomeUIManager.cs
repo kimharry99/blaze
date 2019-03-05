@@ -406,11 +406,15 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void OpenSolarWaterPrufierPanel()
     {
         solarWaterPurifierPanel.SetActive(true);
-        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
-        solarWaterPurifierInputButton.interactable = !solarWaterPurifier.isUsing;
-        solarWaterPurifierHarvestButton.interactable = solarWaterPurifier.cleanWater>0;
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
+        solarWaterPurifierInputButton.interactable = !solarWaterPurifier.isUsing && GameManager.inst.CheckResource(water: 10);
+        solarWaterPurifierHarvestButton.interactable = solarWaterPurifier.cleanWater > 0;
         solarWaterPurifierCancelButton.interactable = solarWaterPurifier.isUsing;
         solarWaterPurifierText.text = solarWaterPurifier.turnLeft + "/" + solarWaterPurifier.RequiresTurn;
+        if (solarWaterPurifier.turnLeft == 0 && !solarWaterPurifier.isUsing) { 
+            solarWaterPurifierSlider.value = 1;
+            return;
+     }
         solarWaterPurifierSlider.value = solarWaterPurifier.turnLeft / (float)solarWaterPurifier.RequiresTurn;
     }
 
@@ -421,21 +425,21 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
     public void SolarWaterPurifier_InputWater()
     {
-        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
         solarWaterPurifier.InputWater();
         OpenSolarWaterPrufierPanel();
     }
 
     public void SolarWaterPrufier_HarvestWater()
     {
-        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
         solarWaterPurifier.HarvestCleanWater();
         OpenSolarWaterPrufierPanel();
     }
 
     public void SolarWaterPrufier_CancelJob()
     {
-        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPrufier"];
+        SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
         solarWaterPurifier.CancelJob();
         OpenSolarWaterPrufierPanel();
     }

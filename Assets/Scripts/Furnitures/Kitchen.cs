@@ -59,12 +59,11 @@ public class Kitchen : Furniture
                 break;
             case 0: //조약한 식사
                 TurnManager.inst.UseTurn(3);
-                GameManager.inst.ChangeHunger(30);
-                GameManager.inst.ChangeSanity(-5);
+                GameManager.inst.items["CoarseMeal"].amount++;
                 break;
             case 1: //시원한 물
                 TurnManager.inst.UseTurn(1);
-                GameManager.inst.ChangeThirst(30);
+                GameManager.inst.items["CleanWater"].amount++;
                 break;
             case 2: //보존음식
                 TurnManager.inst.UseTurn(1);
@@ -73,22 +72,19 @@ public class Kitchen : Furniture
 
             case 3: //평범한 식사
                 TurnManager.inst.UseTurn(3);
-                GameManager.inst.ChangeHunger(40);
+                GameManager.inst.items["Meal"].amount++;
                 break;
             case 4: //호화로운 식사
                 TurnManager.inst.UseTurn(3);
-                GameManager.inst.ChangeHunger(40);
-                GameManager.inst.ChangeSanity(10);
+                GameManager.inst.items["FineMeal"].amount++;
                 break;
             case 5: //보양식
                 TurnManager.inst.UseTurn(3);
-                GameManager.inst.ChangeHunger(40);
-                GameManager.inst.ChangeHealth(10);
-                GameManager.inst.ChangeSanity(5);
+                GameManager.inst.items["HealthyMeal"].amount++;
                 break;
             case 6: //달콤한 간식
-                GameManager.inst.ChangeHunger(20);
-                GameManager.inst.ChangeSanity(20);
+                TurnManager.inst.UseTurn(3);
+                GameManager.inst.items["Snack"].amount++;
                 break;
             default:
                 Debug.Log("There is no Option for " + selectedRecipie.ToString());
