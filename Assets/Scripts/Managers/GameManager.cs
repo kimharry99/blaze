@@ -439,7 +439,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public void EndTask()
 	{
-		ReservedTask();
+		ReservedTask?.Invoke();
 	}
 
 	#region Game Data Functions

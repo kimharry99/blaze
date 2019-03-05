@@ -87,11 +87,19 @@ public class PlayerStateWork : PlayerState
 	{
 		RectTransform minuteHand = UIManager.inst.minuteHand;
 		RectTransform hourHand = UIManager.inst.hourHand;
+		SkyScript sky = Object.FindObjectOfType<SkyScript>();
 
 		for (float i = timer; i > 0; i -= Time.deltaTime)
 		{
 			minuteHand.Rotate(0, 0, -90 * Time.deltaTime / timer);
 			hourHand.Rotate(0, 0, -7.5f * Time.deltaTime / timer);
+			if (Object.FindObjectOfType<SkyScript>() != null)
+			{
+				sky.sunLight.transform.Rotate(3.75f * Time.deltaTime / timer, 0, 0);
+				sky.skyObject.transform.Translate(sky.SkyMovement() * Time.deltaTime / timer);
+				sky.playerSpotlight.intensity += sky.SpotLightItensityDelta() * Time.deltaTime / timer;
+			}
+
 			yield return null;
 		}
 		TurnManager.inst.UseTurn(1);
@@ -99,5 +107,6 @@ public class PlayerStateWork : PlayerState
 			TurnManager.inst.StartCoroutine(TurnPassRoutine(remainedTurn - 1, timer));
 		else
 			Transition(idle);
+
 	}
 }

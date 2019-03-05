@@ -59,6 +59,10 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Health : " + GameManager.inst.Health + "\nMental : " + GameManager.inst.Sanity + "\nHunger : " + GameManager.inst.Hunger + "\nThirst : " + GameManager.inst.Thirst + "\nEnergy : " + GameManager.inst.Energy);
         }
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			GameManager.inst.StartTask(null, 192, true);
+		}
         #endregion
     }
 }

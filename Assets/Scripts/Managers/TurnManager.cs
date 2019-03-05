@@ -98,7 +98,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	private void Start()
 	{
-
+		OnTurnPassed(0);
 	}
 
 	#region Utility Functions
