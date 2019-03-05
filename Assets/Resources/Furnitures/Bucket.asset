@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   furnitureName: Bucket
   level: 1
-  water: 2
+  furnitureSFX: {fileID: 8300000, guid: fa6fc23b1465b994d88401a0c312ad71, type: 3}
+  water: 0

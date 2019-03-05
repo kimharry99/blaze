@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   furnitureName: Kitchen
   level: 0
+  furnitureSFX: {fileID: 8300000, guid: 09d3da7c34b4916498fa2b3da32dd94c, type: 3}
   selectedRecipie: -1
   usingResource: 00000000000000000000000000000000

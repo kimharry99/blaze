@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   furnitureName: Farm
   level: 3
-  turnLeft: 0b0000000000000000000000
-  turnTaken: 0b0000000000000000000000
-  state: 010000000000000000000000
+  furnitureSFX: {fileID: 8300000, guid: bc18e13107302434fb9c45e667159e00, type: 3}
+  turnLeft: f8ffffff0000000000000000
+  turnTaken: 0a0000000000000000000000
+  state: 020000000000000000000000
   crops: 000000000200000000000000
   selectedSlot: -1

@@ -114,6 +114,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public float turnPassTime = 0.25f;
 	#endregion
 
+	[SerializeField]
+	private AudioClip clockSFX;
+
 	private void Awake()
 	{
 		DontDestroyOnLoad(gameObject);
@@ -121,24 +124,24 @@ public class GameManager : SingletonBehaviour<GameManager>
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		PlayerState.Transition(PlayerState.idle);
+
+		Health = 100;
+		MaxHealth = 100;
+		Sanity = 100;
+		MaxSanity = 100;
+		Energy = 100;
+		MaxEnergy = 100;
+		Hunger = 100;
+		MaxHunger = 100;
+		Thirst = 100;
+		MaxThirst = 100;
+		PlayerLevel = 0;
+		ExperiencePoint = 0;
+		StatusPoint = 0;
 	}
 
 	private void Start()
 	{
-        Health = 100;
-        MaxHealth = 100;
-        Sanity = 100;
-        MaxSanity = 100;
-        Energy = 100;
-        MaxEnergy = 100;
-        Hunger = 100;
-        MaxHunger = 100;
-        Thirst = 100;
-        MaxThirst = 100;
-        PlayerLevel = 0;
-        ExperiencePoint = 0;
-        StatusPoint = 0;
-
 		SaveGameData();
 		//LoadGameData();
 
@@ -435,10 +438,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 		}
 		PlayerStateWork.remainedTurn = neededTurn;
 		PlayerState.Transition(PlayerState.work);
+		UIManager.inst.OpenTranslucentPanel();
+		SoundManager.inst.PlaySFXLoop(Camera.main.gameObject, clockSFX, Mathf.CeilToInt(turnPassTime));
 	}
 
 	public void EndTask()
 	{
+		UIManager.inst.CloseTranslucentPanel();
 		ReservedTask?.Invoke();
 	}
 

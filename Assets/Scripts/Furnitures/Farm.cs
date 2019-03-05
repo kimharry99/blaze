@@ -54,6 +54,7 @@ public class Farm : Furniture
 
     public void PlantCrops(int crop)
     {
+		SoundManager.inst.PlaySFX(furnitureSFX);
         switch (crop)
         {
             case 0: //상추

@@ -6,6 +6,8 @@ public class Furniture : ScriptableObject
 {
 	public string furnitureName;
 	public int level;
+	[SerializeField]
+	protected AudioClip furnitureSFX;
 
 	public virtual void Init()
 	{

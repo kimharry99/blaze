@@ -28,14 +28,26 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 		Camera.main.GetComponent<AudioSource>().clip = clip;
 	}
 
-    public void PlaySFX(GameObject target, AudioClip audio, float volume = -1)
+    public void PlaySFX(AudioClip audio, GameObject target = null, float volume = -1)
     {
         if (audio == null)
             return;
+		if (target == null)
+			target = Camera.main.gameObject;
 		if (volume < 0)
 			volume = this.volume;
         StartCoroutine(Play(target, audio, volume));
     }
+
+	public void PlaySFXLoop(GameObject target, AudioClip audio, int loopTime, float volume = -1)
+	{
+		if (audio == null)
+			return;
+		if (volume < 0)
+			volume = this.volume;
+		StartCoroutine(PlayLoop(target, audio, loopTime, volume));
+
+	}
 
     private IEnumerator Play(GameObject target, AudioClip audio, float volume)
     {
@@ -50,4 +62,17 @@ public class SoundManager : SingletonBehaviour<SoundManager>
         Destroy(audioSource);
     }
 
+	private IEnumerator PlayLoop(GameObject target, AudioClip audio, int loopTime, float volume)
+	{
+		AudioSource audioSource = target.AddComponent<AudioSource>();
+		audioSource.volume = volume;
+		audioSource.clip = audio;
+		audioSource.rolloffMode = AudioRolloffMode.Logarithmic;
+		audioSource.spatialBlend = 1;
+		audioSource.maxDistance = 200f;
+		audioSource.loop = true;
+		audioSource.Play();
+		yield return new WaitForSeconds(audioSource.clip.length * loopTime);
+		Destroy(audioSource);
+	}
 }

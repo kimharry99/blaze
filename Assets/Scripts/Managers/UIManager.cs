@@ -101,6 +101,11 @@ public class UIManager : SingletonBehaviour<UIManager>
 	public Text MaxEnergyUI;
 	#endregion
 
+	#region Miscellneous UI
+	[Header("Miscellnous UI")]
+	public GameObject translucentPanel;
+	#endregion
+
 	#region Prefabs
 	[Header("Prefabs")]
 	public GameObject eventButtonPrefab;
@@ -193,16 +198,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		IntegerTextFormatting(thirstPerTurnText, gm.thirstChangePerTurn, true);
 		IntegerTextFormatting(energyPerTurnText, gm.energyChangePerTurn, true);
 	}
-    #endregion
+	#endregion
 
-    #region Turn Passing UI Functions
 	/*
+    #region Turn Passing UI Functions
+	
     public void OpenTurnPassUI(int maxTurn, string info)
 	{
 		turnPassUI.SetActive(true);
-		//turnPassInfoText.text = info;
 		Vector2 time = tm.GetTime(maxTurn);
-		//turnPassText.text = "00:00 / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = 0;
 	}
 
@@ -215,12 +219,21 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		Vector2 time = tm.GetTime(maxTurn);
 		Vector2 curTime = tm.GetTime(passedTurn);
-		//turnPassText.text = curTime.x.ToString("00") + ":" + curTime.y.ToString("00") + " / " + time.x.ToString("00") + ":" + time.y.ToString("00");
 		turnPassSlider.value = passedTurn / (float)maxTurn;
 	}
-	*/
 	#endregion
+	*/
 
+	#region Miscellneous
+	public void OpenTranslucentPanel()
+	{
+		translucentPanel.SetActive(true);
+	}
+	public void CloseTranslucentPanel()
+	{
+		translucentPanel.SetActive(false);
+	}
+	#endregion
 	#region Weather UI Functions
 	public void UpdateWeatherUI()
 	{

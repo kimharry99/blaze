@@ -29,10 +29,8 @@ public class Bucket : Furniture
 
 	public void HarvestWater()
 	{
-		GameManager.inst.GetResource(water: water);
-		water = 0;
 		isUsing = true;
-		TurnManager.inst.UseTurn(2);
-		isUsing = false;
+		GameManager.inst.StartTask(delegate { water = 0; GameManager.inst.GetResource(water: water); isUsing = false; HomeUIManager.inst.OpenBucketPanel(); },2);
+		SoundManager.inst.PlaySFX(furnitureSFX);
 	}
 }

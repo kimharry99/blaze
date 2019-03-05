@@ -86,6 +86,7 @@ public class Kitchen : Furniture
 
     public void CookFood()
     {
+		SoundManager.inst.PlaySFX(furnitureSFX);
         GameManager.inst.UseResource(water: usingResource[2], food: usingResource[0], preserved: usingResource[1], components: usingResource[3]);
         switch (selectedRecipie)
         {
