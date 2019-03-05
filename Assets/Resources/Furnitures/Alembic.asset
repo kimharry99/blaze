@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7deaf1efea6cd7f49b114ba0d5bdcb82, type: 3}
+  m_Name: Alembic
+  m_EditorClassIdentifier: 
+  furnitureName: Alembic
+  level: 0
+  selectedRecipie: -1
+  remainedBattery: 0
+  useBattery: 1
+  maxBattery: c80000005802000058020000
+  neededTurn: 1e000000140000000a000000000000006000000030000000

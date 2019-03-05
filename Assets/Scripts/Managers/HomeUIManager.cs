@@ -11,8 +11,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 {
 	public GameObject[] furnitureUIs = new GameObject[10];
 
-	#region Bucket UI Variables
-	[Header("Bucket UI")]
+    #region Bucket UI Variables
+    [Header("Bucket UI")]
 	public GameObject bucketPanel;
 	public Text bucketWaterText;
 	public Slider bucketWaterSlider;
@@ -65,10 +65,40 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Button generatorHarvestButton;
 	public Slider generatorRemainedTurnSlider;
 	public Text generatorRemainedTimeText;
-	#endregion
+    #endregion
 
-	#region Upgrade UI
-	public GameObject upgradePanel;
+    #region Fermenter UI Variables
+    [Header("Fermenter UI")]
+    public GameObject fermenterPanel;
+    public Button fermenterUseButton;
+    public Button fermenterChargePanelOpenButton;
+    public Text fermenterUseText;
+
+    public GameObject fermenterChargePanel;
+    public Button fermenterChargeButton;
+    public Button fermenterChargePlusButton;
+    public Button fermenterChargeMinusButton;
+    public Text fermenterAmountChargeText;
+    #endregion
+
+    #region Alembic UI Variables
+    [Header("Alembic UI")]
+    public GameObject alembicPanel;
+    public Button alembicWaterButton;
+    public Button alembicAlcoholButton;
+    public Button alembicUseButton;
+    public Button alembicChargePanelOpenButton;
+    public Text alembicUseText;
+
+    public GameObject alembicChargePanel;
+    public Button alembicChargeButton;
+    public Button alembicChargePlusButton;
+    public Button alembicChargeMinusButton;
+    public Text alembicAmountChargeText;
+    #endregion
+
+    #region Upgrade UI
+    public GameObject upgradePanel;
 	public Text woodText;
 	public Text componentsText;
 	public Text partsText;
@@ -131,7 +161,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
 			return;
-        if (furniture.name != "Craft" && furniture.level >= GameManager.inst.furnitures["Craft"].level)
+        if (furniture.name != "CraftTable" && furniture.level >= GameManager.inst.furnitures["CraftTable"].level)
             return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
 		CloseUpgradePanel();
@@ -412,5 +442,117 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		generator.Harvest();
 		OpenGeneratorPanel();
 	}
-	#endregion
+    #endregion
+
+    #region Fermenter UI Functions
+    public void OpenFermenterPanel()
+    {
+        fermenterPanel.SetActive(true);
+    }
+
+    public void CloseFermenterPanel()
+    {
+        fermenterPanel.SetActive(false);
+    }
+
+    public void OpenFermenterChargePanel()
+    {
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        fermenterChargePanel.SetActive(true);
+        fermenterChargePlusButton.interactable = fermenter.useBattery < GameManager.inst.items["Battery"].amount;
+        fermenterChargeMinusButton.interactable = fermenter.useBattery > 0;
+        fermenterAmountChargeText.text = fermenter.useBattery.ToString();
+    }
+
+    public void CloseFermenterChargePanel()
+    {
+        fermenterChargePanel.SetActive(false);
+    }
+
+    public void FermenterUse()
+    {
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        fermenter.Use();
+    }
+
+    public void FermenterPlusCharge()
+    {
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        fermenter.PlusChargeAmount();
+        OpenFermenterChargePanel();
+    }
+
+    public void FermenterMinusCharge()
+    {
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        fermenter.MinusChargeAmount();
+        OpenFermenterChargePanel();
+    }
+
+    public void FermenterCharge()
+    {
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        fermenter.Charge();
+        OpenFermenterChargePanel();
+    }
+    #endregion
+
+    #region Alembic UI Functions
+    public void OpenAlembicPanel()
+    {
+        alembicPanel.SetActive(true);
+    }
+
+    public void CloseAlembicPanel()
+    {
+        alembicPanel.SetActive(false);
+    }
+
+    public void OpenAlembicChargePanel()
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembicChargePanel.SetActive(true);
+        alembicChargePlusButton.interactable = alembic.useBattery < GameManager.inst.items["Battery"].amount;
+        alembicChargeMinusButton.interactable = alembic.useBattery > 0;
+        alembicAmountChargeText.text = alembic.useBattery.ToString();
+    }
+
+    public void CloseAlembicChargePanel()
+    {
+        alembicChargePanel.SetActive(false);
+    }
+
+    public void AlembicUse()
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembic.Use();
+    }
+
+    public void SelectAlembicRecipie(int recipie)
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembic.SelectRecipie(recipie);
+    }
+
+    public void AlembicPlusCharge()
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembic.PlusChargeAmount();
+        OpenAlembicChargePanel();
+    }
+
+    public void AlembicMinusCharge()
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembic.MinusChargeAmount();
+        OpenAlembicChargePanel();
+    }
+
+    public void AlembicCharge()
+    {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembic.Charge();
+        OpenAlembicChargePanel();
+    }
+    #endregion
 }
