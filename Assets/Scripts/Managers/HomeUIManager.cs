@@ -264,7 +264,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void Farm_PlantCrop(int crop)
     {
         Debug.Log("click");
-        tm.UseTurn(8);
+        gm.StartTask(null, 8);
         Farm farm = (Farm)gm.furnitures["Farm"];
         slotImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
         fillImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
@@ -277,7 +277,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     {
         Farm farm = (Farm)gm.furnitures["Farm"];
         farm.selectedSlot = slot;
-        tm.UseTurn(4);
+        gm.StartTask(null, 4);
         slotImages[farm.selectedSlot].GetComponent<Image>().sprite = null;
         farm.HarvestCrops(farm.crops[farm.selectedSlot]);
         OpenFarmPanel();
@@ -460,7 +460,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         RefrigeratorPanel.SetActive(true);
         RefrigeratorText.text = refrigerator.power.ToString() + "/" + refrigerator.MaxCapacity.ToString();
         RefrigeratorSlider.value = refrigerator.power / (float)refrigerator.MaxCapacity;
-        //RefrigeratorChargeButton.interactable = GameManager.inst.items["Battery"].amount > 0;
+        RefrigeratorChargeButton.interactable = GameManager.inst.items["Battery"].amount > 0;
         if (refrigerator.isTurnOff)
         {
             RefrigeratorText.text = "Turned Off";

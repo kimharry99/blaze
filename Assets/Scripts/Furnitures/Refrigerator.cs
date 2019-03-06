@@ -37,9 +37,7 @@ public class Refrigerator : Furniture
 
     public void UseBattery()
     {
-        //GameManager.inst.items["Battery"].amount--;
+        GameManager.inst.items["Battery"].amount--;
         power = Mathf.Min(MaxCapacity, power + 200);
     }
-
-
 }

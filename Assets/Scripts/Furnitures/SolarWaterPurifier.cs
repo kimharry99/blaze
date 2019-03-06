@@ -34,7 +34,7 @@ public class SolarWaterPurifier : Furniture
     public void InputWater()
     {
         GameManager.inst.UseResource(water: 10);
-        TurnManager.inst.UseTurn(4);
+        GameManager.inst.StartTask(null,4);
         turnLeft = RequiresTurn;
         isUsing = true;
     }
@@ -42,7 +42,7 @@ public class SolarWaterPurifier : Furniture
     public void HarvestCleanWater()
     {
         isUsing = false;
-        TurnManager.inst.UseTurn(2);
+        GameManager.inst.StartTask(null, 2);
         GameManager.inst.items["CleanWater"].amount += cleanWater;
         cleanWater = 0;
     }
