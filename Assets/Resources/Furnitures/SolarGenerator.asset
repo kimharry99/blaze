@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: SolarGenerator
   m_EditorClassIdentifier: 
   furnitureName: SolarGenerator
-  level: 3
+  level: 0
+  furnitureSFX: {fileID: 0}
+  furnitureSprites:
+  - {fileID: 21300000, guid: a18096ea87610e0498f9891d0ea04b39, type: 3}
+  - {fileID: 21300000, guid: ad6bd703230c3b94bb3cf6c2cb0fb7ec, type: 3}
+  - {fileID: 21300000, guid: c88110c6a30a322448be08f3c01fc52d, type: 3}
   curPower: 0

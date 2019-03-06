@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Bucket
   m_EditorClassIdentifier: 
   furnitureName: Bucket
-  level: 1
+  level: 0
   furnitureSFX: {fileID: 8300000, guid: fa6fc23b1465b994d88401a0c312ad71, type: 3}
+  furnitureSprites:
+  - {fileID: 21300000, guid: fd45aa38632336a4fbf1078ca0ec91f6, type: 3}
+  - {fileID: 21300000, guid: 5de3cff2ce32b024da51d7be9a996696, type: 3}
+  - {fileID: 21300000, guid: d08b3c50329a3454681790a04cf5d255, type: 3}
   water: 0

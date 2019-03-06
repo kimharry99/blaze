@@ -14,4 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   furnitureName: Door
   level: 1
+  furnitureSFX: {fileID: 0}
+  furnitureSprites:
+  - {fileID: 21300000, guid: 80c00472b03ba8d47876983289195cb4, type: 3}
+  - {fileID: 21300000, guid: 1534704c808ea03439cbf982f5d76ac1, type: 3}
+  - {fileID: 21300000, guid: 29b671bfedb0fa546bf9df8d59f2f49a, type: 3}
   curPower: 0

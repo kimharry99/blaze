@@ -13,5 +13,10 @@ MonoBehaviour:
   m_Name: Bed
   m_EditorClassIdentifier: 
   furnitureName: Bed
-  level: 0
+  level: 1
+  furnitureSFX: {fileID: 0}
+  furnitureSprites:
+  - {fileID: 21300000, guid: d272f6bb8331da34cad8a4660495a760, type: 3}
+  - {fileID: 21300000, guid: 3a2dd933ff39ad14d9b3c10842212fde, type: 3}
+  - {fileID: 21300000, guid: 13f90fcfdbe4b254d870e4bf56e6e9b4, type: 3}
   usingTurn: 1

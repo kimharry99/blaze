@@ -23,12 +23,7 @@ public class PlayerController : MonoBehaviour
 			GetComponent<SpriteRenderer>().flipX = false;
 			playerAnimator.SetBool("IsWalking", true);
 		}
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			if (selectedFurniture != FurnitureType.None)
-				HomeUIManager.inst.OpenFurnitureUI(selectedFurniture);
-				
-		}
+
 
 		#region Debug Commands
 		if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -65,4 +60,43 @@ public class PlayerController : MonoBehaviour
 		}
         #endregion
     }
+
+	private void OnTriggerStay2D(Collider2D collision)
+	{
+		if (collision.tag == "Ladder")
+		{
+			if (Input.GetKey(KeyCode.W))
+			{
+				//transform.position += new Vector3(0, 1, 0) * speed * Time.deltaTime;
+				GetComponent<Rigidbody2D>().gravityScale = 0;
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 1f) * speed;
+				gameObject.layer = LayerMask.NameToLayer("LadderPlayer");
+			}
+			else if (Input.GetKey(KeyCode.S))
+			{
+				//transform.position -= new Vector3(0, 1, 0) * speed * Time.deltaTime;
+				GetComponent<Rigidbody2D>().gravityScale = 0;
+				GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1f) * speed;
+				gameObject.layer = LayerMask.NameToLayer("LadderPlayer");
+			}
+			else if (Input.GetKey(KeyCode.Space))
+			{
+				GetComponent<Rigidbody2D>().gravityScale = 5;
+				gameObject.layer = LayerMask.NameToLayer("Default");
+			}
+			else if (gameObject.layer == LayerMask.NameToLayer("LadderPlayer"))
+			{
+				GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+			}
+		}
+	}
+
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+		if (collision.tag == "Ladder")
+		{
+			GetComponent<Rigidbody2D>().gravityScale = 5;
+			gameObject.layer = LayerMask.NameToLayer("Default");
+		}
+	}
 }

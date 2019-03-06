@@ -15,8 +15,12 @@ MonoBehaviour:
   furnitureName: Farm
   level: 3
   furnitureSFX: {fileID: 8300000, guid: bc18e13107302434fb9c45e667159e00, type: 3}
-  turnLeft: f8ffffff0000000000000000
-  turnTaken: 0a0000000000000000000000
-  state: 020000000000000000000000
-  crops: 000000000200000000000000
+  furnitureSprites:
+  - {fileID: 21300000, guid: 9ba8beb92667a2c45951d49edeee630e, type: 3}
+  - {fileID: 21300000, guid: f799c98350c483341bedd51ec16c65c1, type: 3}
+  - {fileID: 21300000, guid: 30887abdf6d0c704b9d4dd8471f93de7, type: 3}
+  turnLeft: 8cffffff89ffffffb4ffffff
+  turnTaken: 0e0000000d00000014000000
+  state: 020000000200000002000000
+  crops: 000000000000000001000000
   selectedSlot: -1

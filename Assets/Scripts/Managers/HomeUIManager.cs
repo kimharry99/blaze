@@ -89,18 +89,6 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	private TurnManager tm;
 	#endregion
 
-	#region Furniture UI Functions
-	public void OpenFurnitureUI(FurnitureType type)
-	{
-		furnitureUIs[(int)type].SetActive(true);
-	}
-
-	public void CloseFurnitureUI(FurnitureType type)
-	{
-		furnitureUIs[(int)type].SetActive(false);
-	}
-	#endregion
-
 	#region Upgrade UI Functions
 	public void OpenUpgradePanel(string furnitureName)
 	{

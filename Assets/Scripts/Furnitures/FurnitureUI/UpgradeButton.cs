@@ -12,7 +12,6 @@ public class UpgradeButton : MonoBehaviour
 	{
 		if (EventSystem.current.IsPointerOverGameObject())
 			return;
-		Debug.Log(furnitureName);
 		Furniture furniture = GameManager.inst.furnitures[furnitureName];
 		if (furniture.level <= 3)
 			OnClicked.Invoke();

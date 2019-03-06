@@ -18,20 +18,33 @@ public enum FurnitureType
 	None = -1
 }
 
-public abstract class FurnitureObject : MonoBehaviour
+public class FurnitureObject : MonoBehaviour
 {
-	public abstract FurnitureType type { get; }
-	public int Level { get; protected set; }
-    public bool IsRun { get; set; }
 	public GameObject furnitureUI;
 
 	protected virtual void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.tag == "Player")
 		{
-			PlayerController.selectedFurniture = type;
-			//For Debug
-			GetComponent<SpriteRenderer>().color = new Color(1, 0, 0);
+			OpenFurnitureUI();
+			furnitureUI.transform.GetChild(0).gameObject.SetActive(true);
+			furnitureUI.transform.GetChild(1).gameObject.SetActive(true);
+			int level = GameManager.inst.furnitures[name].level;
+			if (level < 1)
+			{
+				furnitureUI.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);
+				furnitureUI.transform.GetChild(1).gameObject.SetActive(false);
+			}
+			else if (level > 2)
+			{
+				furnitureUI.transform.GetChild(0).gameObject.SetActive(false);
+				furnitureUI.transform.GetChild(1).transform.localPosition = new Vector3(0, 0, 0);
+			}
+			else
+			{
+				furnitureUI.transform.GetChild(0).transform.localPosition = new Vector3(-0.5f, 0, 0);
+				furnitureUI.transform.GetChild(1).transform.localPosition = new Vector3(0.5f, 0, 0);
+			}
 		}
 	}
 
@@ -39,9 +52,7 @@ public abstract class FurnitureObject : MonoBehaviour
 	{
 		if (col.tag == "Player")
 		{
-			PlayerController.selectedFurniture = FurnitureType.None;
-			//For Debug
-			GetComponent<SpriteRenderer>().color = new Color(1, 1, 1);
+			CloseFurnitureUI();
 		}
 
 	}
@@ -55,18 +66,4 @@ public abstract class FurnitureObject : MonoBehaviour
 	{
 		furnitureUI.SetActive(false);
 	}
-
-	public abstract void OnUseButtonClicked();
-
-	public virtual void Upgrade()
-	{
-		++Level;
-        setInfo();
-	}
-
-    public void setInfo()
-    {
-        //GameManager.inst.furnitures[(int)type].level = Level;
-        //GameManager.inst.furnitures[(int)type].isRun = IsRun;
-    }
 }

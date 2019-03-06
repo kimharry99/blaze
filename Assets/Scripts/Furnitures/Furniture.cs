@@ -8,6 +8,8 @@ public class Furniture : ScriptableObject
 	public int level;
 	[SerializeField]
 	protected AudioClip furnitureSFX;
+	[SerializeField]
+	protected Sprite[] furnitureSprites;
 
 	public virtual void Init()
 	{
@@ -22,5 +24,6 @@ public class Furniture : ScriptableObject
 	public virtual void Upgrade()
 	{
 		++level;
+		GameObject.Find(furnitureName).GetComponent<SpriteRenderer>().sprite = furnitureSprites[level - 1];
 	}
 }
