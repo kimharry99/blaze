@@ -382,8 +382,14 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#endregion
 
 	#region MonoBehaviour Functions
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
 		gm = GameManager.inst;
 		tm = TurnManager.inst;
 
@@ -391,14 +397,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		gm.OnResourceUpdated += UpdateResourcesUI;
 
-		SceneManager.sceneLoaded += OnSceneLoaded;
+		//SceneManager.sceneLoaded += OnSceneLoaded;
 		DontDestroyOnLoad(gameObject);
 	}
-
+	/*
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		gameObject.SetActive(scene.name != "Title");
 	}
+	*/
 	#endregion
 
 	#region Buff UI Funcitons

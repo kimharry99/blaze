@@ -5,7 +5,19 @@ using UnityEngine;
 public class Furniture : ScriptableObject
 {
 	public string furnitureName;
-	public int level;
+	[SerializeField]
+	private int level;
+	public int Level {
+		get {
+			return level;
+		}
+		set
+		{
+			level = value;
+			if (level > 0 && !GameManager.inst.IsOutside)
+				GameObject.Find(furnitureName).GetComponent<SpriteRenderer>().sprite = furnitureSprites[level - 1];
+		}
+	}
 	[SerializeField]
 	protected AudioClip furnitureSFX;
 	[SerializeField]
@@ -13,7 +25,7 @@ public class Furniture : ScriptableObject
 
 	public virtual void Init()
 	{
-		level = 0;
+		Level = 0;
 	}
 
 	public virtual void OnTurnPassed(int turn)
@@ -23,7 +35,6 @@ public class Furniture : ScriptableObject
 
 	public virtual void Upgrade()
 	{
-		++level;
-		GameObject.Find(furnitureName).GetComponent<SpriteRenderer>().sprite = furnitureSprites[level - 1];
+		++Level;
 	}
 }

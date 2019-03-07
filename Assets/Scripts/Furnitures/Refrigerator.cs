@@ -11,14 +11,15 @@ public class Refrigerator : Furniture
     public bool isTurnOff = false;
     public int power;
 
-    public int PowerConsumption { get { return powerConsumption[isTurnOff ? 0 : level]; } }
-    public int LostFoodRate { get { return lostFoodRate[isTurnOff ? 0 : level]; } }
-    public int MaxCapacity { get { return maxCapacity[isTurnOff ? 0 : level]; } }
+    public int PowerConsumption { get { return powerConsumption[isTurnOff ? 0 : Level]; } }
+    public int LostFoodRate { get { return lostFoodRate[isTurnOff ? 0 : Level]; } }
+    public int MaxCapacity { get { return maxCapacity[isTurnOff ? 0 : Level]; } }
 
     
     public override void Init()
     {
         TurnManager.inst.OnTurnPassed += OnTurnPassed;
+		Level = 0;
     }
 
     public override void OnTurnPassed(int turn)

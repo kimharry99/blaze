@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
 
 
 		#region Debug Commands
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			GameManager.inst.GetResource(100000, 100000, 100000, 100000, 100000, 100000);
+		}
+#if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
 			TurnManager.inst.UseTurn(1);
@@ -37,10 +42,6 @@ public class PlayerController : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Insert))
 		{
 			TurnManager.inst.UseTurn(96);
-		}
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			GameManager.inst.GetResource(100000, 100000, 100000, 100000, 100000, 100000);
 		}
         if(Input.GetKeyDown(KeyCode.M))
         {
@@ -58,8 +59,9 @@ public class PlayerController : MonoBehaviour
 		{
 			GameManager.inst.StartTask(null, 192, true);
 		}
-        #endregion
-    }
+#endif
+		#endregion
+	}
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{

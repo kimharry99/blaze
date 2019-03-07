@@ -30,7 +30,7 @@ public class FurnitureObject : MonoBehaviour
 			OpenFurnitureUI();
 			furnitureUI.transform.GetChild(0).gameObject.SetActive(true);
 			furnitureUI.transform.GetChild(1).gameObject.SetActive(true);
-			int level = GameManager.inst.furnitures[name].level;
+			int level = GameManager.inst.furnitures[name].Level;
 			if (level < 1)
 			{
 				furnitureUI.transform.GetChild(0).transform.localPosition = new Vector3(0, 0, 0);

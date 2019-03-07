@@ -13,7 +13,12 @@ MonoBehaviour:
   m_Name: SolarWaterPurifier
   m_EditorClassIdentifier: 
   furnitureName: SolarWaterPurifier
-  level: 1
+  level: 0
+  furnitureSFX: {fileID: 0}
+  furnitureSprites:
+  - {fileID: 21300000, guid: e77e8df290612e149af54047b44c3303, type: 3}
+  - {fileID: 21300000, guid: eda0f94ccd45ffd4b94713d8d6055035, type: 3}
+  - {fileID: 21300000, guid: 594ddfc6deeebda4498d4987a73bc2d0, type: 3}
   cleanWater: 1
   turnLeft: 0
   isUsing: 0

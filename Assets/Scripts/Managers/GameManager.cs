@@ -101,7 +101,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		get
 		{
-			return SceneManager.GetActiveScene().name == "OutdoorBS";
+			return SceneManager.GetActiveScene().name == "Outdoor"
+#if UNITY_EDITOR
+				|| SceneManager.GetActiveScene().name == "OutdoorBS"
+#endif
+				;
 		}
 	}
 
@@ -117,12 +121,19 @@ public class GameManager : SingletonBehaviour<GameManager>
 	[SerializeField]
 	private AudioClip clockSFX;
 
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
+
 		DontDestroyOnLoad(gameObject);
 		InitGame();
 		TurnManager.inst.OnTurnPassed += StatusUpdateByTurn;
 		TurnManager.inst.OnTurnPassed += ApplyBuffs;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 		PlayerState.Transition(PlayerState.idle);
 
 		Health = 100;
@@ -159,6 +170,17 @@ public class GameManager : SingletonBehaviour<GameManager>
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			ExperiencePoint += 100;
+		}
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		if (!IsOutside)
+		{
+			foreach (var furniture in furnitures.Values)
+			{
+				furniture.Level = furniture.Level;
+			}
 		}
 	}
 

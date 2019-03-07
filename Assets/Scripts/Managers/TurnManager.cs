@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Weather
 {
@@ -89,11 +90,22 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	}
 	#endregion
 
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 		DontDestroyOnLoad(gameObject);
 		Weather = Weather.Cloud;
 		ChangeWeather();
+		SceneManager.sceneLoaded += OnSceneLoaded;
+	}
+
+	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+	{
+		OnTurnPassed(0);
 	}
 
 	private void Start()

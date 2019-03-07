@@ -122,7 +122,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 	private void UpdateUpgradePanel(Furniture furniture)
 	{
-		int level = furniture.level;
+		int level = furniture.Level;
 		FurnitureUpgradeInfo info = JsonHelper.LoadFurnitureUpgradeInfo(furniture);
 
 		furnitureText.text = furniture.furnitureName;
@@ -146,7 +146,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		if (!GameManager.inst.CheckResource(wood: wood, components: components, parts: parts))
 			return;
-		if (furniture.name != "Craft" && furniture.level >= GameManager.inst.furnitures["Craft"].level)
+		if (furniture.name != "Craft" && furniture.Level >= GameManager.inst.furnitures["CraftTable"].Level)
 			return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
 		CloseUpgradePanel();
@@ -155,8 +155,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	#endregion
 
 
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 		gm = GameManager.inst;
 		tm = TurnManager.inst;
 	}
@@ -195,7 +200,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		for (int i = 0; i < 3; i++)
 		{
-			if (i < farm.level)
+			if (i < farm.Level)
 			{
 				farmHarvestButtons[i].interactable = farm.state[i] == 2;    //Grow
 				farmCancelButtons[i].interactable = farm.state[i] != 0;     //Idle
@@ -236,16 +241,16 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 				switch (i)
 				{
 					case 0: //상추
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 5) && i <= farm.level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 5) && i <= farm.Level;
 						break;
 					case 1: //당근
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 10, food: 20) && i <= farm.level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 10, food: 20) && i <= farm.Level;
 						break;
 					case 2: //콩
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 10) && i <= farm.level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 10) && i <= farm.Level;
 						break;
 					case 3: //감자
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 40, food: 50) && i <= farm.level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 40, food: 50) && i <= farm.Level;
 						break;
 					default:
 						break;
@@ -359,10 +364,10 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		kitchenPanel.SetActive(true);
 		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
-		kitchenRecipieButtons[3].interactable = kitchen.level > 1;
+		kitchenRecipieButtons[3].interactable = kitchen.Level > 1;
 		for (int i = 4; i < 7; i++)
 		{
-			kitchenRecipieButtons[i].interactable = kitchen.level > 2;
+			kitchenRecipieButtons[i].interactable = kitchen.Level > 2;
 		}
 		for (int i = 0; i < 4; i++)
 		{
@@ -440,7 +445,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 			{
 				btn.interactable = false;
 			}
-			for (int i = 0; i < GameManager.inst.furnitures["Generator"].level; ++i)
+			for (int i = 0; i < GameManager.inst.furnitures["Generator"].Level; ++i)
 			{
 				generatorOptionButtons[i].interactable = true;
 			}

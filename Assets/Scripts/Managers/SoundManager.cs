@@ -9,8 +9,13 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 	public float volume = 0.5f;
     public Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
 
-    private void Awake()
-    {
+	protected override void Awake()
+	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 		SetStatic();
 		
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");

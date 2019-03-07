@@ -21,7 +21,7 @@ public class SolarGenerator : Furniture
 
 	public override void OnTurnPassed(int turn)
 	{
-		curPower = Mathf.Min(200, curPower + chargePerSec[level]);
+		curPower = Mathf.Min(200, curPower + chargePerSec[Level]);
 		base.OnTurnPassed(turn);
 	}
 

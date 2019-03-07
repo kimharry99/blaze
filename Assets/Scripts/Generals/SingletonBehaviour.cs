@@ -22,6 +22,16 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
                     _inst = go.AddComponent<T>();
                 }
             }
+			else if (FindObjectsOfType<T>().Length > 1)
+			{
+				foreach(var inst in FindObjectsOfType<T>())
+				{
+					if (inst != _inst)
+					{
+						Destroy(inst.gameObject);
+					}
+				}
+			}
             return _inst;
         }
     }
@@ -31,4 +41,9 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
         if (_inst != null)
             DontDestroyOnLoad(_inst.gameObject);
     }
+
+	protected virtual void Awake()
+	{
+
+	}
 }

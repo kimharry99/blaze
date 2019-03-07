@@ -6,7 +6,7 @@ public class SolarWaterPurifier : Furniture
 {
     private readonly int[] requiresTurn = { 0, 200, 150, 100 };
 
-    public int RequiresTurn { get { return requiresTurn[level]; } } 
+    public int RequiresTurn { get { return requiresTurn[Level]; } } 
     public int cleanWater;
     public int turnLeft;
 

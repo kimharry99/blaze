@@ -8,15 +8,15 @@ public class Bed : Furniture
     private readonly int[] cureTurnLeft = { 5, 4, 3 };
     private readonly int[] healTurnLeft = { 999, 10, 6 };
 
-    public int EnergyPerTurn { get { return energyPerTurn[level - 1]; } }
-    public int CureTurnLeft { get { return cureTurnLeft[level - 1]; } }
-    public int HealTurnLeft { get { return healTurnLeft[level - 1]; } }
+    public int EnergyPerTurn { get { return energyPerTurn[Level - 1]; } }
+    public int CureTurnLeft { get { return cureTurnLeft[Level - 1]; } }
+    public int HealTurnLeft { get { return healTurnLeft[Level - 1]; } }
 
     public int usingTurn = 1;
 
 	public override void Init()
 	{
-		level = 1;
+		Level = 1;
 	}
 
 	public void PlusTurn()

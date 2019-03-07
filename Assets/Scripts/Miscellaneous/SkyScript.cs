@@ -17,6 +17,11 @@ public class SkyScript : MonoBehaviour
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
+	private void OnDestroy()
+	{
+		TurnManager.inst.OnTurnPassed -= OnTurnPassed;
+	}
+
 	private void OnTurnPassed(int turn)
 	{
 		switch (TurnManager.inst.Weather)

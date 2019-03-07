@@ -12,7 +12,7 @@ public class Door : Furniture
 
 	public int ThiefPreventionRate {
 		get {
-			int level = this.level;
+			int level = this.Level;
 			if (level > 2 && curPower <= 0)
 				level = 2;
 			return thiefPreventionRate[level - 1];
@@ -22,13 +22,13 @@ public class Door : Furniture
 	public override void Init()
 	{
 		Debug.Log("A");
-		level = 1;
+		Level = 1;
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
 	public override void OnTurnPassed(int turn)
 	{
-		if (level > 2)
+		if (Level > 2)
 			curPower = Mathf.Max(curPower - powerUsePerSecond, 0);
 	}
 

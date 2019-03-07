@@ -34,7 +34,7 @@ public class Farm : Furniture
 
     public override void OnTurnPassed(int turn)
     {
-        for (int i = 0; i < level; ++i)
+        for (int i = 0; i < Level; ++i)
         {
             if (state[i] == (int)FarmState.Idle) { 
                 return;
@@ -60,7 +60,7 @@ public class Farm : Furniture
             case 0: //상추
                 if (!GameManager.inst.CheckResource(water: 20, food: 5))
                     return;
-                if (level < 1)
+                if (Level < 1)
                     return;
                 GameManager.inst.UseResource(water: 20, food: 5);
                 turnTaken[selectedSlot] = Random.Range(10, 16);
@@ -70,7 +70,7 @@ public class Farm : Furniture
             case 1: //당근
                 if (!GameManager.inst.CheckResource(water: 10, food: 20))
                     return;
-                if (level < 1)
+                if (Level < 1)
                     return;
                 GameManager.inst.UseResource(water: 10, food: 20);
                 turnTaken[selectedSlot] = Random.Range(20, 26);
@@ -80,7 +80,7 @@ public class Farm : Furniture
             case 2: //콩
                 if (!GameManager.inst.CheckResource(water: 20, food: 10))
                     return;
-                if (level < 2)
+                if (Level < 2)
                     return;
                 GameManager.inst.UseResource(water: 20, food: 10);
                 turnTaken[selectedSlot] = Random.Range(15, 21);
@@ -90,7 +90,7 @@ public class Farm : Furniture
             case 3: //감자
                 if (!GameManager.inst.CheckResource(water: 40, food: 50))
                     return;
-                if (level < 3)
+                if (Level < 3)
                     return;
                 GameManager.inst.UseResource(water: 40, food: 50);
                 turnTaken[selectedSlot] = Random.Range(50, 70);

@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class CraftTable : Furniture
 {
-
+	public override void Init()
+	{
+		Level = 1;
+	}
 }

@@ -39,8 +39,13 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private bool isMoving = false;
 
 
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 		//MapMaking(20);
 		//SaveMapData();
 		LoadMapData();
@@ -99,6 +104,11 @@ public class MapManager : SingletonBehaviour<MapManager>
 				MoveTo(cellPos);
 		}
     }
+
+	private void OnDestroy()
+	{
+		TurnManager.inst.OnTurnPassed -= OnTurnPassed;
+	}
 
 	#region Map Data Functions
 	private void MapMaking(int size)

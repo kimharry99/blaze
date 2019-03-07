@@ -11,8 +11,13 @@ public class EventManager : SingletonBehaviour<EventManager>
 {
 	private Dictionary<string, LogEvent> events = new Dictionary<string, LogEvent>();
 
-	private void Awake()
+	protected override void Awake()
 	{
+		if (inst != this)
+		{
+			Destroy(gameObject);
+			return;
+		}
 		DontDestroyOnLoad(this);
 		foreach (var logEvent in Resources.LoadAll<LogEvent>("LogEvents/"))
 		{
