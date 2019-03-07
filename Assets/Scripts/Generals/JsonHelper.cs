@@ -15,7 +15,23 @@ public class JsonHelper : MonoBehaviour
 
 	public static void JsonToFile(string json, string path)
 	{
-		File.WriteAllText(Application.dataPath + "/Resources/Jsons/" + path, json);
+#if UNITY_EDITOR
+		path = Application.dataPath + "/Resources/Jsons/" + path;
+		File.WriteAllText(path, json);
+#endif
+#if UNITY_STANDALONE
+		string[] pathSubstrings = path.Split('/');
+		path = pathSubstrings[pathSubstrings.Length - 1];
+		path = Application.dataPath + "/Resources/" + path;
+		print(Application.streamingAssetsPath);
+		using (FileStream fs = new FileStream(path, FileMode.Create))
+		{
+			using (StreamWriter writer = new StreamWriter(fs))
+			{
+				writer.Write(json);
+			}
+		}
+#endif
 	}
 
 	public static string LoadJson(string path)
