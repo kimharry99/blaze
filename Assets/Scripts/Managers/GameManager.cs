@@ -135,25 +135,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 		TurnManager.inst.OnTurnPassed += ApplyBuffs;
 		SceneManager.sceneLoaded += OnSceneLoaded;
 		PlayerState.Transition(PlayerState.idle);
-
-		Health = 100;
-		MaxHealth = 100;
-		Sanity = 100;
-		MaxSanity = 100;
-		Energy = 100;
-		MaxEnergy = 100;
-		Hunger = 100;
-		MaxHunger = 100;
-		Thirst = 100;
-		MaxThirst = 100;
-		PlayerLevel = 0;
-		ExperiencePoint = 0;
-		StatusPoint = 0;
 	}
 
 	private void Start()
 	{
-		SaveGameData();
+		//SaveGameData();
 		//LoadGameData();
 
 		OnPlayerStatusUpdated();
@@ -488,6 +474,23 @@ public class GameManager : SingletonBehaviour<GameManager>
 			furnitures.Add(furniture.furnitureName, furniture);
 			furniture.Init();
 		}
+
+		Health = 100;
+		MaxHealth = 100;
+		Sanity = 100;
+		MaxSanity = 100;
+		Energy = 100;
+		MaxEnergy = 100;
+		Hunger = 100;
+		MaxHunger = 100;
+		Thirst = 100;
+		MaxThirst = 100;
+		PlayerLevel = 0;
+		ExperiencePoint = 0;
+		StatusPoint = 0;
+
+		Food = Water = Wood = Components = 100;
+		Preserved = Parts = 50;
 	}
 
 	public void SaveGameData()
@@ -506,11 +509,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		foreach (var item in items.Values)
 		{
-			item.LoadData(JsonHelper.LoadJson("Save/Items/" + item.itemIndexName));
+			item.LoadData(JsonHelper.LoadSavedJson(item.itemIndexName + ".json"));
 		}
 		foreach (var buff in buffs.Values)
 		{
-			buff.LoadData(JsonHelper.LoadJson("Save/Buffs/" + buff.buffIndexName));
+			buff.LoadData(JsonHelper.LoadSavedJson(buff.buffIndexName + ".json"));
 		}
 	}
 	#endregion

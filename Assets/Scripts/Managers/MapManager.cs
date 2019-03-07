@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -49,9 +50,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 			Destroy(gameObject);
 			return;
 		}
-		MapMaking(20);
-		SaveMapData();
-		//LoadMapData();
+		LoadMapData();
 		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
 		{
 			if (!tileInfos.ContainsKey(pos))
@@ -187,6 +186,22 @@ public class MapManager : SingletonBehaviour<MapManager>
 		tileInfos.Add(Vector3Int.zero, info);
 	}
 
+	private void InitMapData()
+	{
+		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map"));
+		foreach (var info in mapInfo.tileInfos)
+		{
+			landTilemap.SetTile(info.position, landTiles[(int)info.landType]);
+			landTilemap.SetTileFlags(info.position, TileFlags.None);
+
+			structureTilemap.SetTile(info.position, structureTiles[(int)info.structureType]);
+			structureTilemap.SetTileFlags(info.position, TileFlags.None);
+
+			tileInfos.Add(info.position, info);
+		}
+		curPosition = mapInfo.curPosition;
+	}
+
 	public void SaveMapData()
 	{
 		List<TileInfo> infos = tileInfos.Values.ToList();
@@ -197,7 +212,13 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	public void LoadMapData()
 	{
-		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadJson("Save/Map"));
+		if (!File.Exists(Application.persistentDataPath + "Map.json"))
+		{
+			MapMaking(20);
+			SaveMapData();
+			return;
+		}
+		MapInfo mapInfo = JsonUtility.FromJson<MapInfo>(JsonHelper.LoadSavedJson("Map.json"));
 		foreach (var info in mapInfo.tileInfos)
 		{
 			landTilemap.SetTile(info.position, landTiles[(int)info.landType]);

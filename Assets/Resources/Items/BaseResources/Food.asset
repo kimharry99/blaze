@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Food
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2800000, guid: c582062d5821f284fb37308f7e594b02, type: 3}
-  amount: 34
+  amount: 0
   itemIndexName: Food
   itemName: "\uC2DD\uC7AC\uB8CC"
   description: 

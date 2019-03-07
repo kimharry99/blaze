@@ -9,7 +9,7 @@ public class JsonHelper : MonoBehaviour
 {
 	public static FurnitureUpgradeInfo LoadFurnitureUpgradeInfo(Furniture furniture)
 	{
-;		string json = LoadJson("FurnitureUpgradeInfo/" + furniture.furnitureName);
+		string json = LoadJson("FurnitureUpgradeInfo/" + furniture.furnitureName);
 		return JsonUtility.FromJson<FurnitureUpgradeInfo>(json);
 	}
 
@@ -24,8 +24,7 @@ public class JsonHelper : MonoBehaviour
 #if UNITY_STANDALONE
 		string[] pathSubstrings = path.Split('/');
 		path = pathSubstrings[pathSubstrings.Length - 1];
-		path = Application.dataPath + "/Resources/" + path;
-		print(Application.streamingAssetsPath);
+		path = Application.persistentDataPath + path;
 		using (FileStream fs = new FileStream(path, FileMode.Create))
 		{
 			using (StreamWriter writer = new StreamWriter(fs))
@@ -39,6 +38,16 @@ public class JsonHelper : MonoBehaviour
 	public static string LoadJson(string path)
 	{
 		return Resources.Load<TextAsset>("Jsons/" + path).text;
+	}
+
+	public static string LoadSavedJson(string path)
+	{
+		string[] pathSubstrings = path.Split('/');
+		path = pathSubstrings[pathSubstrings.Length - 1];
+		using (StreamReader r = new StreamReader(Application.persistentDataPath + path))
+		{
+			return r.ReadToEnd();
+		}
 	}
 
 	public static List<string> LoadJsonAll(string path)
