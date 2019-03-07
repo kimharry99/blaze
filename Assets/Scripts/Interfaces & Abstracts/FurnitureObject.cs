@@ -15,6 +15,7 @@ public enum FurnitureType
     Refrigerator,
     Bag,
 	Table,
+    SolarWaterPurifier,
 	None = -1
 }
 

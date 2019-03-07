@@ -51,8 +51,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	#region Kitchen UI Variables
 	[Header("Kitchen UI")]
 	public GameObject kitchenPanel;
-	public Button[] kitchenButtons = new Button[7];
-	public int kitchenOption;
+	public Button[] kitchenRecipieButtons = new Button[7];
+	public Text[] kitchenIngredientInfoText = new Text[4];
+	public Button kitchenCookButton;
 	#endregion
 
 	#region Generator UI Variables
@@ -75,8 +76,26 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Text solarChargeText;
 	#endregion
 
-	#region Upgrade UI
-	public GameObject upgradePanel;
+	#region SolarWaterPrufier UI Variables
+	[Header("SolarWaterPrufier UI")]
+	public GameObject solarWaterPurifierPanel;
+	public Button solarWaterPurifierHarvestButton;
+	public Button solarWaterPurifierInputButton;
+	public Button solarWaterPurifierCancelButton;
+	public Text solarWaterPurifierText;
+	public Slider solarWaterPurifierSlider;
+	#endregion
+
+	#region Refrigerator UI Variables
+	[Header("Refrigerator UI")]
+	public GameObject RefrigeratorPanel;
+	public Button RefrigeratorChargeButton;
+	public Text RefrigeratorText;
+	public Slider RefrigeratorSlider;
+	#endregion
+
+    #region Upgrade UI
+    public GameObject upgradePanel;
 	public Text woodText;
 	public Text componentsText;
 	public Text partsText;
@@ -87,7 +106,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	#region Managers
 	private GameManager gm;
 	private TurnManager tm;
-	#endregion
+	#endregion 
 
 	#region Upgrade UI Functions
 	public void OpenUpgradePanel(string furnitureName)
@@ -339,17 +358,61 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public void OpenKitchenPanel()
 	{
 		kitchenPanel.SetActive(true);
+		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+		kitchenRecipieButtons[3].interactable = kitchen.level > 1;
+		for (int i = 4; i < 7; i++)
+		{
+			kitchenRecipieButtons[i].interactable = kitchen.level > 2;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			kitchenIngredientInfoText[i].text = kitchen.usingResource[i].ToString();
+		}
+		kitchenCookButton.interactable = gm.CheckResource(water: kitchen.usingResource[2], food: kitchen.usingResource[0], preserved: kitchen.usingResource[1], components: kitchen.usingResource[3]) && kitchen.selectedRecipie != -1;
 	}
 
 	public void CloseKitchenPanel()
 	{
+		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
 		kitchenPanel.SetActive(false);
+		kitchen.SelectRecipie(-1);
+
 	}
 
-	public void SelectRecipie(int recipie)
+	public void Kitchen_SelectRecipie(int recipie)
 	{
 		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
 		kitchen.SelectRecipie(recipie);
+		OpenKitchenPanel();
+	}
+
+	public void Kitchen_UseMoreIngredient(int option)
+	{
+		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+		if (option == 0)
+		{
+			if (kitchen.usingResource[1] > 0)
+			{
+				kitchen.usingResource[0]++;
+				kitchen.usingResource[1]--;
+			}
+		}
+		else
+		{
+			if (kitchen.usingResource[0] > 0)
+			{
+				kitchen.usingResource[0]--;
+				kitchen.usingResource[1]++;
+			}
+		}
+		OpenKitchenPanel();
+	}
+
+	public void Kitchen_CookFood()
+	{
+		Kitchen kitchen = (Kitchen)gm.furnitures["Kitchen"];
+		kitchen.CookFood();
+		CloseKitchenPanel();
 	}
 	#endregion
 
@@ -434,4 +497,76 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		OpenSolarPanel();
 	}
 	#endregion
+
+	#region SolarWaterPrufier UI Functions
+	public void OpenSolarWaterPrufierPanel()
+	{
+		solarWaterPurifierPanel.SetActive(true);
+		SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
+		solarWaterPurifierInputButton.interactable = !solarWaterPurifier.isUsing && GameManager.inst.CheckResource(water: 10);
+		solarWaterPurifierHarvestButton.interactable = solarWaterPurifier.cleanWater > 0;
+		solarWaterPurifierCancelButton.interactable = solarWaterPurifier.isUsing;
+		solarWaterPurifierText.text = solarWaterPurifier.turnLeft + "/" + solarWaterPurifier.RequiresTurn;
+		if (solarWaterPurifier.turnLeft == 0 && !solarWaterPurifier.isUsing)
+		{
+			solarWaterPurifierSlider.value = 1;
+			return;
+		}
+		solarWaterPurifierSlider.value = solarWaterPurifier.turnLeft / (float)solarWaterPurifier.RequiresTurn;
+	}
+
+	public void CloseSolarWaterPrufierPanel()
+	{
+		solarWaterPurifierPanel.SetActive(false);
+	}
+
+	public void SolarWaterPurifier_InputWater()
+	{
+		SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
+		solarWaterPurifier.InputWater();
+		OpenSolarWaterPrufierPanel();
+	}
+
+	public void SolarWaterPrufier_HarvestWater()
+	{
+		SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
+		solarWaterPurifier.HarvestCleanWater();
+		OpenSolarWaterPrufierPanel();
+	}
+
+	public void SolarWaterPrufier_CancelJob()
+	{
+		SolarWaterPurifier solarWaterPurifier = (SolarWaterPurifier)gm.furnitures["SolarWaterPurifier"];
+		solarWaterPurifier.CancelJob();
+		OpenSolarWaterPrufierPanel();
+	}
+	#endregion
+
+	#region Refrigerator UI Functions
+	public void OpenRefrigeratorPanel()
+	{
+		Refrigerator refrigerator = (Refrigerator)gm.furnitures["Refrigerator"];
+		RefrigeratorPanel.SetActive(true);
+		RefrigeratorText.text = refrigerator.power.ToString() + "/" + refrigerator.MaxCapacity.ToString();
+		RefrigeratorSlider.value = refrigerator.power / (float)refrigerator.MaxCapacity;
+		RefrigeratorChargeButton.interactable = GameManager.inst.items["Battery"].amount > 0;
+		if (refrigerator.isTurnOff)
+		{
+			RefrigeratorText.text = "Turned Off";
+			RefrigeratorSlider.value = 0;
+		}
+	}
+
+	public void CloseRefrigeratorPanel()
+	{
+		RefrigeratorPanel.SetActive(false);
+	}
+
+	public void Refrigerator_UseBattery()
+	{
+		Refrigerator refrigerator = (Refrigerator)gm.furnitures["Refrigerator"];
+		refrigerator.UseBattery();
+	}
+	#endregion
 }
+

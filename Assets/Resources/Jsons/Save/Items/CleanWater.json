@@ -1,0 +1,15 @@
+{
+    "itemImage": {
+        "instanceID": 0
+    },
+    "amount": 0,
+    "itemIndexName": "CleanWater",
+    "itemName": "깨끗한 물",
+    "description": "",
+    "remainedTurns": [],
+    "health": 0,
+    "sanity": 0,
+    "hunger": 0,
+    "thirst": 20,
+    "energy": 0
+}
