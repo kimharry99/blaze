@@ -24,13 +24,13 @@ public abstract class StructureTile : DefaultTile
 
 	private void Explore()
 	{
-		UIManager.inst.OpenEventLogPanel(EventManager.inst.GetEvent("Explore"));
+		EventManager.inst.StartEvent("Explore");
 	}
 
 	private void Rest()
 	{
 		TurnManager.inst.UseTurn(4);
-		GameManager.inst.ChangeEnergy(RestAmount);
+		EventManager.inst.StartEvent("Rest");
 	}
 
 	public StructureTileInfo GetStructureTileInfo(Vector3Int position)
