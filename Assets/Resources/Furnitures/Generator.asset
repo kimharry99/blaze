@@ -15,6 +15,7 @@ MonoBehaviour:
   furnitureName: Generator
   level: 0
   furnitureSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
   furnitureSprites:
   - {fileID: 21300000, guid: d91bf9c6468b1474e8321d5846051fa9, type: 3}
   - {fileID: 21300000, guid: 664fd6fb812d9e741aabfbd55c95836c, type: 3}

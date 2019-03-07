@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Kitchen
   m_EditorClassIdentifier: 
   furnitureName: Kitchen
-  level: 0
-  furnitureSFX: {fileID: 8300000, guid: 09d3da7c34b4916498fa2b3da32dd94c, type: 3}
+  level: 1
+  furnitureSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
   furnitureSprites:
   - {fileID: 21300000, guid: d7764a5414644ab4197141664e1a8bc8, type: 3}
   - {fileID: 21300000, guid: 0dab070eb3fdf1744b4009b874605475, type: 3}
   - {fileID: 21300000, guid: e07b68f28a55c234daf8000564612415, type: 3}
   selectedRecipie: -1
   usingResource: 00000000000000000000000000000000
+  boilSFX: {fileID: 8300000, guid: aae06299638114e4d85a9d7e9a6c8578, type: 3}
+  cookSFX: {fileID: 8300000, guid: e39184182629c5247b181d6e64c49abf, type: 3}

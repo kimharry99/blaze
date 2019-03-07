@@ -15,6 +15,7 @@ MonoBehaviour:
   furnitureName: CraftTable
   level: 1
   furnitureSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
   furnitureSprites:
   - {fileID: 21300000, guid: 985d4991d98c36a43ae726fe6586e706, type: 3}
   - {fileID: 21300000, guid: 312330a6f1b213c4f9b3b1ac10598f04, type: 3}

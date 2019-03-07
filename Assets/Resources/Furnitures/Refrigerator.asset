@@ -15,6 +15,7 @@ MonoBehaviour:
   furnitureName: Refrigerator
   level: 1
   furnitureSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
   furnitureSprites:
   - {fileID: 21300000, guid: 1044ed7de4ea5064096a2113e5a9c76e, type: 3}
   - {fileID: 21300000, guid: e7a5c67b27138634189335664469c076, type: 3}
