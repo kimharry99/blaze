@@ -22,6 +22,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
                     _inst = go.AddComponent<T>();
                 }
             }
+			/*
 			else if (FindObjectsOfType<T>().Length > 1)
 			{
 				foreach(var inst in FindObjectsOfType<T>())
@@ -32,6 +33,7 @@ public class SingletonBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
 					}
 				}
 			}
+			*/
             return _inst;
         }
     }

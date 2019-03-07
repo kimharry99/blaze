@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 338e563be0dff794db6dec29154ef237, type: 3}
+  m_Name: ManufactureMedicine
+  m_EditorClassIdentifier: 
+  eventName: ManufactureMedicine
+  eventTitle: "\uBD88\uBC95 \uC870\uC81C"
+  description: "\uB098\uB294 \uBCD1\uC6D0\uC758 \uC870\uC81C\uC2E4\uC5D0\uC11C \uB09C\uC7A1\uD558\uAC8C
+    \uD769\uC5B4\uC838 \uC788\uB294 \uC57D\uC7AC\uB4E4\uC744 \uBAA8\uC544\uC11C \uC5BB\uC744
+    \uC218 \uC788\uB294 \uC9C0\uC2DD\uC744 \uCD1D \uB3D9\uC6D0\uD574 \uC57D\uD488\uC744
+    \uB9CC\uB4E4\uC5B4 \uB0B4\uC5C8\uB2E4.\n\uB300\uBD80\uBD84\uC758 \uC57D\uC7AC\uAC00
+    \uC0C1\uD588\uAE30\uC5D0 \uB9CE\uC740 \uC57D\uD488\uC744 \uB9CC\uB4E4\uC5B4 \uB0BC
+    \uC21C \uC5C6\uC5C8\uC9C0\uB9CC, \uADF8\uB798\uB3C4 \uC81C\uBC95 \uAD1C\uCC2E\uC740
+    \uC57D\uD488\uC744 \uB9CC\uB4E4 \uC218 \uC788\uC5C8\uB2E4."
+  actionDescriptions:
+  - "\uC57D\uC0AC\uAC00 \uC801\uC131\uC5D0 \uB9DE\uC558\uC744\uC9C0\uB3C4..."
+  eventTexture: {fileID: 2800000, guid: 78d67be58239ecc4b9cb304a04a52841, type: 3}
+  minBandage: 1
+  maxBandange: 5
+  minAntibiotics: 1
+  maxAntibiotics: 3
+  minAntiseptic: 1
+  maxAntiseptic: 3
+  minPainkiller: 3
+  maxPainKiller: 5

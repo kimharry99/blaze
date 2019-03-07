@@ -39,6 +39,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private bool isMoving = false;
 
 
+	private List<Vector3Int> coloredPos = new List<Vector3Int>();
+	private List<Vector3Int> visitedPos = new List<Vector3Int> { Vector3Int.zero };
+
 	protected override void Awake()
 	{
 		if (inst != this)
@@ -46,14 +49,20 @@ public class MapManager : SingletonBehaviour<MapManager>
 			Destroy(gameObject);
 			return;
 		}
-		//MapMaking(20);
-		//SaveMapData();
-		LoadMapData();
+		MapMaking(20);
+		SaveMapData();
+		//LoadMapData();
+		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
+		{
+			if (!tileInfos.ContainsKey(pos))
+				continue;
+			landTilemap.SetColor(pos, Color.black);
+			structureTilemap.SetColor(pos, Color.black);
+		}
 	}
 
 	private void Start()
     {
-		//AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<Weak>(),"Assets/Buffs/Weak.asset");
 		UpdateTiles();
 		OutdoorUIManager.inst.UpdateTileInfoPanel();
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
@@ -113,18 +122,19 @@ public class MapManager : SingletonBehaviour<MapManager>
 	#region Map Data Functions
 	private void MapMaking(int size)
 	{
-		landTilemap.size = new Vector3Int(size, size, 1);
+		//landTilemap.size = new Vector3Int(size, size, 1);
 		TileInfo info;
 		for (int i = -size; i < size; ++i)
 			for (int j = -size; j < size; ++j)
 			{
 				Vector3Int pos = new Vector3Int(i, j, 0);
-
+				if (!IsNearByTile(pos, size - 1))
+					continue;
 				LandType landType = (LandType)Random.Range(0, 4);
 				StructureType structureType;
 				if (Random.Range(0, 100) < 30)
 				{
-					structureType = (StructureType)Random.Range(1, 5);
+					structureType = (StructureType)Random.Range(1, 8);
 				}
 				else
 				{
@@ -227,10 +237,22 @@ public class MapManager : SingletonBehaviour<MapManager>
 
 	private void UpdateTiles()
 	{
+		foreach (var pos in coloredPos)
+		{
+			landTilemap.SetColor(pos, Color.black);
+			structureTilemap.SetColor(pos, Color.black);
+		}
+
+		coloredPos.RemoveAll((a) => true);
+
 		foreach (var pos in landTilemap.cellBounds.allPositionsWithin)
 		{
+			if (!tileInfos.ContainsKey(pos))
+				continue;
+			if (!visitedPos.Contains(pos) && !IsNearByTile(pos, SightDistance))
+				continue;
+			coloredPos.Add(pos);
 			TileInfo info = tileInfos[pos];
-			//Debug.Log(info.isVisited);
 			landTilemap.SetColor(pos, info.TileColor);
 			structureTilemap.SetColor(pos, info.TileColor);
 		}
@@ -268,6 +290,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		landTilemap.GetTile<LandTile>(curPosition).OnVisited(curPosition);
 		structureTilemap.GetTile<StructureTile>(curPosition).OnVisited(curPosition);
 		tileInfos[curPosition].OnVisited();
+		visitedPos.Add(curPosition);
 		isMoving = false;
 		playerAnimator.SetBool("IsWalking", false);
 		UpdateTiles();

@@ -27,6 +27,9 @@ public enum StructureType
 	Store,
 	Factory,
 	Forest,
+	Park,
+	Farm,
+	Hospital,
 	None
 }
 

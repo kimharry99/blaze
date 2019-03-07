@@ -20,7 +20,7 @@ public class ManufactureMedicine : LogEvent
 		UIManager.inst.AddItemResult("Bandage", bandage);
 		UIManager.inst.AddItemResult("Antibiotics", antibiotics);
 		UIManager.inst.AddItemResult("Antiseptic", antiseptic);
-		UIManager.inst.AddItemResult("PainKiller", painkiller);
+		UIManager.inst.AddItemResult("Painkiller", painkiller);
 		UIManager.inst.AddPlayerStatusResult(energy: -20);
 		TurnManager.inst.UseTurn(4);
 	}
@@ -30,13 +30,13 @@ public class ManufactureMedicine : LogEvent
 		return new List<UnityAction> { Confirm };
 	}
 
-	private  void Confirm()
+	private void Confirm()
 	{
 		Dictionary<string, Item> items = GameManager.inst.items;
 		items["Bandage"].amount += bandage;
 		items["Antibiotics"].amount += antibiotics;
 		items["Antiseptic"].amount += antiseptic;
-		items["PainKiller"].amount += painkiller;
+		items["Painkiller"].amount += painkiller;
 		GameManager.inst.ChangeEnergy(-20);
 		MapManager.inst.GetCurrentTileInfo().isHarvested = true;
 		OutdoorUIManager.inst.UpdateTileInfoPanel();

@@ -340,6 +340,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 156bdb6c9f39da74da2bbdd6df344638, type: 2}
   - {fileID: 11400000, guid: a30c9286447842745a0b191bb1422655, type: 2}
   - {fileID: 11400000, guid: f589be8d7146755499f697f7a808d012, type: 2}
+  - {fileID: 11400000, guid: e315e367f2354964c840536cea6b3893, type: 2}
+  - {fileID: 11400000, guid: 354a832de76f1bb45bf222a6160448ba, type: 2}
+  - {fileID: 11400000, guid: ba5da8c79002b22458bfbb28356a8fb0, type: 2}
   - {fileID: 11400000, guid: 4571539037ab5b243a4535a46ca967dd, type: 2}
   playerAnimator: {fileID: 931535079}
 --- !u!4 &755335568

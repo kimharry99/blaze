@@ -7,6 +7,11 @@ public class Kitchen : Furniture
 	public int selectedRecipie = -1; //None
 	public int[] usingResource = new int[4];
 
+	public override void Init()
+	{
+		Level = 1;
+	}
+
 	public void SelectRecipie(int recipie)
 	{
 		selectedRecipie = recipie;
