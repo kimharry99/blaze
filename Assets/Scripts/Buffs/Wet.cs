@@ -32,10 +32,13 @@ public class Wet : Buff
 
 	protected override void OnTurnPassed(int turn)
 	{
-		float rand = Random.Range(0f, 100f);
-		if (rand < 3)
+		if (IsActivated)
 		{
-			((Disease)GameManager.inst.GetBuff("Infection")).AddNewDisease();
+			float rand = Random.Range(0f, 100f);
+			if (rand < 3)
+			{
+				((Disease)GameManager.inst.GetBuff("Infection")).AddNewDisease();
+			}
 		}
 		base.OnTurnPassed(turn);
 	}

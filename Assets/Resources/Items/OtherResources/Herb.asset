@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936bd3618ce9e2e4888f6c634d391f15, type: 3}
   m_Name: Herb
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: d5de1594c71936c47b6bc0fdf76df7c9, type: 3}
   amount: 0
-  itemIndexName: 
-  itemName: 
+  itemIndexName: Herb
+  itemName: "\uD5C8\uBE0C"
   description: 

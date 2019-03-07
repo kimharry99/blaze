@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936bd3618ce9e2e4888f6c634d391f15, type: 3}
   m_Name: Alcohol
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: 9aadfc35a27202d4bbc7ae0cf418897d, type: 3}
   amount: 0
-  itemIndexName: 
-  itemName: 
+  itemIndexName: Alcohol
+  itemName: "\uC815\uC81C\uB41C \uC54C\uCF54\uC62C"
   description: 

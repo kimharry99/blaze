@@ -18,6 +18,8 @@ public class JsonHelper : MonoBehaviour
 #if UNITY_EDITOR
 		path = Application.dataPath + "/Resources/Jsons/" + path;
 		File.WriteAllText(path, json);
+		if (Application.isEditor)
+			return;
 #endif
 #if UNITY_STANDALONE
 		string[] pathSubstrings = path.Split('/');
