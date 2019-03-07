@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936bd3618ce9e2e4888f6c634d391f15, type: 3}
   m_Name: Antiseptic
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 2800000, guid: 285dae93513debe40ae3552af2be4210, type: 3}
+  itemImage: {fileID: 2800000, guid: 8cb973607dea9ca4e9264474f29a031f, type: 3}
   amount: 0
   itemIndexName: Antiseptic
   itemName: "\uC18C\uB3C5\uC81C"

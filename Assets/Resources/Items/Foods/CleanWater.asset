@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be575640f659c7c4e9e4bd05191e91e0, type: 3}
   m_Name: CleanWater
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: b5ef01b4cd3fd534a992f4dc42fcd94e, type: 3}
   amount: 1
   itemIndexName: CleanWater
   itemName: "\uAE68\uB057\uD55C \uBB3C"

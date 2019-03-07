@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be575640f659c7c4e9e4bd05191e91e0, type: 3}
   m_Name: FineMeal
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: bb69ece8d40070a439eff84874869998, type: 3}
   amount: 0
   itemIndexName: FineMeal
   itemName: "\uD638\uD654\uB85C\uC6B4 \uC2DD\uC0AC"

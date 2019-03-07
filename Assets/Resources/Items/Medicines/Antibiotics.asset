@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 936bd3618ce9e2e4888f6c634d391f15, type: 3}
   m_Name: Antibiotics
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 2800000, guid: 54e670406cf746c40b1639265e3f8b8d, type: 3}
+  itemImage: {fileID: 2800000, guid: e0eedf9d27b3f594886c037ed492e017, type: 3}
   amount: 0
   itemIndexName: Antibiotics
   itemName: "\uD56D\uC0DD\uC81C"

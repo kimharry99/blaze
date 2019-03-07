@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be575640f659c7c4e9e4bd05191e91e0, type: 3}
   m_Name: EnergyBar
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: 4e83e7ddd889d5f4e8f6068182755839, type: 3}
   amount: 0
   itemIndexName: EnergyBar
   itemName: "\uC5D0\uB108\uC9C0\uBC14"

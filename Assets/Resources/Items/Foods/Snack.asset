@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be575640f659c7c4e9e4bd05191e91e0, type: 3}
   m_Name: Snack
   m_EditorClassIdentifier: 
-  itemImage: {fileID: 0}
+  itemImage: {fileID: 2800000, guid: a9305e45ae5132c4d919fb3ea6865b64, type: 3}
   amount: 0
   itemIndexName: Snack
   itemName: "\uB2EC\uCF64\uD55C \uAC04\uC2DD"
