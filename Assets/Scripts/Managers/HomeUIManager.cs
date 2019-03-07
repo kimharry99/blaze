@@ -150,7 +150,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 			return;
 		GameManager.inst.UseResource(wood: wood, components: components, parts: parts);
 		CloseUpgradePanel();
-		GameManager.inst.StartTask(furniture.Upgrade, 4);
+		furniture.Upgrade();
 	}
 	#endregion
 

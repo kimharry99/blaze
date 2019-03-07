@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ad85e36bfda4a4dbb49a4b5a72d86d, type: 3}
   m_Name: Rest
   m_EditorClassIdentifier: 
-  eventName: 
-  eventTitle: 
-  description: 
-  actionDescriptions: []
-  eventTexture: {fileID: 0}
+  eventName: Rest
+  eventTitle: "\uD734\uC2DD"
+  description: "\uB098\uB294 \uC790\uB9AC\uC5D0 \uC549\uC544\uC11C \uC7A0\uC2DC \uD734\uC2DD\uC744
+    \uCDE8\uD588\uB2E4..."
+  actionDescriptions:
+  - "\uAE08\uAC15\uC0B0\uB3C4 \uC2DD\uD6C4\uACBD"
+  eventTexture: {fileID: 2800000, guid: 19506aa4fdccb3d468472e35ab93ed3b, type: 3}

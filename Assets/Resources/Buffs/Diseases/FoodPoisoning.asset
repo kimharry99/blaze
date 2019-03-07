@@ -21,3 +21,4 @@ MonoBehaviour:
     \uD569\uB2C8\uB2E4...\n\uB2E4\uC74C\uACFC \uAC19\uC740 \uD6A8\uACFC\uB97C \uBC1B\uC2B5\uB2C8\uB2E4
     :\n\uB9E4 \uD134 \uD5C8\uAE30 -5\n\uB9E4 \uD134 \uAC08\uC99D -5"
   cureInfoString: Antibiotics,1
+  cureSFX: {fileID: 8300000, guid: 288bed8c0d9e2c04299256bc9d47b5bc, type: 3}

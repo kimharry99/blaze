@@ -7,6 +7,10 @@ public abstract class Disease : Buff
 	[TextArea]
 	[SerializeField]
 	public string cureInfoString;
-	public abstract void Cure();
+	public AudioClip cureSFX;
+	public virtual void Cure()
+	{
+		SoundManager.inst.PlaySFX(cureSFX);
+	}
 	public abstract void AddNewDisease();
 }

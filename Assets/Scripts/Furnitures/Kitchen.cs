@@ -7,6 +7,9 @@ public class Kitchen : Furniture
 	public int selectedRecipie = -1; //None
 	public int[] usingResource = new int[4];
 
+	[SerializeField]
+	private AudioClip boilSFX, cookSFX;
+
 	public override void Init()
 	{
 		Level = 1;
@@ -57,6 +60,15 @@ public class Kitchen : Furniture
 
 	public void CookFood()
 	{
+		if (selectedRecipie != 1)
+		{
+			SoundManager.inst.PlaySFX(cookSFX);
+		}
+		else
+		{
+			SoundManager.inst.PlaySFX(boilSFX);
+		}
+
 		GameManager.inst.UseResource(water: usingResource[2], food: usingResource[0], preserved: usingResource[1], components: usingResource[3]);
 		switch (selectedRecipie)
 		{

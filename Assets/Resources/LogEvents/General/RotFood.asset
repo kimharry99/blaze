@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a3a9de48751814bb436f1c9584e582, type: 3}
   m_Name: RotFood
   m_EditorClassIdentifier: 
-  eventName: 
-  eventTitle: 
-  description: 
-  actionDescriptions: []
-  eventTexture: {fileID: 0}
+  eventName: RotFood
+  eventTitle: "\uC0C1\uD574\uBC84\uB9B0 \uC74C\uC2DD"
+  description: "\uCD5C\uB300\uD55C \uC0C1\uD558\uC9C0 \uC54A\uB3C4\uB85D \uBCF4\uAD00\uD588\uC73C\uB098,
+    \uACB0\uAD6D \uC0C1\uD558\uB294 \uAC83\uC744 \uB9C9\uC9C0\uB294 \uBABB\uD588\uB2E4."
+  actionDescriptions:
+  - "\uC544\uAE4C\uC6B4 \uC74C\uC2DD\uB4E4..."
+  eventTexture: {fileID: 2800000, guid: 260e86d18f9a9fa4da5979d271f6577e, type: 3}

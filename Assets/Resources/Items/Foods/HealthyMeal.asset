@@ -23,3 +23,4 @@ MonoBehaviour:
   hunger: 40
   thirst: 0
   energy: 0
+  eatSFX: {fileID: 8300000, guid: fe0597b94aa2f1346978684079ae0e10, type: 3}

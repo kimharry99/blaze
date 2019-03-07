@@ -27,6 +27,7 @@ public class Bleeding : Disease
 
 	public override void Cure()
 	{
+		base.Cure();
 		buffCount--;
 		if (buffCount == 0)
 			remainedTurn = 0;

@@ -13,6 +13,9 @@ public class Food : Item, IConsumableItem
 	public int thirst;
 	public int energy;
 
+	[SerializeField]
+	private AudioClip eatSFX;
+
 	public bool IsUsable
 	{
 		get
@@ -30,29 +33,30 @@ public class Food : Item, IConsumableItem
 
 	public void Use()
 	{
+		SoundManager.inst.PlaySFX(eatSFX);
 		GameManager.inst.ChangePlayerStatus(health, sanity, hunger, thirst, energy);
+		amount--;
 	}
 
 	public void Use(int option)
 	{
 		Use();
 		remainedTurns.Remove(option);
-		amount = remainedTurns.Count;
 	}
 
-	public void AddNewFood()
+	public virtual void AddNewFood()
 	{
 		remainedTurns.Add(96 * 3);
 		amount = remainedTurns.Count;
 	}
 
-	public void AddNewFood(int remainedTurn)
+	public virtual void AddNewFood(int remainedTurn)
 	{
 		remainedTurns.Add(remainedTurn);
 		amount = remainedTurns.Count;
 	}
 
-	private void OnTurnPassed(int turn)
+	protected virtual void OnTurnPassed(int turn)
 	{
 		for (int i = 0; i < amount; ++i)
 		{

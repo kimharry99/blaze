@@ -25,6 +25,7 @@ public class Infection : Disease
 
 	public override void Cure()
 	{
+		base.Cure();
 		remainedTurn = 0;
 	}
 

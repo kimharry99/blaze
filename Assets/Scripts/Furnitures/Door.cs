@@ -21,7 +21,6 @@ public class Door : Furniture
 
 	public override void Init()
 	{
-		Debug.Log("A");
 		Level = 1;
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}

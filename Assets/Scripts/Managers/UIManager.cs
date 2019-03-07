@@ -544,16 +544,26 @@ public class UIManager : SingletonBehaviour<UIManager>
 				continue;
 			if (item.GetType().IsSubclassOf(typeof(Food)) || item.GetType() == typeof(Food))
 			{
-				for (int i = 0; i < item.amount; ++i)
+				if (item.GetType() == typeof(UncorruptibleFood))
 				{
-					Food food = (Food)item;
+					UncorruptibleFood food = (UncorruptibleFood)item;
 					GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
-					Debug.Log(i);
-					int remainedTurn = food.remainedTurns[i];
-					obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(food, remainedTurn); });
-					Vector2 time = TurnManager.inst.GetTime(food.remainedTurns[i]);
-					obj.GetComponentInChildren<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00"); 
+					obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(food); });
+					obj.GetComponentInChildren<Text>().text = food.amount.ToString();
 					obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = food.itemImage;
+				}
+				else
+				{
+					for (int i = 0; i < item.amount; ++i)
+					{
+						Food food = (Food)item;
+						GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);
+						int remainedTurn = food.remainedTurns[i];
+						obj.GetComponent<Button>().onClick.AddListener(delegate { ChangeItem(food, remainedTurn); });
+						Vector2 time = TurnManager.inst.GetTime(food.remainedTurns[i]);
+						obj.GetComponentInChildren<Text>().text = time.x.ToString("00") + ":" + time.y.ToString("00");
+						obj.transform.Find("ItemImage").GetComponent<RawImage>().texture = food.itemImage;
+					}
 				}
 			}
 			else

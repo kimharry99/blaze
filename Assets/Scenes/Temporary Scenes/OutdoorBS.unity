@@ -4743,6 +4743,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ba5da8c79002b22458bfbb28356a8fb0, type: 2}
   - {fileID: 11400000, guid: 4571539037ab5b243a4535a46ca967dd, type: 2}
   playerAnimator: {fileID: 931535079}
+  walkSFX: {fileID: 8300000, guid: 6d26964f50ce1ae4aa85ea7af1d81490, type: 3}
 --- !u!4 &755335568
 Transform:
   m_ObjectHideFlags: 0

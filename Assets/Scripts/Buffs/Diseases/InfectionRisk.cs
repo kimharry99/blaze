@@ -28,6 +28,7 @@ public class InfectionRisk : Disease
 
 	public override void Cure()
 	{
+		base.Cure();
 		remainedTurn = 0;
 	}
 

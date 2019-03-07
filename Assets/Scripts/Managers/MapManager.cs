@@ -43,6 +43,9 @@ public class MapManager : SingletonBehaviour<MapManager>
 	private List<Vector3Int> coloredPos = new List<Vector3Int>();
 	private List<Vector3Int> visitedPos = new List<Vector3Int> { Vector3Int.zero };
 
+	[SerializeField]
+	private AudioClip walkSFX;
+
 	protected override void Awake()
 	{
 		if (inst != this)
@@ -286,6 +289,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		int moveCost = landTilemap.GetTile<LandTile>(tilePosition).MoveCost;
 		player.GetComponent<SpriteRenderer>().flipX = curPosition.y > tilePosition.y;
 		playerAnimator.SetBool("IsWalking", true);
+		SoundManager.inst.PlaySFX(walkSFX);
 		GameManager.inst.StartTask(Move, moveCost);
 		isMoving = true;
 	}

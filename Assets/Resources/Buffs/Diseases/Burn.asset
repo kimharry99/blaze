@@ -26,3 +26,4 @@ MonoBehaviour:
   cureInfoString: 'Bandage,1
 
     Water,10'
+  cureSFX: {fileID: 8300000, guid: 05156243648a9c74c8eaf1fc6c2d9a9c, type: 3}

@@ -26,6 +26,7 @@ public class FoodPoisoning : Disease
 
 	public override void Cure()
 	{
+		base.Cure();
 		remainedTurn = 0;
 	}
 

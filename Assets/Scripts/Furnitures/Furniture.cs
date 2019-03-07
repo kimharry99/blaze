@@ -19,7 +19,7 @@ public class Furniture : ScriptableObject
 		}
 	}
 	[SerializeField]
-	protected AudioClip furnitureSFX;
+	protected AudioClip furnitureSFX, upgradeSFX;
 	[SerializeField]
 	protected Sprite[] furnitureSprites;
 
@@ -35,6 +35,7 @@ public class Furniture : ScriptableObject
 
 	public virtual void Upgrade()
 	{
-		++Level;
+		SoundManager.inst.PlaySFX(upgradeSFX);
+		GameManager.inst.StartTask(delegate { ++Level; }, 4);
 	}
 }
