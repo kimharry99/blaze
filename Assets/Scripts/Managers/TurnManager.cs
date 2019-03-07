@@ -174,13 +174,18 @@ public class TurnManager : SingletonBehaviour<TurnManager>
     
     private void RotFood()
     {
-        //GameManager.inst.UseResource(food:GameManager.inst.Food * FindObjectOfType<RefrigeratorObject>().LostFoodRate/100);
+		if (GameManager.inst.Food > 0)
+		{
+			EventManager.inst.StartEvent("RotFood");
+		}
     }
 
     private void OccurTheifEvent()
     {
 		int resourceScore = Mathf.Max(1,GameManager.inst.Food + GameManager.inst.Water + GameManager.inst.Components + 2 * GameManager.inst.Wood + 3 * (GameManager.inst.Preserved + GameManager.inst.Parts));
 		float lostProbability = Mathf.Clamp(8 * Mathf.Log(resourceScore, 2) - ((Door)GameManager.inst.furnitures["Door"]).ThiefPreventionRate, 0.0f, 100.0f);
+
+		Debug.Log(lostProbability);
 
         if(lostProbability> UnityEngine.Random.Range(0f, 100f))
         {

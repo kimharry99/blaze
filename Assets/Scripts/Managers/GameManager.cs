@@ -188,12 +188,12 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	public void UseResource(int water = 0, int food = 0, int preserved = 0, int wood = 0, int components = 0, int parts = 0)
 	{
-		Water -= water;
-		Food -= food;
-		Preserved -= preserved;
-		Wood -= wood;
-		Components -= components;
-		Parts -= parts;
+		Water = Mathf.Max(Water - water, 0);
+		Food = Mathf.Max(Food - food, 0);
+		Preserved = Mathf.Max(Preserved - preserved, 0);
+		Wood = Mathf.Max(Wood - wood, 0);
+		Components = Mathf.Max(Components - components, 0);
+		Parts = Mathf.Max(Parts - parts, 0);
 		OnResourceUpdated();
 	}
 
@@ -497,11 +497,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
 		foreach (var item in items.Values)
 		{
-			JsonHelper.JsonToFile(JsonUtility.ToJson(item, true), "Save/Items/" + item.itemIndexName +".json");
+			JsonHelper.SaveJson(JsonUtility.ToJson(item, true), item.itemIndexName +".json");
 		}
 		foreach (var buff in buffs.Values)
 		{
-			JsonHelper.JsonToFile(JsonUtility.ToJson(buff, true), "Save/Buffs/" + buff.buffIndexName + ".json");
+			JsonHelper.SaveJson(JsonUtility.ToJson(buff, true), buff.buffIndexName + ".json");
 		}
 	}
 

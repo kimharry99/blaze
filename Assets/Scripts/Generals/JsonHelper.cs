@@ -15,15 +15,12 @@ public class JsonHelper : MonoBehaviour
 
 	public static void JsonToFile(string json, string path)
 	{
-#if UNITY_EDITOR
 		path = Application.dataPath + "/Resources/Jsons/" + path;
 		File.WriteAllText(path, json);
-		if (Application.isEditor)
-			return;
-#endif
-#if UNITY_STANDALONE
-		string[] pathSubstrings = path.Split('/');
-		path = pathSubstrings[pathSubstrings.Length - 1];
+	}
+
+	public static void SaveJson(string json, string path)
+	{
 		path = Application.persistentDataPath + path;
 		using (FileStream fs = new FileStream(path, FileMode.Create))
 		{
@@ -32,7 +29,6 @@ public class JsonHelper : MonoBehaviour
 				writer.Write(json);
 			}
 		}
-#endif
 	}
 
 	public static string LoadJson(string path)

@@ -207,7 +207,7 @@ public class MapManager : SingletonBehaviour<MapManager>
 		List<TileInfo> infos = tileInfos.Values.ToList();
 
 		MapInfo mapInfo = new MapInfo(infos, curPosition);
-		JsonHelper.JsonToFile(JsonUtility.ToJson(mapInfo, true), "Save/Map.json");
+		JsonHelper.SaveJson(JsonUtility.ToJson(mapInfo, true), "Map.json");
 	}
 
 	public void LoadMapData()
