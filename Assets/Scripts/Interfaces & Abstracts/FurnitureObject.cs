@@ -16,6 +16,9 @@ public enum FurnitureType
     Bag,
 	Table,
     SolarWaterPurifier,
+    Alembic,
+    Farmenter,
+    SolarGenerator,
 	None = -1
 }
 

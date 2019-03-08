@@ -163,7 +163,46 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		int level = furniture.Level;
 		FurnitureUpgradeInfo info = JsonHelper.LoadFurnitureUpgradeInfo(furniture);
 
-		furnitureText.text = furniture.furnitureName;
+        switch(furniture.furnitureName){
+            case "Alembic":
+                furnitureText.text = "증류기";
+                break;
+            case "Bed":
+                furnitureText.text = "침대";
+                break;
+            case "Bucket":
+                furnitureText.text = "양동이";
+                break;
+            case "CraftTable":
+                furnitureText.text = "제작대";
+                break;
+            case "Door":
+                furnitureText.text = "문";
+                break;
+            case "Farm":
+                furnitureText.text = "농장";
+                break;
+            case "Farmenter":
+                furnitureText.text = "발효기";
+                break;
+            case "Generator":
+                furnitureText.text = "발전기";
+                break;
+            case "Kitchen":
+                furnitureText.text = "조리대";
+                break;
+            case "Refrigerator":
+                furnitureText.text = "냉장고";
+                break;
+            case "SolarGenartor":
+                furnitureText.text = "태양 발전기";
+                break;
+            case "SolarWaterPurifier":
+                furnitureText.text = "태양광 정수기";
+                break;
+            default:
+                break;
+        }
 
 		if (level >= 3) return;
 
@@ -347,7 +386,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		bedPanel.SetActive(true);
 		Bed bed = (Bed)gm.furnitures["Bed"];
 		bedTurnMinusButton.interactable = bed.usingTurn > 0;
-		bedUsingTurnText.text = (bed.usingTurn/4).ToString()+" : "+((bed.usingTurn%4)*15).ToString();
+		bedUsingTurnText.text = (bed.usingTurn/4).ToString()+":"+((bed.usingTurn%4)*15).ToString();
 	}
 
 	public void CloseBedPanel()
