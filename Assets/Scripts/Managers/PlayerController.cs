@@ -51,10 +51,6 @@ public class PlayerController : MonoBehaviour
             GameManager.inst.ChangeThirst(100);
             GameManager.inst.ChangeEnergy(100);
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("Health : " + GameManager.inst.Health + "\nMental : " + GameManager.inst.Sanity + "\nHunger : " + GameManager.inst.Hunger + "\nThirst : " + GameManager.inst.Thirst + "\nEnergy : " + GameManager.inst.Energy);
-        }
 		if (Input.GetKeyDown(KeyCode.N))
 		{
 			GameManager.inst.StartTask(null, 192, true);

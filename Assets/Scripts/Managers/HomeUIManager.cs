@@ -9,14 +9,13 @@ using UnityEngine.UI;
 /// </summary>
 public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 {
-	public GameObject[] furnitureUIs = new GameObject[10];
-
     #region Bucket UI Variables
     [Header("Bucket UI")]
 	public GameObject bucketPanel;
 	public Text bucketWaterText;
 	public Slider bucketWaterSlider;
 	public Button bucketHarvestButton;
+	public Image bucketImage;
 	#endregion
 
 	#region Farm UI Variables
@@ -32,6 +31,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Button[] farmCropSelectButtons = new Button[3];
 	public Button[] farmHarvestButtons = new Button[3];
 	public Button[] farmCancelButtons = new Button[3];
+	public Image farmImage;
 	#endregion
 
 	#region Bed UI Variables
@@ -46,6 +46,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	[Header("Door UI")]
 	public GameObject doorPanel;
 	public Button doorUseButton;
+	public Image doorImage;
 	#endregion
 
 	#region Kitchen UI Variables
@@ -61,11 +62,17 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public GameObject generatorPanel;
 	public Button generatorUseButton;
 	public Button[] generatorOptionButtons;
+	public Image generatorImage;
+	public Text generatorWoodText;
+	public Text generatorPartsText;
 
 	public GameObject generatorChargePanel;
 	public Button generatorHarvestButton;
 	public Slider generatorRemainedTurnSlider;
 	public Text generatorRemainedTimeText;
+	public Image generatorChargeImage;
+
+
     #endregion
 
     #region Fermenter UI Variables
@@ -122,10 +129,11 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Button alembicChargePlusButton;
     public Button alembicChargeMinusButton;
     public Text alembicAmountChargeText;
-    #endregion
+	#endregion
 
-    #region Upgrade UI
-    public GameObject upgradePanel;
+	#region Upgrade UI
+	[Header("Upgrade UI")]
+	public GameObject upgradePanel;
 	public Text woodText;
 	public Text componentsText;
 	public Text partsText;
@@ -209,6 +217,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		bucketHarvestButton.interactable = bucket.water > 0;
 		bucketWaterText.text = bucket.water.ToString() + "/" + bucket.MaxCapacity.ToString();
 		bucketWaterSlider.value = bucket.water / (float)bucket.MaxCapacity;
+		bucketImage.sprite = bucket.GetImage();
 	}
 
 	public void CloseBucketPanel()
@@ -253,6 +262,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 			}
 		}
 		farmPanel.SetActive(true);
+		farmImage.sprite = farm.GetImage();
 	}
 
 	public void CloseFarmPanel()
@@ -371,6 +381,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public void OpenDoorPanel()
 	{
 		doorPanel.SetActive(true);
+		doorImage.sprite = GameManager.inst.furnitures["Door"].GetImage();
 	}
 
 	public void CloseDoorPanel()
@@ -462,6 +473,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 				Vector2 time = TurnManager.inst.GetTime(generator.remainedTurn);
 				generatorRemainedTimeText.text = time.x.ToString("00") + ":" + time.y.ToString("00");
 			}
+			generatorChargeImage.sprite = generator.GetImage();
+			generatorUseButton.interactable = false;
 		}
 		else
 		{
@@ -475,6 +488,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 			{
 				generatorOptionButtons[i].interactable = true;
 			}
+			generatorImage.sprite = generator.GetImage();
 		}
 	}
 
@@ -487,6 +501,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public void ChangeGeneratorOption(int option)
 	{
 		Generator generator = (Generator)GameManager.inst.furnitures["Generator"];
+		generatorWoodText.text = generator.woodNeeded[option] + "/" + GameManager.inst.Wood;
+		generatorPartsText.text = generator.partsNeeded[option] + "/" + GameManager.inst.Parts;
 		generatorUseButton.interactable = GameManager.inst.CheckResource(wood: generator.woodNeeded[option], parts: generator.partsNeeded[option]);
 	}
 

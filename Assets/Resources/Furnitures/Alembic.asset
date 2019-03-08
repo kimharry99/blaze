@@ -7,13 +7,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7deaf1efea6cd7f49b114ba0d5bdcb82, type: 3}
   m_Name: Alembic
   m_EditorClassIdentifier: 
   furnitureName: Alembic
   level: 0
+  furnitureSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
+  furnitureSprites:
+  - {fileID: 21300000, guid: 088b2964d988b0c49a52e1e0c8b36cd1, type: 3}
+  - {fileID: 21300000, guid: 6472035aededa1e40b7ceaa24d90f62f, type: 3}
+  - {fileID: 21300000, guid: 34d1065de618d3040b049b720a4d4cd7, type: 3}
   selectedRecipie: -1
   remainedBattery: 0
   useBattery: 1

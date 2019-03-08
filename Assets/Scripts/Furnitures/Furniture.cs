@@ -38,4 +38,9 @@ public class Furniture : ScriptableObject
 		SoundManager.inst.PlaySFX(upgradeSFX);
 		GameManager.inst.StartTask(delegate { ++Level; }, 4);
 	}
+
+	public Sprite GetImage()
+	{
+		return furnitureSprites[Level - 1];
+	}
 }
