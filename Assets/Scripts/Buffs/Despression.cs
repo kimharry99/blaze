@@ -14,6 +14,6 @@ public class Despression : Buff
 
 	public override void Apply(int turn)
 	{
-		//TODO
+		GameManager.inst.statusRecoverConst -= 0.25f;
 	}
 }

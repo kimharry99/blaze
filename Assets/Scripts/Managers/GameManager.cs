@@ -258,6 +258,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     {
         if(amount>0)
         {
+			amount = (int)(amount * statusRecoverConst);
             Health = Mathf.Min(MaxHealth, Health + amount);
         }
         else
@@ -328,7 +329,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Sanity = Mathf.Min(MaxSanity, Sanity + amount);
+			Sanity = Mathf.Min(MaxSanity, Sanity + amount);
         }
         else
         {
@@ -343,7 +344,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Hunger = Mathf.Min(MaxHunger, Hunger + amount);
+			amount = (int)(amount * statusRecoverConst);
+			Hunger = Mathf.Min(MaxHunger, Hunger + amount);
         }
         else
         {
@@ -356,7 +358,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Thirst = Mathf.Min(MaxThirst, Thirst + amount);
+			amount = (int)(amount * statusRecoverConst);
+			Thirst = Mathf.Min(MaxThirst, Thirst + amount);
         }
         else
         {
@@ -369,7 +372,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	{
         if (amount > 0)
         {
-            Energy = Mathf.Min(MaxEnergy, Energy + amount);
+			amount = (int)(amount * statusRecoverConst);
+			Energy = Mathf.Min(MaxEnergy, Energy + amount);
         }
         else
         {

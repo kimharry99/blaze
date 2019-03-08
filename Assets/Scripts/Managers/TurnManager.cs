@@ -172,6 +172,7 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 	{
         RotFood();
         OccurTheifEvent();
+		GameManager.inst.GetExperiencePoint(4);
 	}
     
     private void RotFood()

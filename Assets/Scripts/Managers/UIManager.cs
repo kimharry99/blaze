@@ -564,7 +564,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 				continue;
 			if (item.GetType().IsSubclassOf(typeof(Food)) || item.GetType() == typeof(Food))
 			{
-				if (item.GetType() == typeof(UncorruptibleFood))
+				if (item.GetType().IsSubclassOf(typeof(UncorruptibleFood)) || item.GetType() == typeof(UncorruptibleFood))
 				{
 					UncorruptibleFood food = (UncorruptibleFood)item;
 					GameObject obj = Instantiate(itemButtonPrefab, itemButtonGrid);

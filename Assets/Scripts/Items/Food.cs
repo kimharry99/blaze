@@ -31,7 +31,7 @@ public class Food : Item, IConsumableItem
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
-	public void Use()
+	public virtual void Use()
 	{
 		SoundManager.inst.PlaySFX(eatSFX);
 		GameManager.inst.ChangePlayerStatus(health, sanity, hunger, thirst, energy);
