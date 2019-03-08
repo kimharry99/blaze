@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum FurnitureType
 {
-    Craft,
+    CraftTable,
     Kitchen,
 	Bed,
     Door,
@@ -13,8 +13,6 @@ public enum FurnitureType
 	Bucket,
     Generator,
     Refrigerator,
-    Bag,
-	Table,
     SolarWaterPurifier,
     Alembic,
     Farmenter,

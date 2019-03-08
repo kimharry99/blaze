@@ -152,15 +152,6 @@ public class GameManager : SingletonBehaviour<GameManager>
 	private void Update()
 	{
 		PlayerState.curState.StateUpdate();
-
-		if (Input.GetKeyDown(KeyCode.M))
-		{
-			ExperiencePoint += 100;
-		}
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			ChangeSanity(-120);
-		}
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

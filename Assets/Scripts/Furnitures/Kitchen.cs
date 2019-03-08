@@ -75,33 +75,26 @@ public class Kitchen : Furniture
 			case -1://None
 				break;
 			case 0: //조약한 식사
-				TurnManager.inst.UseTurn(3);
-				((Food)GameManager.inst.items["CoarseMeal"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["CoarseMeal"]).AddNewFood, 3);
 				break;
 			case 1: //시원한 물
-				TurnManager.inst.UseTurn(1);
-				((Food)GameManager.inst.items["CleanWater"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["CleanWater"]).AddNewFood, 1);
 				break;
 			case 2: //보존음식
-				TurnManager.inst.UseTurn(1);
-				GameManager.inst.GetResource(preserved: 10);
+				GameManager.inst.StartTask(delegate { GameManager.inst.GetResource(preserved: 10); }, 1);
 				break;
 
 			case 3: //평범한 식사
-				TurnManager.inst.UseTurn(3);
-				((Food)GameManager.inst.items["Meal"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["Meal"]).AddNewFood, 3);
 				break;
 			case 4: //호화로운 식사
-				TurnManager.inst.UseTurn(3);
-				((Food)GameManager.inst.items["FineMeal"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["FineMeal"]).AddNewFood, 3);
 				break;
 			case 5: //보양식
-				TurnManager.inst.UseTurn(3);
-				((Food)GameManager.inst.items["HealthyMeal"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["HealthyMeal"]).AddNewFood, 3);
 				break;
 			case 6: //달콤한 간식
-				TurnManager.inst.UseTurn(3);
-				((Food)GameManager.inst.items["Snack"]).AddNewFood();
+				GameManager.inst.StartTask(((Food)GameManager.inst.items["Snack"]).AddNewFood, 3);
 				break;
 			default:
 				Debug.Log("There is no Option for " + selectedRecipie.ToString());

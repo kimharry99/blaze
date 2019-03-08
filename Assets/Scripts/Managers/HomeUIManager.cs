@@ -139,6 +139,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Text partsText;
 	public Text furnitureText;
 	public Button upgradeButton;
+	public Image upgradeFurnitureImage;
 	#endregion
 
 	#region Managers
@@ -206,10 +207,16 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 
 		if (level >= 3) return;
 
-		woodText.text = "x " + info.wood[level].ToString();
-		componentsText.text = "x " + info.components[level].ToString();
-		partsText.text = "x " + info.parts[level].ToString();
+		woodText.text = info.wood[level].ToString() + "/" + GameManager.inst.Wood.ToString();
+		componentsText.text = info.components[level].ToString() + "/" + GameManager.inst.Components.ToString();
+		partsText.text = info.parts[level].ToString() + "/" + GameManager.inst.Parts.ToString();
 
+		Sprite furnitureSprite = GameManager.inst.furnitures[furniture.name].GetImage(furniture.Level + 1);
+		upgradeFurnitureImage.sprite = furnitureSprite;
+		upgradeFurnitureImage.rectTransform.sizeDelta = new Vector2(250, 250f * furnitureSprite.texture.height / furnitureSprite.texture.width);
+
+		upgradeButton.interactable = GameManager.inst.CheckResource(wood: info.wood[level], components: info.components[level], parts: info.parts[level])
+			&& (furniture.name == "CraftTable" || furniture.Level < GameManager.inst.furnitures["CraftTable"].Level);
 		upgradeButton.onClick.RemoveAllListeners();
 		upgradeButton.onClick.AddListener(
 			delegate

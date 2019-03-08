@@ -14,6 +14,7 @@ public class SolarWaterPurifier : Furniture
 
     public override void Init()
     {
+		base.Init();
         TurnManager.inst.OnTurnPassed += OnTurnPassed;
     }
 

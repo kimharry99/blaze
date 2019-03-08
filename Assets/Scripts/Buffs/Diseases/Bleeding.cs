@@ -41,6 +41,8 @@ public class Bleeding : Disease
 
 	protected override void OnTurnPassed(int turn)
 	{
+		if (buffCount <= 0)
+			return;
 		remainedTurn = Mathf.Max(remainedTurn - turn, 0);
 		if (remainedTurn <= 0)
 		{

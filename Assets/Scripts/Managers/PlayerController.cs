@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
+		if (PlayerState.curState != PlayerState.idle)
+			return;
 		playerAnimator.SetBool("IsWalking", false);
 		if (Input.GetKey(KeyCode.A))
 		{
@@ -64,6 +66,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.tag == "Ladder")
 		{
+			if (PlayerState.curState != PlayerState.idle)
+				return;
 			if (Input.GetKey(KeyCode.W))
 			{
 				transform.position += new Vector3(0, 1, 0) * speed * Time.deltaTime;

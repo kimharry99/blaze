@@ -43,4 +43,9 @@ public class Furniture : ScriptableObject
 	{
 		return furnitureSprites[Level - 1];
 	}
+
+	public Sprite GetImage(int level)
+	{
+		return furnitureSprites[level - 1];
+	}
 }

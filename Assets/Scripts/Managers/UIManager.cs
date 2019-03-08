@@ -438,7 +438,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 			{
 				buffUI = Instantiate(buffUIPrefab, buffPanel.transform).GetComponent<BuffUI>();
 				buffUI.transform.Find("IconImage").GetComponent<RawImage>().texture = buff.buffTexture;
-				buffUI.Init(buff.buffIndexName, buff.description);
+				buffUI.Init(buff.buffName, buff.description);
 				buffUIs.Add(buff.buffIndexName, buffUI);
 			}
 			else
