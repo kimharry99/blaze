@@ -347,7 +347,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		bedPanel.SetActive(true);
 		Bed bed = (Bed)gm.furnitures["Bed"];
 		bedTurnMinusButton.interactable = bed.usingTurn > 0;
-		bedUsingTurnText.text = (bed.usingTurn/4).ToString()+" : "+((bed.usingTurn%4)*15).ToString();
+		bedUsingTurnText.text = (bed.usingTurn/4).ToString()+":"+((bed.usingTurn%4)*15).ToString();
 	}
 
 	public void CloseBedPanel()
