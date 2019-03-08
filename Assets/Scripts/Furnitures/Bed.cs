@@ -31,7 +31,7 @@ public class Bed : Furniture
 
     public void UseBed()
     {
-        GameManager.inst.StartTask(null, usingTurn);
+        GameManager.inst.StartTask(null, usingTurn, true);
         GameManager.inst.ChangeEnergy(usingTurn * (EnergyPerTurn));
         if (GameManager.inst.CheckStatus(health: 0, mental: 0, hunger: 0, thirst: 0, energy: 0))
         {
