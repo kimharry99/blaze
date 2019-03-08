@@ -15244,12 +15244,12 @@ MonoBehaviour:
   alembicChargePlusButton: {fileID: 2055445734}
   alembicChargeMinusButton: {fileID: 1603430947}
   alembicAmountChargeText: {fileID: 1600879704}
-  upgradePanel: {fileID: 0}
-  woodText: {fileID: 0}
-  componentsText: {fileID: 0}
-  partsText: {fileID: 0}
-  furnitureText: {fileID: 0}
-  upgradeButton: {fileID: 0}
+  upgradePanel: {fileID: 1399857369}
+  woodText: {fileID: 2096392628}
+  componentsText: {fileID: 1170097578}
+  partsText: {fileID: 448716364}
+  furnitureText: {fileID: 2104172650}
+  upgradeButton: {fileID: 647982351}
 --- !u!114 &775574817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16931,12 +16931,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: ClosePanel
-        m_Mode: 2
+      - m_Target: {fileID: 775574816}
+        m_MethodName: CloseUpgradePanel
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 1399857369}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -26021,7 +26021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1399857370
 RectTransform:
   m_ObjectHideFlags: 0
