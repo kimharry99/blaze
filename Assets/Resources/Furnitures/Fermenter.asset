@@ -15,7 +15,7 @@ MonoBehaviour:
   furnitureName: Fermenter
   level: 0
   furnitureSFX: {fileID: 0}
-  upgradeSFX: {fileID: 0}
+  upgradeSFX: {fileID: 8300000, guid: b7b727d7f0d427b4fa51ece419146488, type: 3}
   furnitureSprites:
   - {fileID: 21300000, guid: 1e2f432043d99cb4b8dba2d160f278a5, type: 3}
   - {fileID: 21300000, guid: f792ddf6a87d0d543b04dd9ee781a932, type: 3}

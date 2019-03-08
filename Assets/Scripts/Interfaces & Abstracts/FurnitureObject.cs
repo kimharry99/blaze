@@ -15,7 +15,7 @@ public enum FurnitureType
     Refrigerator,
     SolarWaterPurifier,
     Alembic,
-    Farmenter,
+    Fermenter,
     SolarGenerator,
 	None = -1
 }
