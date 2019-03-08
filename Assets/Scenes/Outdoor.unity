@@ -1082,7 +1082,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -10632,6 +10632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedcf951397ee6042b173795b68979b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dayBGM: {fileID: 0}
+  nightBGM: {fileID: 0}
 --- !u!4 &1762405945
 Transform:
   m_ObjectHideFlags: 0
@@ -11667,6 +11669,18 @@ PrefabInstance:
       propertyPath: EnableWind
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: RainSoundLight
+      value: 
+      objectReference: {fileID: 8300000, guid: e337cb9f938c45a4395ab1892b2c9eba, type: 3}
+    - target: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: RainSoundMedium
+      value: 
+      objectReference: {fileID: 8300000, guid: e337cb9f938c45a4395ab1892b2c9eba, type: 3}
+    - target: {fileID: 11475408, guid: b046278bb9b6e104790392b566667ba5, type: 3}
+      propertyPath: RainSoundHeavy
+      value: 
+      objectReference: {fileID: 8300000, guid: e337cb9f938c45a4395ab1892b2c9eba, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b046278bb9b6e104790392b566667ba5, type: 3}
 --- !u!1 &1896693606
@@ -12671,6 +12685,7 @@ MonoBehaviour:
   thirstChangePerTurn: 0
   statusRecoverConst: 1
   turnPenaltyConst: 1
+  isSleeping: 0
   turnPassTime: 0.25
   clockSFX: {fileID: 0}
 --- !u!4 &2033006153

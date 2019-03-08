@@ -10,8 +10,10 @@ public class UpgradeButton : MonoBehaviour
 	public string furnitureName;
 	private void OnMouseUp()
 	{
+		/*
 		if (EventSystem.current.IsPointerOverGameObject())
 			return;
+		*/
 		Furniture furniture = GameManager.inst.furnitures[furnitureName];
 		if (furniture.Level <= 2)
 			OnClicked.Invoke();

@@ -24,7 +24,7 @@ public class FurnitureObject : MonoBehaviour
 {
 	public GameObject furnitureUI;
 
-	protected virtual void OnTriggerEnter2D(Collider2D col)
+	protected virtual void OnTriggerStay2D(Collider2D col)
 	{
 		if (col.tag == "Player")
 		{

@@ -95,6 +95,7 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public float turnPenaltyConst = 1;
 
 	public bool IsGameOver { get { return Health <= 0 || Sanity <= 0; } }
+	public bool isSleeping = false;
 	#endregion
 
 	public bool IsOutside
@@ -142,11 +143,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 		//SaveGameData();
 		//LoadGameData();
 
+		/*
 		OnPlayerStatusUpdated();
 		OnResourceUpdated();
 
 		ApplyBuffs(0);
 		UIManager.inst.UpdateTimerUI(0);
+		*/
 	}
 
 	private void Update()
@@ -156,6 +159,14 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
+		if (scene.name == "Title")
+			return;
+		OnPlayerStatusUpdated();
+		OnResourceUpdated();
+
+		ApplyBuffs(0);
+		UIManager.inst.UpdateTimerUI(0);
+
 		if (!IsOutside)
 		{
 			foreach (var furniture in furnitures.Values)
@@ -165,13 +176,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 		}
 	}
 
-	/// <summary>
-	/// Called when 'Start Game' button is clicked
-	/// </summary>
-	/// <param name="path">Path of saved data. 'null' if new game</param>
-	public void Init(string path)
+	public void StartNewGame()
 	{
-		//TODO : Load data and update gamemanager if path is not null
+		SceneManager.LoadScene("Home");
 	}
 
 	#region Resource Functions
@@ -404,6 +411,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 			}
 			UIManager.inst.UpdateBuffUI(buff);
 		}
+
+		if (isSleeping)
+			energyChangePerTurn = 0;
+
 		UIManager.inst.UpdateStatusChangePerTurnUI();
 	}
 
@@ -428,6 +439,13 @@ public class GameManager : SingletonBehaviour<GameManager>
 		if (Sanity <= 0)
 			GameObject.Find("Player").GetComponent<Animator>().Play("Dead_Sanity");
 		UIManager.inst.OpenGameOverPanel();
+		HomeUIManager hum = FindObjectOfType<HomeUIManager>();
+		OutdoorUIManager oum = FindObjectOfType<OutdoorUIManager>();
+		if (hum != null)
+			hum.gameObject.SetActive(false);
+		if (oum != null)
+			oum.gameObject.SetActive(false);
+		UIManager.inst.CloseOpenedPanel();
 		//TODO : Handle gameover event
 	}
 
@@ -522,4 +540,9 @@ public class GameManager : SingletonBehaviour<GameManager>
 		}
 	}
 	#endregion
+
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
 }

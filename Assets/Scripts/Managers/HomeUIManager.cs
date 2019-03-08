@@ -183,7 +183,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
             case "Farm":
                 furnitureText.text = "농장";
                 break;
-            case "Farmenter":
+            case "Fermenter":
                 furnitureText.text = "발효기";
                 break;
             case "Generator":
@@ -341,7 +341,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 						break;
 				}
 			}
-			cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, 0, 0);
+			//cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, 0, 0);
+
 
 			farm.selectedSlot = slot;
 			cropSelectPanels.SetActive(true);

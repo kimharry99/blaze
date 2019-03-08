@@ -152,6 +152,8 @@ public class UIManager : SingletonBehaviour<UIManager>
 
 	private void Update()
 	{
+		if (GameManager.inst.IsGameOver)
+			return;
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
 			if (openedPanel != null)
@@ -245,6 +247,12 @@ public class UIManager : SingletonBehaviour<UIManager>
 	*/
 
 	#region Miscellneous
+	public void CloseOpenedPanel()
+	{
+		if (openedPanel != null)
+			openedPanel.SetActive(false);
+	}
+	
 	public void OpenTranslucentPanel()
 	{
 		translucentPanel.SetActive(true);
@@ -417,15 +425,15 @@ public class UIManager : SingletonBehaviour<UIManager>
 		gm.OnPlayerStatusUpdated += UpdatePlayerStatusUI;
 		gm.OnResourceUpdated += UpdateResourcesUI;
 
-		//SceneManager.sceneLoaded += OnSceneLoaded;
+		SceneManager.sceneLoaded += OnSceneLoaded;
 		DontDestroyOnLoad(gameObject);
 	}
-	/*
+
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
 		gameObject.SetActive(scene.name != "Title");
 	}
-	*/
+	
 	#endregion
 
 	#region Buff UI Funcitons
@@ -757,7 +765,7 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		yield return new WaitForSeconds(5);
 		SoundManager.inst.ChangeBGM(null);
-		SoundManager.inst.PlaySFX(gameOverSFX);
+		SoundManager.inst.PlaySFX(gameOverSFX, volume: 0.5f);
 		Image panelImage = GameOverPanel.GetComponent<Image>();
 		for (float a = 0; a <= 1; a += Time.deltaTime * 0.3f)
 		{

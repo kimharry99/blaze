@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (PlayerState.curState != PlayerState.idle)
 			return;
+		if (GameManager.inst.IsGameOver)
+			return;
 		playerAnimator.SetBool("IsWalking", false);
 		if (Input.GetKey(KeyCode.A))
 		{
@@ -66,6 +68,8 @@ public class PlayerController : MonoBehaviour
 	{
 		if (collision.tag == "Ladder")
 		{
+			if (GameManager.inst.IsGameOver)
+				return;
 			if (PlayerState.curState != PlayerState.idle)
 				return;
 			if (Input.GetKey(KeyCode.W))

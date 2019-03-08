@@ -30,7 +30,9 @@ public class SoundManager : SingletonBehaviour<SoundManager>
 
 	public void ChangeBGM(AudioClip clip)
 	{
+		Camera.main.GetComponent<AudioSource>().Stop();
 		Camera.main.GetComponent<AudioSource>().clip = clip;
+		Camera.main.GetComponent<AudioSource>().Play();
 	}
 
     public void PlaySFX(AudioClip audio, GameObject target = null, float volume = -1)

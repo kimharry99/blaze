@@ -43,6 +43,14 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 				_turn -= 96;
 				DayOver();
 			}
+			if(_turn == 24)
+			{
+				SoundManager.inst.ChangeBGM(dayBGM);
+			}
+			if (_turn == 72)
+			{
+				SoundManager.inst.ChangeBGM(nightBGM);
+			}
 			OnTurnPassed?.Invoke(interval);
 		}
 	}
@@ -66,6 +74,9 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 			}
 		}
 	}
+
+	[SerializeField]
+	private AudioClip dayBGM, nightBGM;
 	#endregion
 
 	#region Weather System Variables
@@ -107,11 +118,13 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		OnTurnPassed(0);
-	}
+		if (scene.name == "Title")
+			return;
+		if(DayNight == DayNight.Night)
+			SoundManager.inst.ChangeBGM(nightBGM);
+		else
+			SoundManager.inst.ChangeBGM(dayBGM);
 
-	private void Start()
-	{
 		OnTurnPassed(0);
 	}
 

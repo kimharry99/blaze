@@ -70,10 +70,14 @@ public class MapManager : SingletonBehaviour<MapManager>
 		TurnManager.inst.OnTurnPassed += OnTurnPassed;
 	}
 
-    private void Update()
-    {
+	private void Update()
+	{
 		if (GameManager.inst.IsGameOver)
+		{
+			if (EventSystem.current != null)
+				EventSystem.current.enabled = false;
 			return;
+		}
 		if (isMoving)
 			return;
 		if (EventSystem.current.IsPointerOverGameObject())

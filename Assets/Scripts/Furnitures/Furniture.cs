@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Furniture : ScriptableObject
 {
@@ -14,7 +15,7 @@ public class Furniture : ScriptableObject
 		set
 		{
 			level = value;
-			if (level > 0 && !GameManager.inst.IsOutside)
+			if (level > 0 && SceneManager.GetActiveScene().name == "Home")
 				GameObject.Find(furnitureName).GetComponent<SpriteRenderer>().sprite = furnitureSprites[level - 1];
 		}
 	}

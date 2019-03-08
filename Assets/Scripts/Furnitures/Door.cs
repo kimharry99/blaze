@@ -33,6 +33,13 @@ public class Door : Furniture
 
 	public void GoOutside()
     {
-        SceneManager.LoadScene("Outdoor");
-    }
+		SoundManager.inst.PlaySFX(furnitureSFX);
+		GameManager.inst.StartCoroutine(GoOut());
+	}
+
+	private IEnumerator GoOut()
+	{
+		yield return new WaitForSeconds(2);
+		SceneManager.LoadScene("Outdoor");
+	}
 }
