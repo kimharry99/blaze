@@ -23,30 +23,35 @@ public class Fermenter : Furniture
         if (!GameManager.inst.CheckResource(water: 20, food: 20)) return;
 
         GameManager.inst.UseResource(water: 20, food: 20);
-        remainedTurn = neededTurn[level];
-        TurnManager.inst.OnTurnPassed += OnTurnPassed;
+        remainedTurn = neededTurn[level-1];
         isUsing = true;
+        GameManager.inst.StartTask(OnTurnPassed, 1);
 
         HomeUIManager.inst.fermenterUseText.text = "Cancel";
     }
 
-    public override void OnTurnPassed(int turn)
+    public void OnTurnPassed()
     {
+        if (!isUsing) return;
         if (remainedBattery > 0)
         {
-            remainedTurn -= turn;
+            remainedTurn -= 1;
             remainedBattery -= 1;
             if (remainedTurn <= 0)
             {
                 remainedTurn = 0;
-                TurnManager.inst.OnTurnPassed -= OnTurnPassed;
                 GameManager.inst.items["Alcohol"].amount += 2;
                 HomeUIManager.inst.fermenterUseText.text = "Do";
+                return;
+            }
+            else
+            {
+                GameManager.inst.StartTask(OnTurnPassed, 1);
             }
         }
         else
         {
-            
+            GameManager.inst.StartTask(OnTurnPassed, 1);
         }
     }
 
@@ -58,7 +63,6 @@ public class Fermenter : Furniture
 
     public void CancelProduction()
     {
-        TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
         HomeUIManager.inst.fermenterUseText.text = "Do";
@@ -66,7 +70,7 @@ public class Fermenter : Furniture
 
     public void PlusChargeAmount()
     {
-        useBattery = Mathf.Min(useBattery + 1, maxBattery[level] - remainedBattery);
+        useBattery = Mathf.Min(useBattery + 1, maxBattery[level-1] - remainedBattery);
     }
 
     public void MinusChargeAmount()

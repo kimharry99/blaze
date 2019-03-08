@@ -472,6 +472,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void FermenterUse()
     {
         Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
+        if (fermenter.level <= 0) return;
         fermenter.Use();
     }
 
@@ -525,6 +526,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void AlembicUse()
     {
         Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        if (alembic.level <= 0) return;
         alembic.Use();
     }
 

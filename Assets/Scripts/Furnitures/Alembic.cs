@@ -48,8 +48,8 @@ public class Alembic : Furniture
         }
 
         remainedTurn = neededTurn[selectedRecipie * 3 + (level - 1)];
-        TurnManager.inst.OnTurnPassed += OnTurnPassed;
         isUsing = true;
+        GameManager.inst.StartTask(OnTurnPassed, 1);
 
         HomeUIManager.inst.alembicUseText.text = "Cancel";
         HomeUIManager.inst.alembicWaterButton.interactable = false;
@@ -58,7 +58,6 @@ public class Alembic : Furniture
 
     public void CancelProduction()
     {
-        TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
         HomeUIManager.inst.alembicUseText.text = "Do";
@@ -66,16 +65,16 @@ public class Alembic : Furniture
         HomeUIManager.inst.alembicAlcoholButton.interactable = level > 1;
     }
 
-    public override void OnTurnPassed(int turn)
+    public void OnTurnPassed()
     {
+        if (!isUsing) return;
         if (remainedBattery > 0)
         {
-            remainedTurn -= turn;
+            remainedTurn -= 1;
             remainedBattery -= 1;
             if (remainedTurn <= 0)
             {
                 remainedTurn = 0;
-                TurnManager.inst.OnTurnPassed -= OnTurnPassed;
 
                 switch(selectedRecipie)
                 {
@@ -95,10 +94,14 @@ public class Alembic : Furniture
                 HomeUIManager.inst.alembicWaterButton.interactable = level > 0;
                 HomeUIManager.inst.alembicAlcoholButton.interactable = level > 1;
             }
+            else
+            {
+                GameManager.inst.StartTask(OnTurnPassed, 1);
+            }
         }
         else
         {
-
+            GameManager.inst.StartTask(OnTurnPassed, 1);
         }
     }
 
@@ -118,7 +121,7 @@ public class Alembic : Furniture
 
     public void PlusChargeAmount()
     {
-        useBattery = Mathf.Min(useBattery + 1, maxBattery[level] - remainedBattery);
+        useBattery = Mathf.Min(useBattery + 1, maxBattery[level-1] - remainedBattery);
     }
 
     public void MinusChargeAmount()
