@@ -6,7 +6,8 @@ public abstract class PlayerState
 {
 	public static PlayerStateIdle idle = new PlayerStateIdle();
 	public static PlayerStateWork work = new PlayerStateWork();
-	
+	public static PlayerStateWait wait = new PlayerStateWait();
+
 	public static PlayerState curState = idle;
 
 	protected abstract void Enter();
@@ -51,40 +52,26 @@ public class PlayerStateWork : PlayerState
 	protected override void Enter()
 	{
 		Debug.Log(GameManager.inst.turnPassTime);
-		//UIManager.inst.OpenTurnPassUI(remainedTurn,"Working...");
 		TurnManager.inst.StartCoroutine(TurnPassRoutine(remainedTurn, GameManager.inst.turnPassTime / remainedTurn));
-		//timer = 0.25f;
-		//passedTurn = 0;
 	}
 
 	protected override void Exit()
 	{
-		//UIManager.inst.CloseTurnPassUI();
 		GameManager.inst.EndTask();
 	}
 
 	public override void StateUpdate()
 	{
-		/*
-		timer -= Time.deltaTime;
-		if (timer <= 0)
-		{
-			if (remainedTurn == 0)
-			{
-				Transition(idle);
-				return;
-			}
-			TurnManager.inst.UseTurn(1);
-			remainedTurn--;
-			passedTurn++;
-			UIManager.inst.UpdateTurnPassUI(passedTurn, passedTurn + remainedTurn);
-			timer = 0.25f;
-		}
-		*/
+
 	}
 
 	private IEnumerator TurnPassRoutine(int remainedTurn, float timer)
 	{
+		if (GameManager.inst.IsGameOver)
+		{
+			Transition(idle);
+			yield break;
+		}
 		RectTransform minuteHand = UIManager.inst.minuteHand;
 		RectTransform hourHand = UIManager.inst.hourHand;
 		SkyScript sky = Object.FindObjectOfType<SkyScript>();
@@ -108,5 +95,23 @@ public class PlayerStateWork : PlayerState
 		else
 			Transition(idle);
 
+	}
+}
+
+public class PlayerStateWait : PlayerState
+{
+	public override void StateUpdate()
+	{
+		
+	}
+
+	protected override void Enter()
+	{
+		
+	}
+
+	protected override void Exit()
+	{
+		
 	}
 }

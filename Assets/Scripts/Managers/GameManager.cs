@@ -465,6 +465,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public void EndTask()
 	{
 		UIManager.inst.CloseTranslucentPanel();
+		if (IsGameOver)
+			return;
 		ReservedTask?.Invoke();
 	}
 

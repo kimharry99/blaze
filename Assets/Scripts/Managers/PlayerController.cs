@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
 	public static FurnitureType selectedFurniture;
 	public int speed;
 	public Animator playerAnimator;
+	private float ladderMoveAmount = 2;
+
 
 	private void Update()
 	{
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
 			playerAnimator.SetBool("IsWalking", true);
 		}
 
-
+#if UNITY_EDITOR
 		#region Debug Commands
 		if (Input.GetKeyDown(KeyCode.P))
 		{
@@ -34,7 +36,6 @@ public class PlayerController : MonoBehaviour
 		{
 			GameManager.inst.StartTask(null, 192, true);
 		}
-#if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
 			TurnManager.inst.UseTurn(1);
@@ -55,8 +56,8 @@ public class PlayerController : MonoBehaviour
             GameManager.inst.ChangeThirst(100);
             GameManager.inst.ChangeEnergy(100);
         }
-#endif
 		#endregion
+#endif
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
@@ -65,22 +66,37 @@ public class PlayerController : MonoBehaviour
 		{
 			if (Input.GetKey(KeyCode.W))
 			{
-				//transform.position += new Vector3(0, 1, 0) * speed * Time.deltaTime;
+				transform.position += new Vector3(0, 1, 0) * speed * Time.deltaTime;
 				GetComponent<Rigidbody2D>().gravityScale = 0;
-				GetComponent<Rigidbody2D>().velocity = new Vector2(0, 1f) * speed;
+				//GetComponent<Rigidbody2D>().velocity = new Vector2(0, 1f) * speed;
 				gameObject.layer = LayerMask.NameToLayer("LadderPlayer");
+				ladderMoveAmount -= speed * Time.deltaTime;
+				if (ladderMoveAmount <= 0)
+				{
+					ladderMoveAmount = 2;
+					GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+				}
+				playerAnimator.Play("Ladder");
 			}
 			else if (Input.GetKey(KeyCode.S))
 			{
-				//transform.position -= new Vector3(0, 1, 0) * speed * Time.deltaTime;
+				transform.position -= new Vector3(0, 1, 0) * speed * Time.deltaTime;
 				GetComponent<Rigidbody2D>().gravityScale = 0;
-				GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1f) * speed;
+				//GetComponent<Rigidbody2D>().velocity = new Vector2(0, -1f) * speed;
 				gameObject.layer = LayerMask.NameToLayer("LadderPlayer");
+				ladderMoveAmount -= speed * Time.deltaTime;
+				if (ladderMoveAmount <= 0)
+				{
+					ladderMoveAmount = 2;
+					GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;
+				}
+				playerAnimator.Play("Ladder");
 			}
 			else if (Input.GetKey(KeyCode.Space))
 			{
 				GetComponent<Rigidbody2D>().gravityScale = 5;
 				gameObject.layer = LayerMask.NameToLayer("Default");
+				playerAnimator.Play("Idle");
 			}
 			else if (gameObject.layer == LayerMask.NameToLayer("LadderPlayer"))
 			{
@@ -95,6 +111,7 @@ public class PlayerController : MonoBehaviour
 		{
 			GetComponent<Rigidbody2D>().gravityScale = 5;
 			gameObject.layer = LayerMask.NameToLayer("Default");
+			playerAnimator.Play("Idle");
 		}
 	}
 }
