@@ -44,23 +44,19 @@ public class Alembic : Furniture
 
         remainedTurn = neededTurn[selectedRecipie * 3 + (Level - 1)];
         isUsing = true;
-        GameManager.inst.StartTask(OnTurnPassed, 1);
 
         HomeUIManager.inst.alembicUseText.text = "Cancel";
-        HomeUIManager.inst.alembicWaterButton.interactable = false;
-        HomeUIManager.inst.alembicAlcoholButton.interactable = false;
     }
 
     public void CancelProduction()
     {
+        TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
         HomeUIManager.inst.alembicUseText.text = "Do";
-        HomeUIManager.inst.alembicWaterButton.interactable = Level > 0;
-        HomeUIManager.inst.alembicAlcoholButton.interactable = Level > 1;
     }
 
-    public void OnTurnPassed()
+    public override void OnTurnPassed(int turn)
     {
         if (!isUsing) return;
         if (remainedBattery > 0)
@@ -86,17 +82,9 @@ public class Alembic : Furniture
                 }
 
                 HomeUIManager.inst.alembicUseText.text = "Do";
-                HomeUIManager.inst.alembicWaterButton.interactable = Level > 0;
-                HomeUIManager.inst.alembicAlcoholButton.interactable = Level > 1;
+                isUsing = false;
+                return;
             }
-            else
-            {
-                GameManager.inst.StartTask(OnTurnPassed, 1);
-            }
-        }
-        else
-        {
-            GameManager.inst.StartTask(OnTurnPassed, 1);
         }
     }
 
@@ -104,14 +92,6 @@ public class Alembic : Furniture
     {
         if (isUsing) return;
         base.Upgrade();
-        if(Level >= 1)
-        {
-            HomeUIManager.inst.alembicWaterButton.interactable = true;
-        }
-        if(Level >= 2)
-        {
-            HomeUIManager.inst.alembicAlcoholButton.interactable = true;
-        }
     }
 
     public void PlusChargeAmount()
