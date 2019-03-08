@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
 		{
 			GameManager.inst.GetResource(100000, 100000, 100000, 100000, 100000, 100000);
 		}
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			GameManager.inst.StartTask(null, 192, true);
+		}
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.RightArrow))
 		{
@@ -51,10 +55,6 @@ public class PlayerController : MonoBehaviour
             GameManager.inst.ChangeThirst(100);
             GameManager.inst.ChangeEnergy(100);
         }
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			GameManager.inst.StartTask(null, 192, true);
-		}
 #endif
 		#endregion
 	}

@@ -32,6 +32,8 @@ public class TurnManager : SingletonBehaviour<TurnManager>
 		}
 		private set
 		{
+			if (GameManager.inst.IsGameOver)
+				return;
 			int interval = value - _turn;
 			WeatherTurn -= interval;
 			_turn = value;

@@ -117,10 +117,18 @@ public class UIManager : SingletonBehaviour<UIManager>
 	#endregion
 
 	#region System UI
+	[Header("System UI")]
 	public GameObject systemPanel;
 	private GameObject openedPanel = null;
 	public GameObject utilityButtonPanel;
 
+	#endregion
+
+	#region Option UI
+	[Header("Option UI")]
+	public GameObject optionPanel;
+	public Slider turnPassSlider;
+	public Text turnPassText;
 	#endregion
 
 	public GameObject backgroundPanel;
@@ -688,4 +696,30 @@ public class UIManager : SingletonBehaviour<UIManager>
 	}
 	#endregion
 
+	#region System Panel Functions
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+	#endregion
+
+	#region Option Panel Fuctions
+	public void OpenOptionPanel()
+	{
+		optionPanel.SetActive(true);
+		turnPassSlider.value = GameManager.inst.turnPassTime / 10;
+		turnPassText.text = (turnPassSlider.value * 10).ToString("#.#");
+	}
+
+	public void CloseOptionPanel()
+	{
+		optionPanel.SetActive(false);
+	}
+
+	public void SetTurnPassTime()
+	{
+		GameManager.inst.turnPassTime = turnPassSlider.value * 10;
+		turnPassText.text = (turnPassSlider.value * 10).ToString("#.#");
+	}
+	#endregion
 }

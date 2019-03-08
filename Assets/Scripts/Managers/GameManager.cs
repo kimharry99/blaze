@@ -85,8 +85,6 @@ public class GameManager : SingletonBehaviour<GameManager>
     private readonly int[] maxExperiencePoint = new int [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,999};
     public int StatusPoint { get; private set; }
 
-	[SerializeField]
-	//private List<Buff> buffs = new List<Buff>();
 	private Dictionary<string, Buff> buffs = new Dictionary<string, Buff>();
 	public int healthChangePerTurn = 0;
 	public int sanityChangePerTurn = 0;
@@ -95,6 +93,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 	public int thirstChangePerTurn = 0;
 	public float statusRecoverConst = 1;
 	public float turnPenaltyConst = 1;
+
+	public bool IsGameOver { get { return Health <= 0 || Sanity <= 0; } }
 	#endregion
 
 	public bool IsOutside
