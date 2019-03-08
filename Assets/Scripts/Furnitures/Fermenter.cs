@@ -24,13 +24,13 @@ public class Fermenter : Furniture
 
         GameManager.inst.UseResource(water: 20, food: 20);
         remainedTurn = neededTurn[Level-1];
+        TurnManager.inst.OnTurnPassed += OnTurnPassed;
         isUsing = true;
-        GameManager.inst.StartTask(OnTurnPassed, 1);
 
         HomeUIManager.inst.fermenterUseText.text = "Cancel";
     }
 
-    public void OnTurnPassed()
+    public override void OnTurnPassed(int turn)
     {
         if (!isUsing) return;
         if (remainedBattery > 0)
@@ -42,16 +42,9 @@ public class Fermenter : Furniture
                 remainedTurn = 0;
                 GameManager.inst.items["Alcohol"].amount += 2;
                 HomeUIManager.inst.fermenterUseText.text = "Do";
+                isUsing = false;
                 return;
             }
-            else
-            {
-                GameManager.inst.StartTask(OnTurnPassed, 1);
-            }
-        }
-        else
-        {
-            GameManager.inst.StartTask(OnTurnPassed, 1);
         }
     }
 
@@ -63,6 +56,7 @@ public class Fermenter : Furniture
 
     public void CancelProduction()
     {
+        TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
         HomeUIManager.inst.fermenterUseText.text = "Do";

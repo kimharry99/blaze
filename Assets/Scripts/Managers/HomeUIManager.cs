@@ -712,6 +712,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     #region Alembic UI Functions
     public void OpenAlembicPanel()
     {
+        Alembic alembic = (Alembic)gm.furnitures["Alembic"];
+        alembicWaterButton.interactable = alembic.Level >= 1;
+        alembicAlcoholButton.interactable = alembic.Level >= 2;
         alembicPanel.SetActive(true);
     }
 
