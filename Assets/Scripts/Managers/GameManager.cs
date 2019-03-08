@@ -157,6 +157,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 		{
 			ExperiencePoint += 100;
 		}
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			ChangeSanity(-120);
+		}
 	}
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -424,7 +428,11 @@ public class GameManager : SingletonBehaviour<GameManager>
 
 	private void GameOver()
 	{
-		Debug.Log("GameOver!");
+		if (Health <= 0)
+			GameObject.Find("Player").GetComponent<Animator>().Play("Dead_Health");
+		if (Sanity <= 0)
+			GameObject.Find("Player").GetComponent<Animator>().Play("Dead_Sanity");
+		UIManager.inst.OpenGameOverPanel();
 		//TODO : Handle gameover event
 	}
 

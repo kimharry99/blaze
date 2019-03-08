@@ -14,11 +14,6 @@ public class Alembic : Furniture
     private bool isUsing = false;
     public int[] neededTurn;
 
-    public void Awake()
-    {
-        HomeUIManager.inst.alembicAlcoholButton.interactable = false;
-    }
-
     public void SelectRecipie(int recipie)
     {
         selectedRecipie = recipie;

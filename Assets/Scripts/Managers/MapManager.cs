@@ -72,6 +72,8 @@ public class MapManager : SingletonBehaviour<MapManager>
 
     private void Update()
     {
+		if (GameManager.inst.IsGameOver)
+			return;
 		if (isMoving)
 			return;
 		if (EventSystem.current.IsPointerOverGameObject())

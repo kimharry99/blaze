@@ -713,7 +713,8 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void OpenAlembicPanel()
     {
         alembicPanel.SetActive(true);
-    }
+		alembicAlcoholButton.interactable = false;
+	}
 
     public void CloseAlembicPanel()
     {

@@ -138,6 +138,18 @@ public class UIManager : SingletonBehaviour<UIManager>
 	private GameManager gm;
 	#endregion
 
+	#region GameOver UI
+	[Header("GameOver UI")]
+	public GameObject GameOverPanel;
+	public Image GameOverCharacterImage;
+	public Text GameResultText, GameOverText;
+	public Button GameOverButton;
+	[SerializeField]
+	private Sprite dead_health, dead_sanity;
+	[SerializeField]
+	private AudioClip gameOverSFX;
+	#endregion
+
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
@@ -720,6 +732,47 @@ public class UIManager : SingletonBehaviour<UIManager>
 	{
 		GameManager.inst.turnPassTime = turnPassSlider.value * 10;
 		turnPassText.text = (turnPassSlider.value * 10).ToString("#.#");
+	}
+	#endregion
+
+	#region GameOver Panel Functions
+	public void OpenGameOverPanel()
+	{
+		GameOverPanel.SetActive(true);
+		if (GameManager.inst.Health <= 0)
+			GameOverCharacterImage.sprite = dead_health;
+		if (GameManager.inst.Sanity <= 0)
+			GameOverCharacterImage.sprite = dead_sanity;
+		GameOverCharacterImage.color = new Color(1, 1, 1, 0);
+		GameResultText.color = new Color(1, 1, 1, 0);
+		GameOverPanel.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+		GameOverButton.gameObject.SetActive(false);
+		GameOverText.color = new Color(1, 0, 0, 0);
+		Vector2 time = TurnManager.inst.GetTime();
+		GameResultText.text = TurnManager.inst.Day.ToString() + "일 " + time.x + "시간 " + time.y + "분 동안 살아남았습니다.";
+		StartCoroutine(GameOverUIRoutine());
+	}
+
+	private IEnumerator GameOverUIRoutine()
+	{
+		yield return new WaitForSeconds(5);
+		SoundManager.inst.ChangeBGM(null);
+		SoundManager.inst.PlaySFX(gameOverSFX);
+		Image panelImage = GameOverPanel.GetComponent<Image>();
+		for (float a = 0; a <= 1; a += Time.deltaTime * 0.3f)
+		{
+			panelImage.color = new Color(0, 0, 0, a);
+			GameOverCharacterImage.color = new Color(1, 1, 1, a);
+			GameOverText.color = new Color(1, 0, 0, a);
+			yield return null;
+		}
+		yield return new WaitForSeconds(1);
+		for (float a = 0; a <= 1; a += Time.deltaTime * 0.3f)
+		{
+			GameResultText.color = new Color(1, 1, 1, a);
+			yield return null;
+		}
+		GameOverButton.gameObject.SetActive(true);
 	}
 	#endregion
 }
