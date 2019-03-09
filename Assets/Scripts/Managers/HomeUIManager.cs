@@ -348,14 +348,21 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
             switch (slot)
             {
                 case 0:
-                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height/2, 0);
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMax = new Vector2(0, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(52, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
                     break;
                 case 1:
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(500, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
                     break;
                 case 2:
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMin = new Vector2(1, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().anchorMax = new Vector2(1, 0.5f);
+                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(348, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
                     break;
             }
-            cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
 
             farm.selectedSlot = slot;
 			cropSelectPanels.SetActive(true);
