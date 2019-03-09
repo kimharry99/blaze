@@ -9,8 +9,7 @@ public class Fermenter : Furniture
     public int[] neededTurn;
 
     public int[] maxBattery = new int[3];
-    public int remainedBattery = 0;
-    public int useBattery = 0;
+    public int remainedPower = 0;
 
     public void Use()
     {
@@ -27,21 +26,21 @@ public class Fermenter : Furniture
         TurnManager.inst.OnTurnPassed += OnTurnPassed;
         isUsing = true;
 
-        HomeUIManager.inst.fermenterUseText.text = "Cancel";
+        HomeUIManager.inst.fermenterUseText.text = "취소하기";
     }
 
     public override void OnTurnPassed(int turn)
     {
         if (!isUsing) return;
-        if (remainedBattery > 0)
+        if (remainedPower > 0)
         {
             remainedTurn -= 1;
-            remainedBattery -= 1;
+            remainedPower -= 1;
             if (remainedTurn <= 0)
             {
                 remainedTurn = 0;
                 GameManager.inst.items["Alcohol"].amount += 2;
-                HomeUIManager.inst.fermenterUseText.text = "Do";
+                HomeUIManager.inst.fermenterUseText.text = "발효하기";
                 isUsing = false;
                 return;
             }
@@ -59,23 +58,12 @@ public class Fermenter : Furniture
         TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
-        HomeUIManager.inst.fermenterUseText.text = "Do";
-    }
-
-    public void PlusChargeAmount()
-    {
-        useBattery = Mathf.Min(useBattery + 1, maxBattery[Level-1] - remainedBattery);
-    }
-
-    public void MinusChargeAmount()
-    {
-        useBattery = Mathf.Max(0, useBattery - 1);
+        HomeUIManager.inst.fermenterUseText.text = "취소하기";
     }
 
     public void Charge()
     {
-        GameManager.inst.items["Battery"].amount -= useBattery;
-        remainedBattery += useBattery;
-        useBattery = 0;
+        GameManager.inst.items["Battery"].amount --;
+        remainedPower = Mathf.Min(600, remainedPower + 200);
     }
 }

@@ -89,13 +89,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public GameObject fermenterPanel;
     public Button fermenterUseButton;
     public Button fermenterChargePanelOpenButton;
-    public Text fermenterUseText;
 
     public GameObject fermenterChargePanel;
+    public Text fermenterUseText;
+    public Slider fermenterPowerSlider;
     public Button fermenterChargeButton;
-    public Button fermenterChargePlusButton;
-    public Button fermenterChargeMinusButton;
-    public Text fermenterAmountChargeText;
+    public Text fermenterPowerText;
+    public Text fermenterRemainedTurn;
     #endregion
 
 	#region Solor Generator UI Variables
@@ -134,10 +134,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public Text alembicUseText;
 
     public GameObject alembicChargePanel;
+    public Slider alembicPowerSlider;
+    public Text alembicPowerText;
     public Button alembicChargeButton;
-    public Button alembicChargePlusButton;
-    public Button alembicChargeMinusButton;
-    public Text alembicAmountChargeText;
 	#endregion
 
 	#region Upgrade UI
@@ -736,6 +735,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     public void OpenFermenterPanel()
     {
         fermenterPanel.SetActive(true);
+        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
     }
 
     public void CloseFermenterPanel()
@@ -743,13 +743,13 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         fermenterPanel.SetActive(false);
     }
 
-    public void OpenFermenterChargePanel()
+    public void OpenfermenterChargePanel()
     {
         Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
         fermenterChargePanel.SetActive(true);
-        fermenterChargePlusButton.interactable = fermenter.useBattery < GameManager.inst.items["Battery"].amount;
-        fermenterChargeMinusButton.interactable = fermenter.useBattery > 0;
-        fermenterAmountChargeText.text = fermenter.useBattery.ToString();
+        fermenterPowerSlider.value = fermenter.remainedPower / (float)fermenter.maxBattery[fermenter.Level - 1];
+        fermenterPowerText.text = fermenter.remainedPower.ToString() + "/" + fermenter.maxBattery[fermenter.Level - 1].ToString();
+        fermenterChargeButton.interactable = fermenter.remainedPower < fermenter.maxBattery[fermenter.Level - 1];
     }
 
     public void CloseFermenterChargePanel()
@@ -764,25 +764,11 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         fermenter.Use();
     }
 
-    public void FermenterPlusCharge()
-    {
-        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
-        fermenter.PlusChargeAmount();
-        OpenFermenterChargePanel();
-    }
-
-    public void FermenterMinusCharge()
-    {
-        Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
-        fermenter.MinusChargeAmount();
-        OpenFermenterChargePanel();
-    }
-
     public void FermenterCharge()
     {
         Fermenter fermenter = (Fermenter)gm.furnitures["Fermenter"];
         fermenter.Charge();
-        OpenFermenterChargePanel();
+        OpenFermenterPanel();
     }
     #endregion
 
@@ -793,7 +779,6 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
         alembicWaterButton.interactable = alembic.Level >= 1;
         alembicAlcoholButton.interactable = alembic.Level >= 2;
         alembicPanel.SetActive(true);
-		alembicAlcoholButton.interactable = false;
 	}
 
     public void CloseAlembicPanel()
@@ -805,9 +790,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
     {
         Alembic alembic = (Alembic)gm.furnitures["Alembic"];
         alembicChargePanel.SetActive(true);
-        alembicChargePlusButton.interactable = alembic.useBattery < GameManager.inst.items["Battery"].amount;
-        alembicChargeMinusButton.interactable = alembic.useBattery > 0;
-        alembicAmountChargeText.text = alembic.useBattery.ToString();
+        alembicPowerSlider.value = alembic.useBattery / (float)alembic.maxBattery[alembic.Level-1];
+        alembicPowerText.text = alembic.useBattery.ToString() + "/" + alembic.maxBattery[alembic.Level - 1].ToString();
+        alembicChargeButton.interactable = alembic.useBattery < alembic.maxBattery[alembic.Level - 1];
     }
 
     public void CloseAlembicChargePanel()

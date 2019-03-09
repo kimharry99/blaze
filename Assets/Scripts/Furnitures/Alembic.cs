@@ -30,10 +30,12 @@ public class Alembic : Furniture
         switch(selectedRecipie)
         {
             case 0:
+                Debug.Log("물");
                 if (!GameManager.inst.CheckResource(water: 15)) return;
                 GameManager.inst.UseResource(water: 15);
                 break;
             case 1:
+                Debug.Log("알콜");
                 if (GameManager.inst.items["Alcohol"].amount <= 0) return;
                 GameManager.inst.items["Alcohol"].amount--;
                 break;
@@ -45,7 +47,7 @@ public class Alembic : Furniture
         remainedTurn = neededTurn[selectedRecipie * 3 + (Level - 1)];
         isUsing = true;
 
-        HomeUIManager.inst.alembicUseText.text = "Cancel";
+        HomeUIManager.inst.alembicUseText.text = "작업취소";
     }
 
     public void CancelProduction()
@@ -53,7 +55,7 @@ public class Alembic : Furniture
         TurnManager.inst.OnTurnPassed -= OnTurnPassed;
         isUsing = false;
         remainedTurn = 0;
-        HomeUIManager.inst.alembicUseText.text = "Do";
+        HomeUIManager.inst.alembicUseText.text = "증류하기";
     }
 
     public override void OnTurnPassed(int turn)
@@ -81,7 +83,7 @@ public class Alembic : Furniture
                         break;
                 }
 
-                HomeUIManager.inst.alembicUseText.text = "Do";
+                HomeUIManager.inst.alembicUseText.text = "증류하기";
                 isUsing = false;
                 return;
             }
@@ -106,8 +108,10 @@ public class Alembic : Furniture
 
     public void Charge()
     {
-        GameManager.inst.items["Battery"].amount -= useBattery;
-        remainedBattery += useBattery;
+        if (remainedBattery >= 600)
+            return;
+        GameManager.inst.items["Battery"].amount -= 1;
+        remainedBattery = Mathf.Min(maxBattery[Level-1], remainedBattery + 200);
         useBattery = 0;
     }
 }
