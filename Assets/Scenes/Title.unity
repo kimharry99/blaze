@@ -5371,6 +5371,7 @@ MonoBehaviour:
   thirstChangePerTurn: -2
   statusRecoverConst: 1
   turnPenaltyConst: 1
+  isSleeping: 0
   turnPassTime: 3
   clockSFX: {fileID: 8300000, guid: c8602b491dc39674b819719bc39d1cff, type: 3}
 --- !u!4 &843805151
