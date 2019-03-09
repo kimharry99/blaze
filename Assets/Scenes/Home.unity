@@ -2132,7 +2132,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_PlantCrop
         m_Mode: 3
         m_Arguments:
@@ -3941,7 +3941,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_PlantCrop
         m_Mode: 3
         m_Arguments:
@@ -11837,7 +11837,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_CancelSlot
         m_Mode: 3
         m_Arguments:
@@ -15742,7 +15742,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: OpenCropSelectPanel
         m_Mode: 3
         m_Arguments:
@@ -15871,7 +15871,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_CancelSlot
         m_Mode: 3
         m_Arguments:
@@ -26014,7 +26014,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_PlantCrop
         m_Mode: 3
         m_Arguments:
@@ -28393,7 +28393,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_HarvestCrop
         m_Mode: 3
         m_Arguments:
@@ -28870,7 +28870,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_PlantCrop
         m_Mode: 3
         m_Arguments:
@@ -31766,7 +31766,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_HarvestCrop
         m_Mode: 3
         m_Arguments:
@@ -32262,7 +32262,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_PlantCrop
         m_Mode: 3
         m_Arguments:
@@ -35106,7 +35106,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: CloseCropSelectPanel
         m_Mode: 1
         m_Arguments:
@@ -39592,7 +39592,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_CancelSlot
         m_Mode: 3
         m_Arguments:
@@ -41718,7 +41718,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: Farm_HarvestCrop
         m_Mode: 3
         m_Arguments:
@@ -43206,7 +43206,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: OpenCropSelectPanel
         m_Mode: 3
         m_Arguments:
@@ -45524,7 +45524,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 883455654}
         m_MethodName: OpenCropSelectPanel
         m_Mode: 3
         m_Arguments:
