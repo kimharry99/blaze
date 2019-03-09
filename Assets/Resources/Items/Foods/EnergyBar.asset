@@ -16,7 +16,7 @@ MonoBehaviour:
   amount: 0
   itemIndexName: EnergyBar
   itemName: "\uC5D0\uB108\uC9C0\uBC14"
-  description: 
+  description: "\uC778\uAC04\uC6A9 \uD734\uB300\uC6A9 \uBC30\uD130\uB9AC."
   remainedTurns: 
   health: 0
   sanity: 0

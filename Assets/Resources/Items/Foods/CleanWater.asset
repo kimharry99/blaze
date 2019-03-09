@@ -16,7 +16,8 @@ MonoBehaviour:
   amount: 0
   itemIndexName: CleanWater
   itemName: "\uAE68\uB057\uD55C "
-  description: 
+  description: "\uBBFF\uC744\uAC8C \uC5C6\uB294 \uC138\uC0C1\uC5D0\uC11C \uC548\uC2EC\uD558\uACE0
+    \uBA39\uC744 \uC218 \uC788\uB294 \uBB3C\uC774\uB2E4."
   remainedTurns: 
   health: 0
   sanity: 0

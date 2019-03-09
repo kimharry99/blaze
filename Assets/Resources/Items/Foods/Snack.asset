@@ -16,7 +16,8 @@ MonoBehaviour:
   amount: 0
   itemIndexName: Snack
   itemName: "\uB2EC\uCF64\uD55C \uAC04\uC2DD"
-  description: 
+  description: "\uBA39\uC73C\uBA74 \uAE30\uBD84\uC774 \uC88B\uC544\uC9C4\uB2E4. \uC774\uC0C1\uD55C\uAC8C
+    \uB4E4\uC5B4\uAC04\uAC74 \uC544\uB2C8\uB2C8\uAE4C \uC624\uD574\uD558\uC9C0 \uB9D0\uC790."
   remainedTurns: 
   health: 0
   sanity: 20

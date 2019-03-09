@@ -16,7 +16,7 @@ MonoBehaviour:
   amount: 0
   itemIndexName: FineMeal
   itemName: "\uD638\uD654\uB85C\uC6B4 \uC2DD\uC0AC"
-  description: 
+  description: "\uC774\uAC8C \uC74C\uC2DD\uC774\uC9C0."
   remainedTurns: 
   health: 0
   sanity: 10

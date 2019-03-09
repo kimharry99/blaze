@@ -16,7 +16,10 @@ MonoBehaviour:
   amount: 0
   itemIndexName: HealthyMeal
   itemName: "\uBCF4\uC591\uC2DD"
-  description: 
+  description: "\uC601\uC591\uBD84\uC774 \uD48D\uBD80\uD55C \uC74C\uC2DD\uC774\uB2E4.
+    \uC5B4\uCC28\uD53C \uC601\uC591\uBD84 \uB54C\uBB38\uC5D0 \uBA39\uB294\uAC70\uBA74
+    \uADF8\uB0E5 \uBBF9\uC11C\uAE30\uC5D0 \uAC08\uC544\uC11C \uB9C8\uC2DC\uB294\uAC8C
+    \uD6A8\uC728\uC801\uC774\uC9C0 \uC54A\uC744\uAE4C?"
   remainedTurns: 
   health: 10
   sanity: 5

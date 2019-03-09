@@ -16,7 +16,8 @@ MonoBehaviour:
   amount: 0
   itemIndexName: CoarseMeal
   itemName: "\uC870\uC545\uD55C \uC2DD\uC0AC"
-  description: 
+  description: "\uC0B4\uAE30 \uC704\uD574\uC11C \uBA39\uB294 \uD559\uC2DD \uC218\uC900\uC758
+    \uC2DD\uC0AC\uB2E4. \uAC1C\uAC00 \uB41C \uAE30\uBD84\uC774\uB2E4."
   remainedTurns: 
   health: 0
   sanity: -5

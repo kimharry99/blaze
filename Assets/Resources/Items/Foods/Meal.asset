@@ -16,7 +16,7 @@ MonoBehaviour:
   amount: 0
   itemIndexName: Meal
   itemName: "\uD3C9\uBC94\uD55C \uC2DD\uC0AC"
-  description: 
+  description: "\uD559\uC2DD\uBCF4\uB2E4\uB294 \uB098\uC740 \uC74C\uC2DD\uC774\uB2E4."
   remainedTurns: 
   health: 0
   sanity: 0
