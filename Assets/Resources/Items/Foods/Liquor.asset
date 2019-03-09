@@ -16,7 +16,7 @@ MonoBehaviour:
   amount: 0
   itemIndexName: Liquor
   itemName: "\uC220"
-  description: "\uB9CC\uBCD1\uD1B5\uCE58\uC57D"
+  description: "\uC74C\uC8FC(\uBB3C\uB9AC)\uB294 \uBAA8\uB4E0 \uAC83\uC744 \uD574\uACB0\uD574\uC8FC\uC9C0."
   remainedTurns: 
   health: 0
   sanity: 0

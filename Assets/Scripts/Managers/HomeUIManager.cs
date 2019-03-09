@@ -22,8 +22,9 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	[Header("Farm UI")]
 	public GameObject farmPanel;
 	public GameObject cropSelectPanels;
-	public Button[] plantCropButtons = new Button[4];
-	public Sprite[] cropImages = new Sprite[4];
+	public Button[] plantCropButtons = new Button[5];
+    public Sprite[] cropImages = new Sprite[5];
+    public Sprite[] slotSprites = new Sprite[3];
 	public Image[] slotImages = new Image[3];
 	public Image[] fillImages = new Image[3];
 	public Text[] farmTexts = new Text[3];
@@ -321,35 +322,47 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		if (!cropSelectPanels.activeSelf)
 		{
 			Farm farm = (Farm)gm.furnitures["Farm"];
-			for (int i = 0; i < 4; i++)
+			for (int i = 0; i < 5; i++)
 			{
 				switch (i)
 				{
 					case 0: //상추
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 5) && i <= farm.Level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 5) && 1 <= farm.Level;
 						break;
 					case 1: //당근
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 10, food: 20) && i <= farm.Level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 10, food: 20) && 1 <= farm.Level;
 						break;
 					case 2: //콩
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 10) && i <= farm.Level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 20, food: 10) && 2 <= farm.Level;
 						break;
 					case 3: //감자
-						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 40, food: 50) && i <= farm.Level;
+						plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 40, food: 50) && 3 <= farm.Level;
 						break;
-					default:
+                    case 4://허브
+                        plantCropButtons[i].interactable = GameManager.inst.CheckResource(water: 40, food: 50) && 3 <= farm.Level;
+                        break;
+                    default:
 						break;
 				}
 			}
-			//cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, 0, 0);
+            switch (slot)
+            {
+                case 0:
+                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height/2, 0);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+            }
+            cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
 
-
-			farm.selectedSlot = slot;
+            farm.selectedSlot = slot;
 			cropSelectPanels.SetActive(true);
 		}
 	}
 
-	public void CloseCropSelectPanel(int slot)
+	public void CloseCropSelectPanel()
 	{
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		farm.selectedSlot = -1;
@@ -364,7 +377,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
 		fillImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
 		farm.PlantCrops(crop);
-		CloseCropSelectPanel(farm.selectedSlot);
+		CloseCropSelectPanel();
 		CloseFarmPanel();
 	}
 
@@ -373,7 +386,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		farm.selectedSlot = slot;
 		tm.UseTurn(4);
-		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = null;
+		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = slotSprites[slot];
 		farm.HarvestCrops(farm.crops[farm.selectedSlot]);
 		OpenFarmPanel();
 	}
@@ -382,7 +395,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	{
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		farm.selectedSlot = slot;
-		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = null;
+		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = slotSprites[slot];
 		farm.CancelCrops();
 		OpenFarmPanel();
 	}
