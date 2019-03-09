@@ -15,6 +15,7 @@ enum FarmCrops
     Carrot,
     Bean,
     Potato,
+    Herb,
     None = -1
 }
 public class Farm : Furniture
@@ -98,6 +99,16 @@ public class Farm : Furniture
                 turnLeft[selectedSlot] = turnTaken[selectedSlot];
                 crops[selectedSlot] = (int)FarmCrops.Potato;
                 break;
+            case 4: //허브
+                if (!GameManager.inst.CheckResource(water: 30))
+                    return;
+                if (Level < 3)
+                    return;
+                GameManager.inst.UseResource(water: 30);
+                turnTaken[selectedSlot] = Random.Range(40, 50);
+                turnLeft[selectedSlot] = turnTaken[selectedSlot];
+                crops[selectedSlot] = (int)FarmCrops.Herb;
+                break;
             default:
                 Debug.Log("There is no Option for " + option.ToString());
                 return;
@@ -129,6 +140,9 @@ public class Farm : Furniture
                 break;
             case (int)FarmCrops.Potato:
                 GameManager.inst.GetResource(food: 200);
+                break;
+            case (int)FarmCrops.Herb:
+                GameManager.inst.items["Herb"].amount += 5;
                 break;
             default:
                 Debug.Log("There is no crop for " + crops[selectedSlot].ToString());
