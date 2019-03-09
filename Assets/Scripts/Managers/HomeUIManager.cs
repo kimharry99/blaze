@@ -16,10 +16,18 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 	public Slider bucketWaterSlider;
 	public Button bucketHarvestButton;
 	public Image bucketImage;
-	#endregion
+    #endregion
 
-	#region Farm UI Variables
-	[Header("Farm UI")]
+    #region CraftTable UI Variables
+    [Header("CraftTable UI")]
+    public GameObject craftTablePanel;
+    public Button[] recipieButtons = new Button[3];
+    public Text[] recipieInfo = new Text[3];
+    public Button makeButton;
+    #endregion
+
+    #region Farm UI Variables
+    [Header("Farm UI")]
 	public GameObject farmPanel;
 	public GameObject cropSelectPanels;
 	public Button[] plantCropButtons = new Button[5];
@@ -278,10 +286,51 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		bucket.HarvestWater();
 		OpenBucketPanel();
 	}
-	#endregion
+    #endregion
 
-	#region Farm UI Functions
-	public void OpenFarmPanel()
+    #region CraftTable UI Functions
+    public void OpenCraftTablePanel()
+    {
+        craftTablePanel.SetActive(true);
+        CraftTable craftTable = (CraftTable)gm.furnitures["CraftTable"];
+        recipieButtons[1].interactable = craftTable.Level > 1;
+        recipieButtons[2].interactable = craftTable.Level > 2;
+        makeButton.interactable = gm.CheckResource(components: craftTable.usingResource[0])&&gm.items["Alcohol"].amount>=craftTable.usingResource[1]&&
+            gm.items["Herb"].amount >= craftTable.usingResource[2];
+        for (int i = 0; i < 3; i++)
+        {
+            recipieInfo[i].text = craftTable.usingResource[i].ToString();
+        }
+    }
+    
+    public void CloseCraftTablePanel()
+    {
+        CraftTable craftTable = (CraftTable)gm.furnitures["CraftTable"];
+        for (int i = 0; i < 3; i++)
+        {
+            craftTable.usingResource[i] = 0;
+        }
+        craftTable.selectRecipie = -1;
+        craftTablePanel.SetActive(false);
+    }
+
+    public void CraftTableSelectRecipie(int option)
+    {
+        CraftTable craftTable = (CraftTable)gm.furnitures["CraftTable"];
+        craftTable.selectRecipie = option;
+        craftTable.SelectRecipie(option);
+        OpenCraftTablePanel();
+    }
+
+    public void CraftTableMakeMedicine()
+    {
+        CraftTable craftTable = (CraftTable)gm.furnitures["CraftTable"];
+        craftTable.MakeMedicine();
+        CloseCraftTablePanel();
+    }
+    #endregion
+    #region Farm UI Functions
+    public void OpenFarmPanel()
 	{
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		for (int i = 0; i < 3; i++)
