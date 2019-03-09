@@ -348,21 +348,21 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
             switch (slot)
             {
                 case 0:
-
+                    cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height/2, 0);
                     break;
                 case 1:
                     break;
                 case 2:
                     break;
             }
-			cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, 0, 0);
+            cropSelectPanels.GetComponent<RectTransform>().localPosition = new Vector3(-150 + slot * 450, cropSelectPanels.GetComponent<RectTransform>().rect.height / 2, 0);
 
-			farm.selectedSlot = slot;
+            farm.selectedSlot = slot;
 			cropSelectPanels.SetActive(true);
 		}
 	}
 
-	public void CloseCropSelectPanel(int slot)
+	public void CloseCropSelectPanel()
 	{
 		Farm farm = (Farm)gm.furnitures["Farm"];
 		farm.selectedSlot = -1;
@@ -377,7 +377,7 @@ public class HomeUIManager : SingletonBehaviour<HomeUIManager>
 		slotImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
 		fillImages[farm.selectedSlot].GetComponent<Image>().sprite = cropImages[crop];
 		farm.PlantCrops(crop);
-		CloseCropSelectPanel(farm.selectedSlot);
+		CloseCropSelectPanel();
 		CloseFarmPanel();
 	}
 
