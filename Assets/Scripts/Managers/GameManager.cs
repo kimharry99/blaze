@@ -512,8 +512,8 @@ public class GameManager : SingletonBehaviour<GameManager>
 		ExperiencePoint = 0;
 		StatusPoint = 0;
 
-		Food = Water = Wood = Components = 100;
-		Preserved = Parts = 50;
+		Food = Water = Wood = Components = 500;
+		Preserved = Parts = 250;
 	}
 
 	public void SaveGameData()
