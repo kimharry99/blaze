@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be575640f659c7c4e9e4bd05191e91e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a7565fcd2da37c4ca08a77c58244d34, type: 3}
   m_Name: CoarseMeal
   m_EditorClassIdentifier: 
   itemImage: {fileID: 2800000, guid: 260045438ddd7d9429044ddb9a992a42, type: 3}
